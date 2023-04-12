@@ -8,7 +8,7 @@ workflows:
         environment:
           ios_signing:
             distribution_type: app_store
-            bundle_identifier: com.example.id
+            bundle_identifier: "com.hussamkhaled.nufmmobile"
           vars:
             XCODE_WORKSPACE: "com.hussamkhaled.nufmmobile" # <-- Put the name of your Xcode workspace here
             XCODE_SCHEME: "nufmmobile" # <-- Put the name of your Xcode scheme here
