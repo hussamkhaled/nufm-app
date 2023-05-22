@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  BackHandler,
-} from "react-native";
+import { StyleSheet, Text, View, FlatList, BackHandler } from "react-native";
 import { ScrollView } from "react-native-virtualized-view";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
@@ -16,6 +10,7 @@ import Facility from "../../assets/Facility-Management.png";
 import Worker from "../../assets/Worker-Management.png";
 import Order from "../../assets/Order.png";
 import Attendance from "../../assets/Attandence-Management.png";
+import Inspection from "../../assets/Inspection-1.png";
 
 export default function Home({ link }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,8 +21,8 @@ export default function Home({ link }) {
   const navToWorker = () => {
     navigation.navigate("Workers");
   };
-  const navToOrders = () => {
-    navigation.navigate(link + "Orders");
+  const navToInspection = () => {
+    // navigation.navigate(link + "Orders");
   };
   const navToAtt = () => {
     navigation.navigate("Attendances");
@@ -36,8 +31,7 @@ export default function Home({ link }) {
     { name: "Facility Management", icon: Facility, link: navToFac },
     { name: "Worker Management", icon: Worker, link: navToWorker },
     { name: "Attendance Management", icon: Attendance, link: navToAtt },
-    { name: "View Order ", icon: Order, link: navToOrders },
-
+    { name: "Inspections ", icon: Inspection, link: navToInspection },
   ];
 
   useEffect(() => {
@@ -86,6 +80,6 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingBottom: "3%",
-    flex:1
+    flex: 1,
   },
 });
