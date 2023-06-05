@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     paddingLeft: "2%",
-    fontSize: getFontSize(16),
+    fontSize: RFPercentage(1.5),
+
   },
   container: {
     width: width > 600 ? "50%" : "85%",

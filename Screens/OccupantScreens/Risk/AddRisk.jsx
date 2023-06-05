@@ -1,11 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { ScrollView } from "react-native-virtualized-view";
 import CMenu from "../../../Components/SharedComponents/CMenu";
 import Header from "../../../Components/SharedComponents/Header";
 import AddRiskO from "../../../Components/OccupantComponents/Risk/AddForm";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+const { width, height } = Dimensions.get("window");
 export default function AddRisk({ link }) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
@@ -18,11 +28,16 @@ export default function AddRisk({ link }) {
         />
       </View>
       <Header link={link} title="Risk" setModal={setModalVisible} />
-      <View style={styles.whiteBox}>
-        <ScrollView>
-          <AddRiskO />
-        </ScrollView>
-      </View>
+
+      <ScrollView>
+        <View style={styles.boxContainer}>
+          <View style={styles.whiteBox}>
+            {/* <ScrollView> */}
+            <AddRiskO />
+            {/* </ScrollView> */}
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -32,12 +47,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   whiteBox: {
-    displlay: "flex",
     backgroundColor: "#fff",
-    marginHorizontal: "5%",
+    width: width > 700 ? width / 1.6 : width - 50,
     borderRadius: 25,
-    marginBottom: "5%",
-    marginTop: "3%",
+    marginBottom: "3%",
+    marginTop: "2%",
+  },
+  boxContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: wp("100%"),
   },
   txt: {
     fontSize: RFPercentage(2.3),
