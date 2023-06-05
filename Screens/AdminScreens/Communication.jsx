@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import CMenu from "../../Components/SharedComponents/CMenu";
 import Header from "../../Components/SharedComponents/Header";
 import SearchInput from "../../Components/SharedComponents/SearchInput";
 import TabPannel from "../../Components/AdminContractorComponents/Communication/TabPannel";
+
+const { width, height } = Dimensions.get("window");
 
 export default function Communication({ link }) {
   const [searchVal, setSearchVal] = useState("");
@@ -22,15 +27,21 @@ export default function Communication({ link }) {
         />
       </View>
       <Header link={link} title="Communication" setModal={setModalVisible} />
-      <View style={styles.whiteBox}>
-        <Text style={styles.txt}> New Messages</Text>
-        <SearchInput
-          searchVal={searchVal}
-          setSearchVal={setSearchVal}
-          bgColor="#F1F1F1"
-        />
-        <TabPannel searchVal={searchVal} />
+      {/* <ScrollView> */}
+      <View style={styles.boxContainer}>
+        <View style={styles.whiteBox}>
+          <Text style={styles.txt}> New Messages</Text>
+          <View style={{ marginBottom: "3%" }}>
+            <SearchInput
+              searchVal={searchVal}
+              setSearchVal={setSearchVal}
+              bgColor="#F1F1F1"
+            />
+          </View>
+          <TabPannel searchVal={searchVal} />
+        </View>
       </View>
+      {/* </ScrollView> */}
     </View>
   );
 }
@@ -42,15 +53,24 @@ const styles = StyleSheet.create({
   whiteBox: {
     flex: 1,
     backgroundColor: "#fff",
-    marginHorizontal: "5%",
+    width: width > 700 ? width / 1.4 : width - 50,
+    // marginHorizontal: wp("5%"),
     borderRadius: 25,
-    marginBottom: "8%",
-    marginTop: "3%",
+    marginBottom: "2%",
+    // marginTop: "2%",
+  },
+  boxContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: wp("100%"),
   },
   txt: {
-    fontSize: RFPercentage(1.9),
+    fontSize: width > 700 ? RFPercentage(2.5) : RFPercentage(2.3),
     fontWeight: "bold",
     color: "#023D26",
-    padding: "5%",
+    paddingHorizontal: "3.5%",
+    paddingTop: "7%",
+    paddingBottom: "5%",
   },
 });

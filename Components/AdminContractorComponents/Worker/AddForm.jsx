@@ -7,6 +7,7 @@ import {
   TextInput,
   Platform,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import BasicInput from "../../../Components/SharedComponents/BasicInput";
 import SelectDropdown from "react-native-select-dropdown";
@@ -17,6 +18,8 @@ import { connect } from "react-redux";
 import * as AddWorkerActionCreator from "../../../Store/ActionCreator/Worker/AddWorkerActionCreator";
 import * as GetSpecializationActionCreator from "../../../Store/ActionCreator/Worker/GetSpecializationActionCreator";
 import * as GetFacilitiesActionCreator from "../../../Store/ActionCreator/Fcaility/GetFacilitiesActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function AddForm({
   getSpecialization,
@@ -275,7 +278,16 @@ function AddForm({
           <Text style={styles.errorTxt}>{error}</Text>
         </View>
       )}
-      <View style={{ flexDirection: "row", marginBottom: "3%" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          paddingHorizontal: "5%",
+          marginVertical: "5%",
+          height: 50,
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
         <View style={{ width: "30%" }}>
           <TouchableOpacity>
             <View style={styles.cancel}>
@@ -393,13 +405,14 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    aspectRatio: 8.6 / 1,
+    // aspectRatio: 8.6 / 1,
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "1%",
-    fontSize: RFPercentage(1.5),
-    paddingRight: "2%",
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
+    paddingRight: "4%",
   },
   container: {
     flexDirection: "column",
@@ -424,8 +437,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "2%",
-    height: 40,
     width: "100%",
+    height: 45,
+    // paddingVertical:"1.2%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -448,7 +462,7 @@ const styles = StyleSheet.create({
     paddingLeft: "1.5%",
     fontWeight: "bold",
     color: "#595959",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   item: {
     paddingVertical: "3%",
@@ -493,24 +507,28 @@ const styles = StyleSheet.create({
   save: {
     backgroundColor: "#309694",
     borderRadius: 12,
-    paddingHorizontal: "2%",
+    // paddingHorizontal: "2%",
     alignItems: "center",
-    paddingVertical: "3%",
+    // paddingVertical: "4%",
+    height: "100%",
     justifyContent: "center",
-    marginBottom: "7%",
-    marginHorizontal: "7%",
-    flexDirection: "row",
+    marginLeft: "3%",
+    // marginBottom: "12%",
+    // marginHorizontal: "8%",
   },
   cancel: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    // paddingHorizontal: "0%",
+    alignItems: "center",
+    // paddingVertical: "4%",
+    height: "100%",
+    justifyContent: "center",
+    // marginBottom: "12%",
+    marginRight: "3%",
     borderWidth: 1.5,
     borderColor: "#309694",
-    borderRadius: 12,
-    paddingHorizontal: "2%",
-    alignItems: "center",
-    paddingVertical: "5%",
-    justifyContent: "center",
-    marginBottom: "7%",
-    marginLeft: "18%",
   },
   validation: {
     color: "red",
@@ -520,10 +538,12 @@ const styles = StyleSheet.create({
   },
   errorMsg: {
     marginHorizontal: "5%",
-    marginBottom: "7%",
+    width: "90%",
+    height: 55,
+    marginBottom: "3%",
     backgroundColor: "#CAF3D1",
     flexDirection: "row",
-    padding: "3.5%",
+    paddingHorizontal: "3.5%",
     borderRadius: 12,
     alignItems: "center",
   },

@@ -7,12 +7,15 @@ import {
   FlatList,
   TouchableOpacity,
   Linking,
+  Dimensions,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import Avatar from "../../../assets/avatar.png";
 import { connect } from "react-redux";
 import * as GetWorkersActionCreator from "../../../Store/ActionCreator/Worker/GetWorkersActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function Workers({ searchVal, Workers, getWorkers }) {
   const [WorkersArr, setWorkersArr] = useState([]);
@@ -106,17 +109,18 @@ const styles = StyleSheet.create({
   txt: {
     color: "#535353",
     paddingLeft: "3%",
-    fontSize: RFPercentage(1.7),
+    fontSize: width > 700 ? RFPercentage(1.9) : RFPercentage(1.7),
     fontWeight: "bold",
   },
   date: {
     color: "#BCBCBC",
     paddingTop: "2%",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.6) : RFPercentage(1.4),
   },
   time: {
     color: "#A2A2A2",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.6) : RFPercentage(1.4),
+
     textAlign: "right",
   },
 });

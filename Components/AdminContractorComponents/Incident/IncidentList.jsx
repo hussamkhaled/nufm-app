@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
@@ -14,6 +15,8 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import * as GetIncidentsActionCreator from "../../../Store/ActionCreator/Incident/GetIncidentsActionCreator";
 import * as DeleteIncidentActionCreator from "../../../Store/ActionCreator/Incident/DeleteIncidentActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function Incidents({
   searchVal,
@@ -34,20 +37,19 @@ function Incidents({
   }, [searchVal]);
 
   useEffect(() => {
-    if(Incidents.length > 0){
+    if (Incidents.length > 0) {
       setIncidentArr(Incidents);
     }
   }, [Incidents]);
 
-  const onLoadFunc = () =>{
+  const onLoadFunc = () => {
     getIncidents();
-  }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
       onLoadFunc();
     }, [])
-    
   );
 
   const sortedArray = () => {
@@ -142,9 +144,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: "2%",
+    marginVertical: "1%",
     paddingHorizontal: "4%",
-    paddingVertical: "4%",
+    paddingVertical: width > 650 ? "2%" : "4%",
     borderRadius: 12,
     backgroundColor: "#fff",
   },
@@ -154,19 +156,19 @@ const styles = StyleSheet.create({
   },
   receiver: {
     color: "#92BFAE",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 650 ? RFPercentage(1.8) : RFPercentage(1.5),
     fontWeight: "bold",
     paddingTop: "1.5%",
   },
   txt: {
     color: "#535353",
-    fontSize: RFPercentage(1.8),
+    fontSize: width > 650 ? RFPercentage(1.9) : RFPercentage(1.5),
     fontWeight: "bold",
   },
   date: {
     color: "#BCBCBC",
     paddingTop: "2%",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 650 ? RFPercentage(1.6) : RFPercentage(1.4),
   },
   close: {
     textAlign: "right",

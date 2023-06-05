@@ -1,10 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { connect } from "react-redux";
 import * as GetWorkersActionCreator from "../../../Store/ActionCreator/Worker/GetWorkersActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function WorkerTable({ searchVal, Workers, getWorkers, error }) {
   const [WorkersArr, setWorkersArr] = useState([]);
@@ -14,20 +16,19 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
   }, [searchVal]);
 
   useEffect(() => {
-    if(Workers.length > 0){
-      setWorkersArr(Workers)
+    if (Workers.length > 0) {
+      setWorkersArr(Workers);
     }
   }, [Workers]);
 
-  const onLoadFunc = () =>{
+  const onLoadFunc = () => {
     getWorkers();
-  }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
       onLoadFunc();
     }, [])
-    
   );
 
   const sortedArray = () => {
@@ -59,8 +60,8 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
           }}
           // data={WorkersArr && WorkersArr.length > 0 ? WorkersArr : Workers}
           data={Workers.filter((cntr) =>
-            cntr.fullName.toLowerCase().includes(searchVal.toLowerCase()))}
-          
+            cntr.fullName.toLowerCase().includes(searchVal.toLowerCase())
+          )}
           numColumns={1}
           renderItem={({ item }) => {
             return (
@@ -69,7 +70,9 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
                   <Text style={styles.txt}> {item.fullName}</Text>
                 </View>
                 <View style={styles.details}>
-                  <Text style={styles.spec}>{item.specializations.join(", ")}</Text>
+                  <Text style={styles.spec}>
+                    {item.specializations.join(", ")}
+                  </Text>
                 </View>
                 <View style={styles.details}>
                   <Text style={styles.phone}>{item.phone}</Text>
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
     marginTop: "3%",
   },
   txt: {
-    fontSize: RFPercentage(1.9),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     fontWeight: "bold",
     color: "#023D26",
     padding: "5%",
@@ -130,7 +133,7 @@ const styles = StyleSheet.create({
   },
   header1: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
 
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
   },
   header2: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
@@ -146,7 +149,7 @@ const styles = StyleSheet.create({
   },
   header3: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
@@ -158,19 +161,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#ECEAEA",
-    paddingVertical: "6%",
+    paddingVertical: "5%",
     paddingHorizontal: "5.5%",
   },
   txt: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     textAlign: "left",
 
     width: "100%",
   },
   phone: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
 
     width: "100%",
     textAlign: "left",
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
   },
   spec: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
 
     width: "100%",
     textAlign: "left",

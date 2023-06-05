@@ -1,10 +1,12 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, Dimensions, FlatList } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { connect } from "react-redux";
 import * as GetFacilitiesActionCreator from "../../../Store/ActionCreator/Fcaility/GetFacilitiesActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function FacilityTable({ searchVal, Facilities, getFacilities, error }) {
   const [FacilitiesArr, setFacilitiesArr] = useState([]);
@@ -14,21 +16,19 @@ function FacilityTable({ searchVal, Facilities, getFacilities, error }) {
   }, [searchVal]);
 
   useEffect(() => {
-    if(Facilities.length > 0){
-      setFacilitiesArr(Facilities)
+    if (Facilities.length > 0) {
+      setFacilitiesArr(Facilities);
     }
-   
   }, [Facilities]);
 
-  const onLoadFunc = () =>{
+  const onLoadFunc = () => {
     getFacilities();
-  }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
       onLoadFunc();
     }, [])
-    
   );
 
   const sortedArray = () => {
@@ -58,11 +58,9 @@ function FacilityTable({ searchVal, Facilities, getFacilities, error }) {
               </View>
             );
           }}
-          data={
-            Facilities.filter((cntr) =>
-        cntr.name.toLowerCase().includes(searchVal.toLowerCase())
-      )
-          }
+          data={Facilities.filter((cntr) =>
+            cntr.name.toLowerCase().includes(searchVal.toLowerCase())
+          )}
           numColumns={1}
           renderItem={({ item }) => {
             return (
@@ -111,12 +109,6 @@ const styles = StyleSheet.create({
     marginBottom: "8%",
     marginTop: "3%",
   },
-  txt: {
-    fontSize: RFPercentage(1.9),
-    fontWeight: "bold",
-    color: "#023D26",
-    padding: "5%",
-  },
   listhead: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -132,7 +124,7 @@ const styles = StyleSheet.create({
   },
   header1: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
 
@@ -140,7 +132,7 @@ const styles = StyleSheet.create({
   },
   header2: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
@@ -148,7 +140,7 @@ const styles = StyleSheet.create({
   },
   header3: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
@@ -160,28 +152,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomWidth: 1,
     borderBottomColor: "#ECEAEA",
-    paddingVertical: "6%",
+    paddingVertical: "5%",
     paddingHorizontal: "5.5%",
   },
   txt: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     textAlign: "left",
 
     width: "100%",
   },
   type: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.4),
-
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
     paddingLeft: "10%",
   },
   location: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.4),
-
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
     paddingLeft: "10%",
