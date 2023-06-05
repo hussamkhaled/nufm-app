@@ -261,7 +261,7 @@ function AddAttendance({
           <View style={{ width: "70%" }}>
             <TouchableOpacity>
               <View style={styles.save}>
-                <Text style={styles.addSite}>Saving... </Text>
+                <Text style={styles.addSite}>Saving </Text>
                 <ActivityIndicator size="small" color="#fff" />
               </View>
             </TouchableOpacity>

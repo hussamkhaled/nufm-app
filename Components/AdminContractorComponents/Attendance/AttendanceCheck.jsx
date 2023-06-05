@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { useRoute } from "@react-navigation/native";
 import { connect } from "react-redux";
 import * as AttendanceCheckActionCreator from "../../../Store/ActionCreator/Attendance/AttendanceCheckActionCreator";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+const { width, height } = Dimensions.get("window");
 function AttendanceCheck({
   getCheckById,
   checkIn,
@@ -80,6 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     paddingHorizontal: "6%",
+    paddingBottom: "3%",
   },
   boxIcon: {
     flexDirection: "row",
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   greyBox: {
-    aspectRatio: 4.0 / 1,
+    height: width > 650 ? 80 : 85,
     backgroundColor: "#F0F0F0",
     width: "85%",
     borderRadius: 15,
@@ -95,16 +100,16 @@ const styles = StyleSheet.create({
     marginVertical: "3%",
     flexDirection: "column",
     paddingHorizontal: "6%",
-    paddingVertical: "2%",
     justifyContent: "center",
   },
   datetime: {
-    fontSize: RFPercentage(1.35),
+    fontSize: width > 650 ? RFPercentage(1.5) : RFPercentage(1.35),
     paddingTop: "1.5f%",
     color: "#676767",
   },
   Check: {
-    fontSize: RFPercentage(1.8),
+    fontSize: width > 650 ? RFPercentage(2) : RFPercentage(1.8),
+
     color: "#023D26",
     fontWeight: "bold",
   },

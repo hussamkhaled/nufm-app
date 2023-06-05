@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: hp("100%"),
-    width: wp("100%"),
+    height: width > 650 ? hp("100%") : "100%",
+    width: width > 650 ? wp("100%") : "100%",
   },
 });

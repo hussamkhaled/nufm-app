@@ -313,7 +313,7 @@ function AddStep3({
           <View style={{ width: "40%" }}>
             <TouchableOpacity>
               <View style={styles.nextBtn}>
-                <Text style={styles.addSite}>Saving... </Text>
+                <Text style={styles.addSite}>Saving </Text>
                 <ActivityIndicator size="small" color="#fff" />
               </View>
             </TouchableOpacity>
