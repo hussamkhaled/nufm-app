@@ -160,12 +160,12 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: "#023D26",
-    fontSize: RFPercentage(1.6),
+    fontSize: width > 650 ? RFPercentage(1.8) : RFPercentage(1.6),
     fontWeight: "bold",
   },
   txtInside: {
     color: "#535353",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 650 ? RFPercentage(1.6) : RFPercentage(1.4),
     paddingLeft: "3%",
   },
   txtarea: {

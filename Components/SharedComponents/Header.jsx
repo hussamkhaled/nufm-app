@@ -59,7 +59,7 @@ export default function Header({ link, title, setModal }) {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: RFPercentage(2.7),
+    fontSize: width > 650 ? RFPercentage(2.7) : RFPercentage(2.4),
     fontWeight: "bold",
     color: "#023D26",
   },
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingTop: hp("2%"),
+    paddingTop: hp("3%"),
     paddingHorizontal: "7%",
     width: "100%",
   },

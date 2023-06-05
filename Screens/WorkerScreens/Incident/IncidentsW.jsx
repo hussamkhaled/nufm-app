@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { EvilIcons, MaterialIcons } from "@expo/vector-icons";
@@ -8,7 +15,13 @@ import Header from "../../../Components/SharedComponents/Header";
 import IncidentList from "../../../Components/AdminContractorComponents/Incident/IncidentList";
 import { useNavigation } from "@react-navigation/native";
 
-export default function IncidentsW({link}) {
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
+const { width, height } = Dimensions.get("window");
+export default function IncidentsW({ link }) {
   const navigation = useNavigation();
 
   const handleChange = (searchVal) => {
@@ -20,29 +33,50 @@ export default function IncidentsW({link}) {
   return (
     <View style={styles.box}>
       <View>
-        <CMenu link={link} modalVisible={modalVisible} setModal={setModalVisible} />
+        <CMenu
+          link={link}
+          modalVisible={modalVisible}
+          setModal={setModalVisible}
+        />
       </View>
       <Header link={link} title="Incident" setModal={setModalVisible} />
-      <View style={styles.listBox}>
-        <View style={styles.container}>
-          <View style={styles.searchSection}>
-            <View style={styles.searchIcon}>
-              <EvilIcons name="search" size={24} color="#B7B6B6" />
+      <View style={styles.boxContainer}>
+        <View style={styles.listBox}>
+          <View
+            style={{
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              flexDirection: "row",
+              marginBottom: "2%",
+            }}
+          >
+            <View style={styles.container}>
+              <View style={styles.searchSection}>
+                <View style={styles.searchIcon}>
+                  <EvilIcons name="search" size={24} color="#B7B6B6" />
+                </View>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Search"
+                  onChangeText={handleChange}
+                />
+              </View>
             </View>
-            <TextInput
-              style={styles.input}
-              placeholder="Search"
-              onChangeText={handleChange}
-            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate(link + "AddIncident")}
+            >
+              <View>
+                <MaterialIcons
+                  name="add-box"
+                  size={width > 650 ? 44 : 40}
+                  color="#309694"
+                />
+              </View>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={()=> navigation.navigate(link+"AddIncident")}>
-        <View>
-          <MaterialIcons name="add-box" size={40} color="#309694" />
-        </View>
-      </TouchableOpacity>
-        </View>
 
-        <IncidentList link={link} searchVal={searchVal} />
+          <IncidentList link={link} searchVal={searchVal} />
+        </View>
       </View>
     </View>
   );
@@ -54,34 +88,39 @@ const styles = StyleSheet.create({
   },
   listBox: {
     flex: 1,
-    marginHorizontal: "7%",
-    marginBottom: "8%",
+    // paddingHorizontal: wp("7%"),
+    marginBottom: "5%",
     marginTop: "3%",
-    paddingTop: "5%",
+    paddingTop: "3%",
+    width: width > 650 ? width / 1.3 : width - 50,
+  },
+  boxContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: wp("100%"),
   },
   input: {
-    width: "90%",
-    aspectRatio: 7.9/ 1,
+    width: "100%",
+    height: "100%",
     backgroundColor: "#FFF",
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     paddingLeft: "2%",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 650 ? RFPercentage(1.8) : RFPercentage(1.5),
   },
   container: {
-    marginRight: "10%",
-    marginBottom: "4%",
-    // backgroundColor: "#fff",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    width: width > 600 ? "50%" : "75%",
+    marginLeft: width > 600 ? "2.5%" : "5%",
+    backgroundColor: "#fff",
   },
   searchSection: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    aspectRatio: 8.79/ 1,
-    // backgroundColor: "#fff",
+    aspectRatio: 7.8 / 1,
+    backgroundColor: "#fff",
+    width: "100%",
   },
   searchIcon: {
     backgroundColor: "#FFF",

@@ -34,11 +34,17 @@ export default function Attendances({ link }) {
       <Header link={link} title="Attendance" setModal={setModalVisible} />
       <View style={styles.whiteBox}>
         <Text style={styles.txt}> Attendances</Text>
-        <SearchInput
-          searchVal={searchVal}
-          setSearchVal={setSearchVal}
-          bgColor="#F1F1F1"
-        />
+        <View
+          style={{
+            marginBottom: "3%",
+          }}
+        >
+          <SearchInput
+            searchVal={searchVal}
+            setSearchVal={setSearchVal}
+            bgColor="#F1F1F1"
+          />
+        </View>
         <AttendanceTable link={link} searchVal={searchVal} />
       </View>
     </View>

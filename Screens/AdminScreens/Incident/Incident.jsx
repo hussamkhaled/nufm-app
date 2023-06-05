@@ -5,7 +5,6 @@ import {
   View,
   TextInput,
   Dimensions,
-  PixelRatio,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
@@ -20,8 +19,6 @@ import {
 } from "react-native-responsive-screen";
 
 const { width, height } = Dimensions.get("window");
-const fontScale = PixelRatio.getFontScale();
-const getFontSize = (size) => size / fontScale;
 export default function Incident({ link }) {
   const handleChange = (searchVal) => {
     setSearchVal(searchVal);

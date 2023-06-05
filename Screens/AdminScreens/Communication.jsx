@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
     width: width > 700 ? width / 1.4 : width - 50,
     // marginHorizontal: wp("5%"),
     borderRadius: 25,
-    marginBottom: "2%",
-    // marginTop: "2%",
+    marginBottom: width > 650 ? "3%" : "6%",
+    marginTop: "1%",
   },
   boxContainer: {
     flex: 1,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     width: wp("100%"),
   },
   txt: {
-    fontSize: width > 700 ? RFPercentage(2.5) : RFPercentage(2.3),
+    fontSize: width > 700 ? RFPercentage(2.5) : RFPercentage(2.1),
     fontWeight: "bold",
     color: "#023D26",
     paddingHorizontal: "3.5%",

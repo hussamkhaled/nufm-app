@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { EvilIcons } from "@expo/vector-icons";
 import CMenu from "../../../Components/SharedComponents/CMenu";
 import Header from "../../../Components/SharedComponents/Header";
 import OrderList from "../../../Components/WorkerAndOccupantComponents/Order/OrderList";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
+const { width, height } = Dimensions.get("window");
 export default function Order({ link }) {
   const handleChange = (searchVal) => {
     setSearchVal(searchVal);
@@ -24,21 +29,23 @@ export default function Order({ link }) {
         />
       </View>
       <Header link={link} title="Order" setModal={setModalVisible} />
-      <View style={styles.listBox}>
-        <View style={styles.container}>
-          <View style={styles.searchSection}>
-            <View style={styles.searchIcon}>
-              <EvilIcons name="search" size={24} color="#B7B6B6" />
+      <View style={styles.boxContainer}>
+        <View style={styles.listBox}>
+          <View style={styles.container}>
+            <View style={styles.searchSection}>
+              <View style={styles.searchIcon}>
+                <EvilIcons name="search" size={24} color="#B7B6B6" />
+              </View>
+              <TextInput
+                style={styles.input}
+                placeholder="Search"
+                onChangeText={handleChange}
+              />
             </View>
-            <TextInput
-              style={styles.input}
-              placeholder="Search"
-              onChangeText={handleChange}
-            />
           </View>
-        </View>
 
-        <OrderList link={link} searchVal={searchVal} />
+          <OrderList link={link} searchVal={searchVal} />
+        </View>
       </View>
     </View>
   );
@@ -50,24 +57,32 @@ const styles = StyleSheet.create({
   },
   listBox: {
     flex: 1,
-    marginHorizontal: "7%",
-    marginBottom: "8%",
+    // paddingHorizontal: wp("7%"),
+    marginBottom: "5%",
     marginTop: "3%",
-    paddingTop: "5%",
+    paddingTop: "3%",
+    width: width > 650 ? width / 1.3 : width - 50,
+  },
+  boxContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: wp("100%"),
   },
   input: {
     width: "100%",
-    aspectRatio: 7.9 / 1,
+    height: "100%",
     backgroundColor: "#FFF",
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     paddingLeft: "2%",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 650 ? RFPercentage(1.8) : RFPercentage(1.5),
   },
   container: {
-    marginHorizontal: "4.5%",
-    marginBottom: "4%",
+    width: width > 600 ? "50%" : "85%",
+    marginLeft: width > 600 ? "2.5%" : "7%",
     backgroundColor: "#fff",
+    marginBottom: "2%",
   },
   searchSection: {
     flexDirection: "row",
@@ -75,6 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     aspectRatio: 7.8 / 1,
     backgroundColor: "#fff",
+    width: "100%",
   },
   searchIcon: {
     backgroundColor: "#FFF",
