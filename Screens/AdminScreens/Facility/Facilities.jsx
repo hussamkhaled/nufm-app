@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginHorizontal: wp("5%"),
     borderRadius: 25,
-    marginBottom: hp("3%"),
+    marginBottom: hp("5%"),
     marginTop: hp("2%"),
   },
   txt: {

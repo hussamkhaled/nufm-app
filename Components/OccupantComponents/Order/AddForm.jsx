@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
   },
   inputInc: {
     width: "100%",
-    height: 120,
+    height: 110,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",

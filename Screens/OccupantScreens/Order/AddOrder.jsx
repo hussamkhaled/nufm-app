@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: width > 700 ? width / 1.6 : width - 50,
     borderRadius: 25,
-    marginBottom: "3%",
+    marginBottom: "5%",
     marginTop: "2%",
   },
   boxContainer: {

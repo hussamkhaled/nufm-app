@@ -45,7 +45,7 @@ export default function IncidentsW({ link }) {
           <View
             style={{
               justifyContent: "space-between",
-              alignItems: "flex-end",
+              alignItems: "center",
               flexDirection: "row",
               marginBottom: "2%",
             }}

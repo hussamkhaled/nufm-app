@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     paddingLeft: "3%",
   },
   txtarea: {
-    height: 120,
+    height: 110,
     backgroundColor: "#F1F1F1",
     borderRadius: 10,
     width: "80%",

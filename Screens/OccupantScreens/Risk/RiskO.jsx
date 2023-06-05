@@ -5,7 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
@@ -40,29 +40,42 @@ export default function RiskO({ link }) {
       </View>
       <Header link={link} title="Risk" setModal={setModalVisible} />
       <View style={styles.boxContainer}>
-      <View style={styles.listBox}>
-        <View style={styles.container}>
-          <View style={styles.searchSection}>
-            <View style={styles.searchIcon}>
-              <EvilIcons name="search" size={24} color="#B7B6B6" />
-            </View>
-            <TextInput
-              style={styles.input}
-              placeholder="Search"
-              onChangeText={handleChange}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate(link+"AddRisk")}
+        <View style={styles.listBox}>
+          <View
+            style={{
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexDirection: "row",
+              marginBottom: "2%",
+            }}
           >
-            <View>
-              <MaterialIcons name="add-box" size={40} color="#309694" />
+            <View style={styles.container}>
+              <View style={styles.searchSection}>
+                <View style={styles.searchIcon}>
+                  <EvilIcons name="search" size={24} color="#B7B6B6" />
+                </View>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Search"
+                  onChangeText={handleChange}
+                />
+              </View>
             </View>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(link + "AddRisk")}
+            >
+              <View>
+                <MaterialIcons
+                  name="add-box"
+                  size={width > 650 ? 44 : 40}
+                  color="#309694"
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
 
-        <RiskList link={link} searchVal={searchVal} />
-      </View>
+          <RiskList link={link} searchVal={searchVal} />
+        </View>
       </View>
     </View>
   );

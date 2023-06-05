@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     backgroundColor: "#fff",
     borderRadius: 25,
-    marginBottom: "3%",
+    marginBottom: "5%",
     width: width > 700 ? width / 1.6 : width - 50,
   },
   boxContainer: {
