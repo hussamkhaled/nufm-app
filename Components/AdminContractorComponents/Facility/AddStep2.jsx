@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import {
@@ -17,6 +18,8 @@ import { Ionicons, MaterialIcons, Entypo } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
 import { connect } from "react-redux";
 import * as AddFacilityActionCreator from "../../../Store/ActionCreator/Fcaility/AddFacilityActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function AddStep2({ link, workSchedule, primaryEmail, getFacilityInfo }) {
   const navigation = useNavigation();
@@ -366,17 +369,17 @@ function AddStep2({ link, workSchedule, primaryEmail, getFacilityInfo }) {
       <View style={styles.addRemove}>
         <TouchableOpacity onPress={removeInput}>
           <View>
-            <Entypo name="squared-minus" size={30} color="#309694" />
+            <Entypo name="squared-minus" size={32} color="#309694" />
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={addInput}>
           <View>
-            <MaterialIcons name="add-box" size={32} color="#309694" />
+            <MaterialIcons name="add-box" size={34} color="#309694" />
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.btns}>
-        <View style={{ width: "50%" }}>
+        <View style={{ width: "40%" }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.btnBack}>
               <Text style={styles.addBack}>Back</Text>
@@ -384,7 +387,7 @@ function AddStep2({ link, workSchedule, primaryEmail, getFacilityInfo }) {
           </TouchableOpacity>
         </View>
 
-        <View style={{ width: "50%" }}>
+        <View style={{ width: "40%" }}>
           <TouchableOpacity onPress={handleNav3}>
             <View style={styles.nextBtn}>
               <Text style={styles.addSite}>Next</Text>
@@ -425,9 +428,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
+    height: 45,
   },
   minusIcon: {
     width: wp("24%"),
+    height: 45,
     backgroundColor: "#309694",
     borderRadius: 12,
     justifyContent: "center",
@@ -435,13 +440,13 @@ const styles = StyleSheet.create({
     marginLeft: wp("1%"),
   },
   inputW: {
-    height: hp("4.5%"),
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "2.5%",
     width: "100%",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   subContItem: {
     width: wp("50%"),
@@ -460,6 +465,7 @@ const styles = StyleSheet.create({
   },
   totalFoot: {
     width: wp("148%"),
+    height: 45,
     paddingHorizontal: wp("2%"),
     flexDirection: "row",
     borderRadius: 12,
@@ -467,15 +473,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   label: {
-    paddingLeft: "2.5%",
+    paddingLeft: "1.5%",
     fontWeight: "bold",
     color: "#595959",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   workSchedTxt: {
     color: "#3b3a3a",
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   inputs: {
     flexDirection: "row",
@@ -490,14 +496,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 12,
     backgroundColor: "#cccaca",
-    paddingVertical: hp("1%"),
+    // paddingVertical: hp("1%"),
+    height: 45,
     alignItems: "center",
   },
   workeSch: {
     textAlign: "left",
     fontWeight: "bold",
     color: "#666",
-    fontSize: RFPercentage(1.9),
+    fontSize: width > 700 ?RFPercentage(2): RFPercentage(1.9),
     borderBottomWidth: 1,
     borderBottomColor: "#F1F1F1",
     paddingBottom: "3%",
@@ -537,7 +544,8 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    aspectRatio: 8.6 / 1,
+    // aspectRatio: 8.6 / 1,
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
@@ -553,12 +561,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: "4%",
   },
-  label: {
-    paddingLeft: "2.5%",
-    fontWeight: "bold",
-    color: "#595959",
-    fontSize: RFPercentage(1.5),
-  },
+
   PrimaryCont: {
     paddingHorizontal: "5%",
     marginTop: "8%",
@@ -567,7 +570,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontWeight: "bold",
     color: "#666",
-    fontSize: RFPercentage(1.9),
+    fontSize: width > 700 ?RFPercentage(2): RFPercentage(1.9),
     borderBottomWidth: 1,
     borderBottomColor: "#F1F1F1",
     paddingBottom: "3%",
@@ -581,7 +584,7 @@ const styles = StyleSheet.create({
     marginBottom: "5%",
   },
   multi: {
-    marginHorizontal: "4%",
+    marginHorizontal: "5%",
     width: "90%",
     alignItems: "center",
     justifyContent: "center",
@@ -591,8 +594,11 @@ const styles = StyleSheet.create({
   },
   btns: {
     flexDirection: "row",
-    paddingHorizontal: "1%",
-    marginTop: "7%",
+    paddingHorizontal: "5%",
+    marginVertical: "5%",
+    height: 50,
+    width: "100%",
+    justifyContent: "space-between",
   },
   addSite: {
     fontSize: RFPercentage(1.9),
@@ -604,12 +610,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 12,
-    paddingHorizontal: "2%",
+    // paddingHorizontal: "0%",
     alignItems: "center",
-    paddingVertical: "4.2%",
+    // paddingVertical: "4%",
+    height: "100%",
     justifyContent: "center",
-    marginBottom: "12%",
-    marginHorizontal: "8%",
+    marginRight: "3%",
     borderWidth: 1.5,
     borderColor: "#309694",
   },
@@ -622,11 +628,9 @@ const styles = StyleSheet.create({
   nextBtn: {
     backgroundColor: "#309694",
     borderRadius: 12,
-    paddingHorizontal: "2%",
     alignItems: "center",
-    paddingVertical: "5%",
+    height: "100%",
     justifyContent: "center",
-    marginBottom: "12%",
-    marginHorizontal: "8%",
+    marginLeft: "3%",
   },
 });

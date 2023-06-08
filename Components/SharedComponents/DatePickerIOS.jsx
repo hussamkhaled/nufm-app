@@ -97,7 +97,9 @@ export default function DatePickerIOS({value , label, handleOnChange, name}) {
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    aspectRatio: 8.6 / 1,
+        // aspectRatio: 8.6 / 1,
+    // paddingVertical:"1.2%",
+    height:45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",

@@ -6,23 +6,34 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
+  ScrollView
 } from "react-native";
 import CMenu from "../../../Components/SharedComponents/CMenu";
 import Header from "../../../Components/SharedComponents/Header";
 import IncidentDetails from "../../../Components/AdminContractorComponents/Incident/IncidentDetails.jsx";
 
-export default function IncidentDet({link}) {
+const { width, height } = Dimensions.get("window");
+
+export default function IncidentDet({ link }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View>
+    <View style={{flex:1}}>
       <View>
-        <CMenu link={link} modalVisible={modalVisible} setModal={setModalVisible} />
+        <CMenu
+          link={link}
+          modalVisible={modalVisible}
+          setModal={setModalVisible}
+        />
       </View>
+      
       <Header link={link} title="Incident" setModal={setModalVisible} />
-      <View style={{ marginVertical:"10%"}}>
-      <IncidentDetails />
+      <ScrollView>
+      <View style={{ flex:1,marginVertical: width > 650 ? "0%" : "10%" }}>
+        <IncidentDetails />
       </View>
+      </ScrollView>
     </View>
   );
 }

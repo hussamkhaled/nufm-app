@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import BasicInput from "../../Components/SharedComponents/BasicInput";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -18,6 +19,8 @@ import * as AddAttendanceActionCreator from "../../Store/ActionCreator/Attendanc
 import * as GetFacilitiesActionCreator from "../../Store/ActionCreator/Fcaility/GetFacilitiesActionCreator";
 import * as GetTasksActionCreator from "../../Store/ActionCreator/Task/GetTasksActionCreator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const { width, height } = Dimensions.get("window");
 
 function AddAttendance({
   link,
@@ -229,7 +232,16 @@ function AddAttendance({
           <Text style={styles.errorTxt}>{error}</Text>
         </View>
       )}
-      <View style={{ flexDirection: "row", marginBottom: "3%" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          paddingHorizontal: "5%",
+          marginVertical: "5%",
+          height: 50,
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
         <View style={{ width: "30%" }}>
           <TouchableOpacity>
             <View style={styles.cancel}>
@@ -249,7 +261,7 @@ function AddAttendance({
           <View style={{ width: "70%" }}>
             <TouchableOpacity>
               <View style={styles.save}>
-                <Text style={styles.addSite}>Saving... </Text>
+                <Text style={styles.addSite}>Saving </Text>
                 <ActivityIndicator size="small" color="#fff" />
               </View>
             </TouchableOpacity>
@@ -304,19 +316,20 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    aspectRatio: 8.6 / 1,
+    // aspectRatio: 8.6 / 1,
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "1%",
-    fontSize: RFPercentage(1.5),
-    paddingRight: "2%",
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
+    paddingRight: "4%",
   },
   container: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "8%",
+    marginBottom: "6%",
   },
   dropdownHour: {
     borderRadius: 8,
@@ -330,8 +343,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "2%",
-    height: 40,
     width: "100%",
+    height: 45,
+    // paddingVertical:"1.2%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -349,7 +363,7 @@ const styles = StyleSheet.create({
     paddingLeft: "1.5%",
     fontWeight: "bold",
     color: "#595959",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   addSite: {
     fontSize: RFPercentage(1.9),
@@ -366,24 +380,24 @@ const styles = StyleSheet.create({
   save: {
     backgroundColor: "#309694",
     borderRadius: 12,
-    paddingHorizontal: "2%",
     alignItems: "center",
-    paddingVertical: "3%",
+    height: "100%",
     justifyContent: "center",
-    marginBottom: "7%",
-    marginHorizontal: "7%",
-    flexDirection: "row",
+    marginLeft: "3%",
   },
   cancel: {
+    flexDirection: "row",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    // paddingHorizontal: "0%",
+    alignItems: "center",
+    // paddingVertical: "4%",
+    height: "100%",
+    justifyContent: "center",
+    // marginBottom: "12%",
+    marginRight: "3%",
     borderWidth: 1.5,
     borderColor: "#309694",
-    borderRadius: 12,
-    paddingHorizontal: "2%",
-    alignItems: "center",
-    paddingVertical: "5%",
-    justifyContent: "center",
-    marginBottom: "7%",
-    marginLeft: "18%",
   },
   checkboxes: {
     flexDirection: "row",
@@ -404,10 +418,12 @@ const styles = StyleSheet.create({
   },
   errorMsg: {
     marginHorizontal: "5%",
-    marginBottom: "7%",
+    width: "90%",
+    height: 55,
+    marginBottom: "3%",
     backgroundColor: "#CAF3D1",
     flexDirection: "row",
-    padding: "3.5%",
+    paddingHorizontal: "3.5%",
     borderRadius: 12,
     alignItems: "center",
   },

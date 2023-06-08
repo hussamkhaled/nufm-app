@@ -1,7 +1,23 @@
-import { StyleSheet, View, Text, Image, TextInput } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TextInput,
+  Dimensions,
+  PixelRatio
+} from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { EvilIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+
+const { width, height } = Dimensions.get("window");
+const fontScale = PixelRatio.getFontScale();
+const getFontSize = size => size / fontScale;
 
 export default function SearchInput({ setSearchVal, searchVal }) {
   const handleChange = (searchVal) => {
@@ -28,27 +44,29 @@ export default function SearchInput({ setSearchVal, searchVal }) {
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    aspectRatio: 7.8 / 1,
+    height:"100%",
     backgroundColor: "#F1F1F1",
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     paddingLeft: "2%",
     fontSize: RFPercentage(1.5),
+
   },
   container: {
-    marginHorizontal: "9%",
-    marginBottom: "5%",
-    backgroundColor:"#f1f1f1",
+    width: width > 600 ? "50%" : "85%",
+    marginLeft: width > 600 ? "6%" : "7%",
+    backgroundColor: "#f1f1f1",
   },
   subCont: {
     flexDirection: "column",
-    width: "100%",
+    width:"100%",
   },
   searchSection: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    aspectRatio: 7.8 / 1,
+    aspectRatio: 7.5 / 1,
+    width:"100%",
   },
   searchIcon: {
     backgroundColor: "#F1F1F1",

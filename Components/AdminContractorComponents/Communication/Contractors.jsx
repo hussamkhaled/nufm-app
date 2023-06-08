@@ -7,6 +7,7 @@ import {
   FlatList,
   Linking,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
@@ -14,8 +15,9 @@ import Avatar from "../../../assets/avatar.png";
 import { connect } from "react-redux";
 import * as GetContractorsActionCreator from "../../../Store/ActionCreator/Contractor/GetContractorsActionCreator";
 
+const { width, height } = Dimensions.get("window");
+
 function Contractors({ searchVal, Contractors, getContractors }) {
- 
   const [contractorsArr, setContractorsArr] = useState([]);
   useEffect(() => {
     getContractors();
@@ -55,8 +57,12 @@ function Contractors({ searchVal, Contractors, getContractors }) {
                     <Text style={styles.txt}> {item.fullName}</Text>
                   </View>
                   <View>
-                    <Text style={styles.time}>{item.createdAt.substring(11,19)}</Text>
-                    <Text style={styles.date}>{item.createdAt.substring(0,10)}</Text>
+                    <Text style={styles.time}>
+                      {item.createdAt.substring(11, 19)}
+                    </Text>
+                    <Text style={styles.date}>
+                      {item.createdAt.substring(0, 10)}
+                    </Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -76,7 +82,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getContractors: () => dispatch(GetContractorsActionCreator.getContractors()),
+    getContractors: () =>
+      dispatch(GetContractorsActionCreator.getContractors()),
   };
 };
 
@@ -108,17 +115,17 @@ const styles = StyleSheet.create({
   txt: {
     color: "#535353",
     paddingLeft: "3%",
-    fontSize: RFPercentage(1.7),
+    fontSize: width > 700 ? RFPercentage(1.9) : RFPercentage(1.7),
     fontWeight: "bold",
   },
   date: {
     color: "#BCBCBC",
     paddingTop: "2%",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.6) : RFPercentage(1.4),
   },
   time: {
     color: "#A2A2A2",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 700 ? RFPercentage(1.6) : RFPercentage(1.4),
     textAlign: "right",
   },
 });

@@ -8,6 +8,7 @@ import {
   Button,
   Platform,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import BasicInput from "../../../Components/SharedComponents/BasicInput";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -21,6 +22,7 @@ import Header from "../../../Components/SharedComponents/Header";
 import { connect } from "react-redux";
 import * as GetFacParentActionCreator from "../../../Store/ActionCreator/Fcaility/GetFacParentActionCreator";
 import * as AddFacilityActionCreator from "../../../Store/ActionCreator/Fcaility/AddFacilityActionCreator";
+const { width, height } = Dimensions.get("window");
 
 function AddForm({
   link,
@@ -457,18 +459,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    aspectRatio: 8.6 / 1,
+    // aspectRatio: 8.6 / 1,
+    // paddingVertical:"1.2%",
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "1%",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   container: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: "8%",
+    marginBottom: "6%",
   },
   dropdownHour: {
     borderRadius: 8,
@@ -482,8 +486,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingLeft: "4%",
     marginTop: "2%",
-    height: 40,
     width: "100%",
+    height: 45,
+    // paddingVertical:"1.2%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -498,7 +503,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   btnselectxtstyle: {
-    fontSize: RFPercentage(1.8),
+    fontSize: RFPercentage(1.6),
     color: "#595959",
     textAlign: "left",
   },
@@ -511,7 +516,7 @@ const styles = StyleSheet.create({
     paddingLeft: "1.5%",
     fontWeight: "bold",
     color: "#595959",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   validation: {
     color: "red",
@@ -524,9 +529,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: "2%",
     alignItems: "center",
-    paddingVertical: "3%",
+    // paddingVertical: "3%",
+    height: 50,
     justifyContent: "center",
-    marginTop: "9%",
+    marginTop: "6%",
   },
   addSite: {
     fontSize: RFPercentage(1.9),

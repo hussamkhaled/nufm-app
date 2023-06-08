@@ -5,12 +5,15 @@ import {
   View,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import * as GetAttendancesActionCreator from "../../../Store/ActionCreator/Attendance/GetAttendancesActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function AttendanceTable({
   searchVal,
@@ -28,21 +31,19 @@ function AttendanceTable({
   }, [searchVal]);
 
   useEffect(() => {
-   if(Attendances.length > 0){
-    setAttendancesArr(Attendances);
-   }
+    if (Attendances.length > 0) {
+      setAttendancesArr(Attendances);
+    }
   }, [Attendances]);
 
-
-  const onLoadFunc = () =>{
+  const onLoadFunc = () => {
     getAttendances();
-  }
+  };
 
   useFocusEffect(
     React.useCallback(() => {
       onLoadFunc();
     }, [])
-    
   );
 
   const sortedArray = () => {
@@ -72,11 +73,9 @@ function AttendanceTable({
               </View>
             );
           }}
-          data={
-            Attendances.filter((cntr) =>
+          data={Attendances.filter((cntr) =>
             cntr.user.fullName.toLowerCase().includes(searchVal.toLowerCase())
-          )
-          }
+          )}
           numColumns={1}
           renderItem={({ item }) => {
             return (
@@ -134,12 +133,6 @@ const styles = StyleSheet.create({
     marginBottom: "8%",
     marginTop: "3%",
   },
-  txt: {
-    fontSize: RFPercentage(1.9),
-    fontWeight: "bold",
-    color: "#023D26",
-    padding: "5%",
-  },
   listhead: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -163,14 +156,14 @@ const styles = StyleSheet.create({
   },
   header1: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
   },
   header2: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
@@ -178,7 +171,7 @@ const styles = StyleSheet.create({
   },
   header3: {
     fontWeight: "bold",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
@@ -194,19 +187,19 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.3),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     textAlign: "left",
     width: "100%",
   },
   Email: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.3),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
   },
   Facility: {
     color: "#9A9999",
-    fontSize: RFPercentage(1.3),
+    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
     // paddingLeft: "10%",

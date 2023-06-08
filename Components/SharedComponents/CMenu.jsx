@@ -7,6 +7,8 @@ import {
   FlatList,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Dimensions,
+  // ScrollView
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -27,6 +29,8 @@ import NUFM from "../../assets/NUFM.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { connect } from "react-redux";
 import * as LoginActionCreators from "../../Store/ActionCreator/Login/LoginActionCreator";
+
+const { width, height } = Dimensions.get("window");
 
 function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
   const navigation = useNavigation();
@@ -133,31 +137,32 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
               <Image source={NUFM} style={styles.img} />
               <Text style={styles.txt}>Welcome, {adminName}</Text>
             </View>
+            {/* <ScrollView> */}
             <View style={styles.flexView}>
               <View>
-                <ScrollView>
-                  <FlatList
-                    keyExtractor={(item) => item.name}
-                    data={
-                      link === "Worker/"
-                        ? MenuItemsWorker
-                        : link === "Occupant/"
-                        ? MenuItemsOccupant
-                        : MenuItems
-                    }
-                    numColumns={1}
-                    renderItem={({ item }) => {
-                      return (
-                        <TouchableOpacity onPress={item.link}>
-                          <View style={styles.menuItem}>
-                            <Image source={item.icon} />
-                            <Text style={styles.txtMenu}>{item.name}</Text>
-                          </View>
-                        </TouchableOpacity>
-                      );
-                    }}
-                  />
-                </ScrollView>
+                {/* <ScrollView> */}
+                <FlatList
+                  keyExtractor={(item) => item.name}
+                  data={
+                    link === "Worker/"
+                      ? MenuItemsWorker
+                      : link === "Occupant/"
+                      ? MenuItemsOccupant
+                      : MenuItems
+                  }
+                  numColumns={1}
+                  renderItem={({ item }) => {
+                    return (
+                      <TouchableOpacity onPress={item.link}>
+                        <View style={styles.menuItem}>
+                          <Image source={item.icon} />
+                          <Text style={styles.txtMenu}>{item.name}</Text>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  }}
+                />
+                {/* </ScrollView> */}
               </View>
               <View style={styles.menuFooter}>
                 <TouchableOpacity style={styles.logout} onPress={handleClick}>
@@ -188,7 +193,9 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
                 </TouchableOpacity>
               </View>
             </View>
+            {/* </ScrollView> */}
           </View>
+          {/* </ScrollView> */}
         </View>
       </TouchableWithoutFeedback>
     </Modal>
@@ -222,17 +229,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(CMenu);
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "rgba(100,100,100,0.5)",
+    width: wp("100%"),
+    height: hp("100%"),
   },
   subCont: {
-    width: "80%",
+    width: width > 650 ? "45%" : "80%",
     height: "100%",
     backgroundColor: "#023D26",
-    paddingTop: "6%",
+    paddingTop: width > 650 ? "2%" : "6%",
   },
   img: {
-    width: 190,
-    height: 140,
+    width: width > 650 ? 160 : 190,
+    height: width > 650 ? 110 : 140,
   },
   txtImg: {
     alignItems: "center",
@@ -240,13 +250,14 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: "#fff",
-    fontSize: RFPercentage(2.4),
+    fontSize: width > 650 ? RFPercentage(2.2) : RFPercentage(2.4),
     paddingTop: "3%",
     fontWeight: "bold",
   },
   flexView: {
     flex: 1,
     justifyContent: "space-between",
+    flexDirection: "column",
   },
   menuItem: {
     flexDirection: "row",
@@ -276,8 +287,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#B4D9CB",
     borderRadius: 7,
-    width: "42.5%",
-    marginHorizontal: "5%",
+    width: "42%",
+    paddingLeft: "1%",
+    marginLeft: "5%",
     paddingVertical: "1.5%",
   },
   reset: {
@@ -286,14 +298,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#B4D9CB",
     borderRadius: 7,
-    width: "42.5%",
-    marginRight: "6%",
+    width: "42%",
+    paddingLeft: "1%",
+    marginRight: "5%",
     paddingVertical: "1.5%",
   },
   menuFooter: {
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: "10%",
+    marginBottom: width > 650 ? "5%" : "10%",
   },
 });

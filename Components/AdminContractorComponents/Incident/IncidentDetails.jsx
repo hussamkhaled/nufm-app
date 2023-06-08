@@ -6,12 +6,20 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  Dimensions,
+  ScrollView,
 } from "react-native";
+// import { ScrollView } from "react-native-virtualized-view";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { connect } from "react-redux";
 import * as GetIncidentDetailsActionCreator from "../../../Store/ActionCreator/Incident/GetIncidentDetailsActionCreator";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
+const { width, height } = Dimensions.get("window");
 
 function IncidentDetails({
   getIncidentDetails,
@@ -42,7 +50,11 @@ function IncidentDetails({
           }}
         >
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="chevron-back-circle" size={30} color="#309694" />
+            <Ionicons
+              name="chevron-back-circle"
+              size={width > 650 ? 38 : 30}
+              color="#309694"
+            />
           </TouchableOpacity>
           {/* <TouchableOpacity>
             <AntDesign
@@ -59,8 +71,7 @@ function IncidentDetails({
             <Text style={styles.txtInside}>{sender.fullName}</Text>
           </View>
         </View>
-    
-       
+
         <View style={styles.txtInput}>
           <Text style={styles.txt}>Facility</Text>
           <View style={styles.disabledInput}>
@@ -115,17 +126,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(IncidentDetails);
 
 const styles = StyleSheet.create({
   container: {
+    // flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: "7%",
+    width: wp("100%"),
   },
   subCont: {
+    // flex: 1,
     flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: "#fff",
+    width: width > 700 ? width / 1.5 : width - 50,
     borderRadius: 25,
-    aspectRatio: 0.75 / 1,
-    width: "100%",
-    paddingHorizontal: "6%",
+    marginBottom: "3%",
+    // marginTop: "2%",
+    paddingHorizontal: "5%",
     paddingVertical: "5%",
   },
   txtInput: {
@@ -136,7 +150,7 @@ const styles = StyleSheet.create({
     marginVertical: "2.5%",
   },
   disabledInput: {
-    aspectRatio: 7.9 / 1,
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 10,
     width: "80%",
@@ -146,16 +160,16 @@ const styles = StyleSheet.create({
   },
   txt: {
     color: "#023D26",
-    fontSize: RFPercentage(1.6),
+    fontSize: width > 650 ? RFPercentage(1.8) : RFPercentage(1.6),
     fontWeight: "bold",
   },
   txtInside: {
     color: "#535353",
-    fontSize: RFPercentage(1.4),
+    fontSize: width > 650 ? RFPercentage(1.6) : RFPercentage(1.4),
     paddingLeft: "3%",
   },
   txtarea: {
-    aspectRatio: 3 / 1,
+    height: 110,
     backgroundColor: "#F1F1F1",
     borderRadius: 10,
     width: "80%",

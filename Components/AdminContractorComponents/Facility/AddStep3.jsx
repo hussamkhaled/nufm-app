@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import BasicInput from "../../../Components/SharedComponents/BasicInput";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
@@ -15,6 +16,7 @@ import { Ionicons, MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import * as AddFacilityOccupantActionCreator from "../../../Store/ActionCreator/Fcaility/AddFacilityOccupantActionCreator";
 import * as AddFacilityActionCreator from "../../../Store/ActionCreator/Fcaility/AddFacilityActionCreator";
+const { width, height } = Dimensions.get("window");
 
 function AddStep3({
   link,
@@ -192,7 +194,8 @@ function AddStep3({
     }
   };
   return (
-    <View style={{ justifyContent: "center", alignItems: "center" }}>
+    <View>
+      {/* // style={{ justifyContent: "center", alignItems: "center" }}> */}
       <View style={styles.container}>
         <View style={styles.OccupantCont}>
           <Text style={styles.Occupant}>Occupant(s)</Text>
@@ -273,12 +276,12 @@ function AddStep3({
         <View style={styles.addRemove}>
           <TouchableOpacity onPress={removeInput}>
             <View>
-              <Entypo name="squared-minus" size={30} color="#309694" />
+              <Entypo name="squared-minus" size={32} color="#309694" />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={addInput}>
             <View>
-              <MaterialIcons name="add-box" size={32} color="#309694" />
+              <MaterialIcons name="add-box" size={34} color="#309694" />
             </View>
           </TouchableOpacity>
         </View>
@@ -290,7 +293,7 @@ function AddStep3({
         </View>
       )}
       <View style={styles.btns}>
-        <View style={{ width: "50%" }}>
+        <View style={{ width: "40%" }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.btnBack}>
               <Text style={styles.addBack}>Back</Text>
@@ -299,7 +302,7 @@ function AddStep3({
         </View>
 
         {!loading ? (
-          <View style={{ width: "50%" }}>
+          <View style={{ width: "40%" }}>
             <TouchableOpacity onPress={handleSubmit}>
               <View style={styles.nextBtn}>
                 <Text style={styles.addSite}>Save</Text>
@@ -307,10 +310,10 @@ function AddStep3({
             </TouchableOpacity>
           </View>
         ) : (
-          <View style={{ width: "50%" }}>
+          <View style={{ width: "40%" }}>
             <TouchableOpacity>
               <View style={styles.nextBtn}>
-                <Text style={styles.addSite}>Saving... </Text>
+                <Text style={styles.addSite}>Saving </Text>
                 <ActivityIndicator size="small" color="#fff" />
               </View>
             </TouchableOpacity>
@@ -417,7 +420,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(AddStep3);
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    aspectRatio: 8.6 / 1,
+    // aspectRatio: 8.6 / 1,
+    // paddingVertical:"1.2%",
+    height: 45,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
@@ -426,7 +431,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: "column",
-    marginBottom: "8%",
+    marginBottom: "6%",
   },
   subCont: {
     flexDirection: "column",
@@ -434,16 +439,12 @@ const styles = StyleSheet.create({
     marginTop: "4%",
   },
   label: {
-    paddingLeft: "2.5%",
+    paddingLeft: "1.5%",
     fontWeight: "bold",
     color: "#595959",
-    fontSize: RFPercentage(1.5),
+    fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
-  inputs: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    justifyContent: "space-between",
-  },
+
   OccupantCont: {
     paddingHorizontal: "5%",
   },
@@ -451,7 +452,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontWeight: "bold",
     color: "#666",
-    fontSize: RFPercentage(1.9),
+    fontSize: width > 700 ? RFPercentage(2) : RFPercentage(1.9),
     borderBottomWidth: 1,
     borderBottomColor: "#F1F1F1",
     paddingBottom: "3%",
@@ -464,7 +465,7 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
   },
   multi: {
-    marginHorizontal: "4%",
+    marginHorizontal: "5%",
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
@@ -474,7 +475,8 @@ const styles = StyleSheet.create({
   },
   note: {
     width: "100%",
-    aspectRatio: 4 / 1,
+    // aspectRatio: 4 / 1,
+    height: 150,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
@@ -484,13 +486,14 @@ const styles = StyleSheet.create({
   nextBtn: {
     backgroundColor: "#309694",
     borderRadius: 12,
-    paddingHorizontal: "2%",
+    // paddingHorizontal: "2%",
     alignItems: "center",
-    paddingVertical: "5%",
+    // paddingVertical: "4%",
+    height: "100%",
     justifyContent: "center",
-    marginBottom: "12%",
-    marginHorizontal: "8%",
-    flexDirection: "row",
+    marginLeft: "3%",
+    // marginBottom: "12%",
+    // marginHorizontal: "8%",
   },
   addSite: {
     fontSize: RFPercentage(1.9),
@@ -506,13 +509,14 @@ const styles = StyleSheet.create({
   },
   errorMsg: {
     marginHorizontal: "5%",
-    marginBottom: "7%",
+    width:"90%",
+    height:55,
+    marginBottom: "3%",
     backgroundColor: "#CAF3D1",
     flexDirection: "row",
-    padding: "3.5%",
+    paddingHorizontal: "3.5%",
     borderRadius: 12,
     alignItems: "center",
-    width: "90%",
   },
   errorTxt: {
     fontWeight: "bold",
@@ -521,19 +525,23 @@ const styles = StyleSheet.create({
   },
   btns: {
     flexDirection: "row",
-    paddingHorizontal: "1%",
-    marginBottom: "5%",
+    paddingHorizontal: "5%",
+    marginVertical: "5%",
+    height: 50,
+    justifyContent: "space-between",
+    width: "100%",
   },
   btnBack: {
     flexDirection: "row",
     backgroundColor: "#fff",
     borderRadius: 12,
-    paddingHorizontal: "2%",
+    // paddingHorizontal: "0%",
     alignItems: "center",
-    paddingVertical: "4.2%",
+    // paddingVertical: "4%",
+    height: "100%",
     justifyContent: "center",
-    marginBottom: "12%",
-    marginHorizontal: "8%",
+    // marginBottom: "12%",
+    marginRight: "3%",
     borderWidth: 1.5,
     borderColor: "#309694",
   },

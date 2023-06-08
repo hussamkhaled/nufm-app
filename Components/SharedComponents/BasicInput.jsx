@@ -1,6 +1,7 @@
-import { StyleSheet, View, Text,TextInput } from "react-native";
+import { StyleSheet, View, Text, TextInput, Dimensions } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
+const { width, height } = Dimensions.get("window");
 export default function BasicInput({
   label,
   placeholder,
@@ -30,26 +31,28 @@ export default function BasicInput({
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    aspectRatio: 7 / 1,
+    // aspectRatio: 7 / 1,
+    height: 55,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,
     paddingLeft: "4%",
-    marginTop: "2.5%",
-    fontSize: RFPercentage(1.7),
+    marginTop: width > 650 ? "2%" : "2.5%",
+    fontSize: width > 650 ? RFPercentage(1.9) : RFPercentage(1.7),
   },
   container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "6%",
+    marginTop: width > 650 ? "2%" : "6%",
+    width: "100%",
   },
   subCont: {
     flexDirection: "column",
-    width: "87%",
+    width: width > 650 ? "80%" : "87%",
   },
   label: {
-    paddingLeft: "2%",
+    paddingLeft: width > 650 ? "1%" : "2%",
     fontWeight: "semi-bold",
     color: "#595959",
-    fontSize: RFPercentage(1.8),
+    fontSize: width > 650 ? RFPercentage(1.9) : RFPercentage(1.8),
   },
 });
