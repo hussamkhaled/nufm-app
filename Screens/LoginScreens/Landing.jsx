@@ -22,7 +22,7 @@ export default function Landing({ navigation }) {
   };
 
   useEffect(() => {
-    setTimeout(() => redirect(), 3500);
+    setTimeout(() => redirect(), 2000);
   }, []);
 
   return (
@@ -32,7 +32,7 @@ export default function Landing({ navigation }) {
         resizeMode="cover"
         style={styles.image}
       >
-        <Image source={NUFM} style={styles.img} />
+        {/* <Image source={NUFM} style={styles.img} /> */}
       </ImageBackground>
     </View>
   );

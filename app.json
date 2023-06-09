@@ -8,8 +8,8 @@
     "icon": "./assets/grlogo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Landing.png",
-      "resizeMode": "contain",
+      "image": "./assets/NUFM-Green.png",
+      "resizeMode": "center",
       "backgroundColor": "#ffffff"
     },
     "updates": {
