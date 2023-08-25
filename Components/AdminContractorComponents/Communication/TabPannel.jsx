@@ -27,11 +27,11 @@ export default function TabPannel({ searchVal }) {
         children={() => <Workers searchVal={searchVal} />}
       />
       <Tab.Screen
-        name="Contractors"
+        name="Management"
         children={() => <Contractors searchVal={searchVal} />}
       />
       <Tab.Screen
-        name="Occupants"
+        name="Clients"
         children={() => <Occupants searchVal={searchVal} />}
       />
     </Tab.Navigator>
