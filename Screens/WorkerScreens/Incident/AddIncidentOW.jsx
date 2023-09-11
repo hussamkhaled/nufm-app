@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity,ScrollView, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 // import { ScrollView } from "react-native-virtualized-view";
 import CMenu from "../../../Components/SharedComponents/CMenu";
@@ -9,6 +16,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { width, height } = Dimensions.get("window");
 
 export default function AddIncidentOW({ link }) {
@@ -23,16 +31,13 @@ export default function AddIncidentOW({ link }) {
         />
       </View>
       <Header link={link} title="Incident" setModal={setModalVisible} />
-      <ScrollView>
+      <KeyboardAwareScrollView>
         <View style={styles.boxContainer}>
           <View style={styles.whiteBox}>
-        {/* <Text style={styles.txt}> </Text> */}
-        {/* <ScrollView> */}
-          <AddIncident />
-        {/* </ScrollView> */}
-      </View>
-      </View>
-      </ScrollView>
+            <AddIncident />
+          </View>
+        </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
