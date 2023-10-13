@@ -38,7 +38,7 @@ function AttendanceCheck({
     <View style={styles.container}>
       <View style={styles.boxIcon}>
         <View style={styles.greyBox}>
-          <Text style={styles.Check}>Check In ({checkIn.date})</Text>
+          <Text style={styles.Check}>Check In {checkIn.date.substr(0,10)} at {checkIn.date.substr(11,5)}</Text>
           <Text style={styles.datetime}>
             {checkIn.lng} / {checkIn.lat}
           </Text>
@@ -47,7 +47,7 @@ function AttendanceCheck({
       </View>
       <View style={styles.boxIcon}>
         <View style={styles.greyBox}>
-          <Text style={styles.Check}>Check Out ({checkOut.date})</Text>
+          <Text style={styles.Check}>Check Out {checkOut.date.substr(0,10)} at {checkOut.date.substr(11,5)}</Text>
           <Text style={styles.datetime}>
             {checkOut.lng} / {checkOut.lat}
           </Text>

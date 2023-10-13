@@ -17,10 +17,13 @@ import Cards from "../../Components/SharedComponents/Cards";
 import Attendance from "../../assets/Attandence-Management.png";
 import Order from "../../assets/Order.png";
 import Incident from "../../assets/IncidentImg.png";
+import Task from "../../assets/Task.png";
+import Safety from "../../assets/Safety.png";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import StopWatch from "../../Components/WorkerAndContractorComp/StopWatch";
 
 const { width, height } = Dimensions.get("window");
 export default function WorkerHome({ link }) {
@@ -35,10 +38,20 @@ export default function WorkerHome({ link }) {
   const navToAtt = () => {
     navigation.navigate(link + "AddAttendance");
   };
+
+  const navToTasks = () => {
+    navigation.navigate(link + "TasksList");
+  };
+
+  const navToSafety = () => {
+    navigation.navigate(link + "Safety");
+  };
   const CardItems = [
     { name: "Attendance Management ", icon: Attendance, link: navToAtt },
     { name: "View Order ", icon: Order, link: navToOrders },
     { name: "Incident ", icon: Incident, link: navToInc },
+    { name: "Tasks ", icon: Task, link: navToTasks },
+    { name: "Safety ", icon: Safety, link: navToSafety },
   ];
 
   useEffect(() => {
@@ -77,6 +90,7 @@ export default function WorkerHome({ link }) {
             }}
           />
         </ScrollView>
+        <StopWatch />
       </View>
     </View>
   );
@@ -87,7 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingBottom: hp("3%"),
+    // paddingBottom: hp("3%"),
     paddingHorizontal: width > 650 ? wp("7%") : "0%",
     width: wp("100%"),
     flex: 1,

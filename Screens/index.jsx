@@ -28,9 +28,14 @@ export { default as IncidentsW } from "./WorkerScreens/Incident/IncidentsW";
 export { default as AddIncidentOW } from "./WorkerScreens/Incident/AddIncidentOW";
 export { default as Orders } from "./WorkerScreens/Order/Orders";
 export { default as OrderDet } from "./WorkerScreens/Order/OrderDet";
+export { default as TasksList } from "./WorkerScreens/Tasks/Tasks";
+export { default as Safety } from "./WorkerScreens/Safety/SafetyScreen";
+export { default as CommunicationWorker } from "./WorkerScreens/CommunicationWorker";
+export { default as Profile } from "./WorkerScreens/Profile";
 //Occupant
 export { default as OccupantHome } from "./OccupantScreens/OccupantHome";
 export { default as RiskO } from "./OccupantScreens/Risk/RiskO";
 export { default as AddRisk } from "./OccupantScreens/Risk/AddRisk";
 export { default as OrderO } from "./OccupantScreens/Order/OrderO";
 export { default as AddOrder } from "./OccupantScreens/Order/AddOrder";
+export { default as CommunicationOccupant } from "./OccupantScreens/CommunicationOccupant";

@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from "react-native";
+import { useStopwatch } from "react-timer-hook";
 import BasicInput from "../../Components/SharedComponents/BasicInput";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import SelectDropdown from "react-native-select-dropdown";
@@ -104,6 +105,7 @@ function AddAttendance({
 
   const handleCheck = (value) => {
     if (!toggleCheckBox) {
+      // start();
       setCheckType("CheckIn");
       if (location !== null) {
         setLat(JSON.stringify(location.coords.latitude));
@@ -112,6 +114,7 @@ function AddAttendance({
       setToggleCheckBox(value);
       setDisableCheck2(true);
     } else {
+      // pause();
       setLat("");
       setLong("");
       setToggleCheckBox(value);
@@ -121,6 +124,7 @@ function AddAttendance({
 
   const handleCheckOut = (value) => {
     if (!toggleCheckBox2) {
+      // pause();
       setCheckType("CheckOut");
       if (location !== null) {
         setLat(JSON.stringify(location.coords.latitude));
@@ -226,6 +230,7 @@ function AddAttendance({
           <Ionicons name="location" size={26} color="#023D26" />
         </View>
       </View>
+
       {error && (
         <View style={styles.errorMsg}>
           <AntDesign name="checkcircle" size={24} color="#02A962" />

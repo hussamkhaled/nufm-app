@@ -45,6 +45,7 @@
     "react-native-web": "~0.18.9",
     "react-navigation": "^4.4.4",
     "react-redux": "^8.0.5",
+    "react-timer-hook": "^3.0.7",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "thunk": "^0.0.1"

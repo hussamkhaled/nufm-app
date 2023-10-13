@@ -39,19 +39,35 @@ export default function Header({ link, title, setModal }) {
           <View>
             <Text style={styles.title}>{title}</Text>
           </View>
-          <TouchableOpacity
-          // onPress={() => navigation.navigate(link+"Notification")}
-          >
-            <View>
-              <Ionicons
-                name="notifications-outline"
-                size={width > 700 ? 34 : 26}
-                color="#023D26"
-              />
-            </View>
-          </TouchableOpacity>
+          <View style={styles.prof}>
+            <TouchableOpacity
+            // onPress={() => navigation.navigate(link+"Notification")}
+            >
+              <View>
+                <Ionicons
+                  name="notifications-outline"
+                  size={width > 700 ? 34 : 26}
+                  color="#023D26"
+                />
+              </View>
+            </TouchableOpacity>
+            {link === "Worker/" ? (
+              <TouchableOpacity
+                onPress={() => navigation.navigate(link + "Profile")}
+              >
+                <View style={{ marginLeft: 8 }}>
+                  <Ionicons
+                    name="person-circle-outline"
+                    size={width > 700 ? 34 : 26}
+                    color="#023D26"
+                  />
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
+          </View>
         </View>
-        <View></View>
       </View>
     </SafeAreaView>
   );
@@ -68,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingTop: hp("3%"),
-    paddingHorizontal: "7%",
+    paddingHorizontal: "6%",
     width: "100%",
   },
   container: {
@@ -79,5 +95,10 @@ const styles = StyleSheet.create({
   img: {
     width: 120,
     height: 50,
+  },
+  prof: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });

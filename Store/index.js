@@ -26,3 +26,5 @@ export { default as GetOccupantsR } from "./Reducer/Occupant/GetOccupantsReducer
 export { default as GetSpecializationR } from "./Reducer/Worker/GetSpecializationReducer";
 export { default as AddFacilityOccupantR } from "./Reducer/Facility/AddFacilityOccupantReducer";
 export { default as DeleteOrderR } from "./Reducer/Order/DeleteOrderReducer";
+export { default as GetAllSafetyMaterialR } from "./Reducer/Safety/GetAllSafetyMaterialReducer";
+export { default as UpdateWorkerR } from "./Reducer/Worker/UpdateWorkerReducer";

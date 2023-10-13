@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Dimensions,
-  // ScrollView
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -42,14 +41,23 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
     navigation.navigate(link + "Communication");
     setModal(false);
   };
+  const navToCommWorker = () => {
+    navigation.navigate(link + "CommunicationWorker");
+    setModal(false);
+  };
+
+  const navToCommOcc = () => {
+    navigation.navigate(link + "CommunicationOccupant");
+    setModal(false);
+  };
   const navToIncident = () => {
     navigation.navigate(link + "Incident");
     setModal(false);
   };
-  const navToSupport = () => {
-    navigation.navigate(link + "Support");
-    setModal(false);
-  };
+  // const navToSupport = () => {
+  //   navigation.navigate(link + "Support");
+  //   setModal(false);
+  // };
   const navToRisk = () => {
     navigation.navigate(link + "Risk");
     setModal(false);
@@ -67,35 +75,35 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
       icon: Risk,
       link: navToRisk,
     },
-    {
-      name: "Support",
-      icon: Support,
-      link: navToSupport,
-    },
+    // {
+    //   name: "Support",
+    //   icon: Support,
+    //   link: navToSupport,
+    // },
   ];
 
   const MenuItemsWorker = [
     { name: "Home", icon: Home, link: navToHome },
-    { name: "Communication", icon: Communication, link: navToComm },
+    { name: "Communication", icon: Communication, link: navToCommWorker },
     {
       name: "Risk",
       icon: Risk,
       link: navToRisk,
     },
-    {
-      name: "Support",
-      icon: Support,
-      link: navToSupport,
-    },
+    // {
+    //   name: "Support",
+    //   icon: Support,
+    //   link: navToSupport,
+    // },
   ];
   const MenuItemsOccupant = [
     { name: "Home", icon: Home, link: navToHome },
-    { name: "Communication", icon: Communication, link: navToComm },
-    {
-      name: "Support",
-      icon: Support,
-      link: navToSupport,
-    },
+    { name: "Communication", icon: Communication, link: navToCommOcc },
+    // {
+    //   name: "Support",
+    //   icon: Support,
+    //   link: navToSupport,
+    // },
   ];
   const [adminName, setAdminName] = useState("");
   const fN = async () => {
@@ -137,10 +145,8 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
               <Image source={NUFM} style={styles.img} />
               <Text style={styles.txt}>Welcome, {adminName}</Text>
             </View>
-            {/* <ScrollView> */}
             <View style={styles.flexView}>
               <View>
-                {/* <ScrollView> */}
                 <FlatList
                   keyExtractor={(item) => item.name}
                   data={
@@ -162,7 +168,6 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
                     );
                   }}
                 />
-                {/* </ScrollView> */}
               </View>
               <View style={styles.menuFooter}>
                 <TouchableOpacity style={styles.logout} onPress={handleClick}>
@@ -193,9 +198,7 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
                 </TouchableOpacity>
               </View>
             </View>
-            {/* </ScrollView> */}
           </View>
-          {/* </ScrollView> */}
         </View>
       </TouchableWithoutFeedback>
     </Modal>

@@ -36,6 +36,11 @@ import {
   AddRisk,
   RiskO,
   OrderO,
+  TasksList,
+  Safety,
+  CommunicationWorker,
+  CommunicationOccupant,
+  Profile
 } from "../../Screens";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -187,6 +192,15 @@ export default function LoginNavigation() {
             {(props) => <Risk {...props} link="Worker/" />}
           </Stack.Screen>
 
+          <Stack.Screen name="Worker/Profile">
+            {(props) => <Profile {...props} link="Worker/" />}
+          </Stack.Screen>
+          <Stack.Screen name="Worker/CommunicationWorker">
+            {(props) => <CommunicationWorker {...props} link="Worker/" />}
+          </Stack.Screen>
+          <Stack.Screen name="Worker/Safety">
+            {(props) => <Safety {...props} link="Worker/" />}
+          </Stack.Screen>
           <Stack.Screen name="Worker/Communication">
             {(props) => <Communication {...props} link="Worker/" />}
           </Stack.Screen>
@@ -198,6 +212,9 @@ export default function LoginNavigation() {
           </Stack.Screen>
           <Stack.Screen name="Worker/IncidentsW">
             {(props) => <IncidentsW {...props} link="Worker/" />}
+          </Stack.Screen>
+          <Stack.Screen name="Worker/TasksList">
+            {(props) => <TasksList {...props} link="Worker/" />}
           </Stack.Screen>
           <Stack.Screen name="Worker/AddIncident">
             {(props) => <AddIncidentOW {...props} link="Worker/" />}
@@ -230,6 +247,9 @@ export default function LoginNavigation() {
           </Stack.Screen>
           <Stack.Screen name="Occupant/Risk">
             {(props) => <RiskO {...props} link="Occupant/" />}
+          </Stack.Screen>
+          <Stack.Screen name="Occupant/CommunicationOccupant">
+            {(props) => <CommunicationOccupant {...props} link="Occupant/" />}
           </Stack.Screen>
           <Stack.Screen name="Occupant/AddRisk">
             {(props) => <AddRisk {...props} link="Occupant/" />}
