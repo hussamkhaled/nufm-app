@@ -33,7 +33,7 @@ function GeneralInfo({
 
   useEffect(() => {
     workerInfo();
-    console.log(workerId);
+
   }, []);
 
   return (

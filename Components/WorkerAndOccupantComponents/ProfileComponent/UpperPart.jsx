@@ -17,11 +17,36 @@ import CMenu from "../../../Components/SharedComponents/CMenu";
 import Header from "../../../Components/SharedComponents/Header";
 import Profile from "../../../assets/profile.png";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { connect } from "react-redux";
+import * as UpdateWorkerActionCreator from "../../../Store/ActionCreator/Worker/UpdateWorkerActionCreator.js";
 
 const { width, height } = Dimensions.get("window");
-export default function UpperPart({ link }) {
+ function UpperPart({ link,   getWorkerById,
+  fullName,
+  dob,
+  city,
+  workType,
+  phone,
+  specializations, }) {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [workerId, setworkerId] = useState("");
+  const workerInfo = async () => {
+    try {
+      const id = await AsyncStorage.getItem("email");
+      if (id !== null) {
+        getWorkerById(id);
+      }
+    } catch (e) {
+      alert("Failed to fetch the input from storage");
+    }
+  };
+
+  useEffect(() => {
+    workerInfo();
+
+  }, []);
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -35,12 +60,33 @@ export default function UpperPart({ link }) {
         <TouchableOpacity>
           <Image source={Profile} style={styles.img} />
         </TouchableOpacity>
-        <Text style={styles.name}> John Doe</Text>
-        <Text style={styles.spec}>Driver Cleaner Builder</Text>
+        <Text style={styles.name}>{fullName}</Text>
+        <Text style={styles.spec}>{specializations.map((spec, index)=>{
+            return index !== specializations.length -1 ? spec + ", " : spec;
+          })}</Text>
       </View>
     </View>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    dob: state.UpdateWorkerR.dob,
+    workType: state.UpdateWorkerR.workType,
+    city: state.UpdateWorkerR.city,
+    phone: state.UpdateWorkerR.phone,
+    specializations: state.UpdateWorkerR.specializations,
+    fullName: state.UpdateWorkerR.fullName,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getWorkerById: (eid) =>
+      dispatch(UpdateWorkerActionCreator.getWorkerById(eid)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpperPart) ;
 
 const styles = StyleSheet.create({
   container: {
