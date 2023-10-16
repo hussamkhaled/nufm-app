@@ -17,50 +17,55 @@ import { connect } from "react-redux";
 
 const { width, height } = Dimensions.get("window");
 
-function InProgress({ searchVal }) {
+function InProgress({ searchVal, data }) {
   const [WorkersArr, setWorkersArr] = useState([]);
-//   useEffect(() => {
-//     // getWorkers();
-//     sortedArray();
-//   }, [searchVal]);
-//   const sortedArray = () => {
-//     setWorkersArr(
-//       Workers.filter((cntr) =>
-//         cntr.fullName.toLowerCase().includes(searchVal.toLowerCase())
-//       )
-//     );
-//   };
+  useEffect(()=>{
+    setWorkersArr(data);
+  },[])
+
+  useEffect(() => {
+    sortedArray();
+  }, [searchVal]);
+
+  const sortedArray = () => {
+    // 
+      const filteredData = data.filter((cntr) =>
+        cntr.name.toLowerCase().includes(searchVal.toLowerCase())
+      )
+    // );
+    setWorkersArr(filteredData); 
+  };
 
   return (
     <View style={styles.box}>
       <ScrollView>
         <FlatList
           keyExtractor={(item) => item.email}
-        //   data={WorkersArr && WorkersArr.length > 0 ? WorkersArr : Workers}
+          data={WorkersArr}
           numColumns={1}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
-                onPress={() => {
-                  Linking.openURL(
-                    "http://api.whatsapp.com/send?phone=" + item.phone
-                  );
-                }}
+                // onPress={() => {
+                //   Linking.openURL(
+                //     "http://api.whatsapp.com/send?phone=" + item.phone
+                //   );
+                // }}
               >
-                {/* <View style={styles.workerContainer}>
+                  <View style={styles.workerContainer}>
                   <View style={styles.workerImg}>
-                    <Image source={Avatar} style={styles.img} />
-                    <Text style={styles.txt}> {item.fullName}</Text>
+                    {/* <Image source={Avatar} style={styles.img} /> */}
+                    <Text style={styles.txt}> {item.name}</Text>
                   </View>
                   <View>
                     <Text style={styles.time}>
-                      {item.createdAt.substring(11, 19)}
+                      {item.creationDate.substring(11, 19)}
                     </Text>
                     <Text style={styles.date}>
-                      {item.createdAt.substring(0, 10)}
+                      {item.creationDate.substring(0, 10)}
                     </Text>
                   </View>
-                </View> */}
+                </View>
               </TouchableOpacity>
             );
           }}
@@ -69,19 +74,8 @@ function InProgress({ searchVal }) {
     </View>
   );
 }
-const mapStateToProps = (state) => {
-  return {
-    // Workers: state.GetWorkersR.Workers,
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // getWorkers: () => dispatch(GetWorkersActionCreator.getWorkers()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(InProgress);
+export default InProgress;
 
 const styles = StyleSheet.create({
   box: {

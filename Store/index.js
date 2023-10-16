@@ -28,3 +28,11 @@ export { default as AddFacilityOccupantR } from "./Reducer/Facility/AddFacilityO
 export { default as DeleteOrderR } from "./Reducer/Order/DeleteOrderReducer";
 export { default as GetAllSafetyMaterialR } from "./Reducer/Safety/GetAllSafetyMaterialReducer";
 export { default as UpdateWorkerR } from "./Reducer/Worker/UpdateWorkerReducer";
+export { default as GetAllFacilitiesByUserR } from "./Reducer/Attendance/GetAllFacilitiesByUserId";
+export { default as GetAllTasksByUserR } from "./Reducer/Task/GetTasksByUserReducer";
+export { default as GetIncidentsByUserR } from "./Reducer/Incident/GetAllIncidentByUser";
+export { default as GetAttendanceByUserR } from "./Reducer/Attendance/GetAttendanceByUser";
+
+
+
+

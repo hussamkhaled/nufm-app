@@ -8,17 +8,16 @@ import {
   ActivityIndicator,
   Dimensions,
 } from "react-native";
-import { useStopwatch } from "react-timer-hook";
-import BasicInput from "../../Components/SharedComponents/BasicInput";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import SelectDropdown from "react-native-select-dropdown";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import CheckBox from "expo-checkbox";
 import * as Location from "expo-location";
-import { connect } from "react-redux";
 import * as AddAttendanceActionCreator from "../../Store/ActionCreator/Attendance/AddAttendanceActionCreator";
-import * as GetFacilitiesActionCreator from "../../Store/ActionCreator/Fcaility/GetFacilitiesActionCreator";
-import * as GetTasksActionCreator from "../../Store/ActionCreator/Task/GetTasksActionCreator";
+import * as GetFacilitiesByUserId from "../../Store/ActionCreator/Attendance/GetFacilitiesByUserId";
+import * as GetTasksActionCreator from "../../Store/ActionCreator/Task/GetTasksByUserId";
+import { connect } from "react-redux";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
@@ -40,7 +39,7 @@ function AddAttendance({
   getAllParent,
   parent,
   tasks,
-  getAllTaskInfo,
+  getAllTaskInfoByUserId,
 }) {
   const [semail, setSEmail] = useState("");
   const fN = async () => {
@@ -48,6 +47,8 @@ function AddAttendance({
       const adname = await AsyncStorage.getItem("email");
       if (adname !== null) {
         setSEmail(adname);
+        getFacilities(adname);
+        getAllTaskInfoByUserId(adname);
       }
     } catch (e) {
       alert("Failed to fetch the input from storage");
@@ -56,8 +57,6 @@ function AddAttendance({
 
   useEffect(() => {
     fN();
-    getFacilities();
-    getAllTaskInfo();
     getAttendanceInfo("facility", "");
     getAttendanceInfo("user", "");
     getAttendanceInfo("type", "");
@@ -287,15 +286,17 @@ const mapStateToProps = (state) => {
     lng: state.AddAttendanceR.lng,
     error: state.AddAttendanceR.error,
     loading: state.AddAttendanceR.loading,
-    Facilities: state.GetFacilitiesR.Facilities,
-    tasks: state.GetAllTasksR.tasks,
+    Facilities: state.GetAllFacilitiesByUserR.Facilities,
+    tasks: state.GetAllTasksByUserR.tasks,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFacilities: () => dispatch(GetFacilitiesActionCreator.getFacilities()),
-    getAllTaskInfo: () => dispatch(GetTasksActionCreator.getAllTaskInfo()),
+    getFacilities: (email) =>
+      dispatch(GetFacilitiesByUserId.getFacilitiesByUserId(email)),
+    getAllTaskInfoByUserId: (email) =>
+      dispatch(GetTasksActionCreator.getAllTaskInfoByUserId(email)),
     getAttendanceInfo: (name, value) =>
       dispatch(AddAttendanceActionCreator.getAttendanceInfo(name, value)),
     addAttendance: (facility, user, task, type, lng, lat) =>
