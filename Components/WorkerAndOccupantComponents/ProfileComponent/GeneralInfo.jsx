@@ -22,9 +22,9 @@ function GeneralInfo({
   const [workerId, setworkerId] = useState("");
   const workerInfo = async () => {
     try {
-      const id = await AsyncStorage.getItem("eid");
+      const id = await AsyncStorage.getItem("email");
       if (id !== null) {
-        setworkerId(id);
+        getWorkerById(id);
       }
     } catch (e) {
       alert("Failed to fetch the input from storage");
@@ -42,27 +42,29 @@ function GeneralInfo({
       <View style={styles.card}>
         <View style={styles.txtCont}>
           <Text style={styles.info}> Full Name</Text>
-          <Text style={styles.content}>John Doe</Text>
+          <Text style={styles.content}>{fullName}</Text>
         </View>
         <View style={styles.txtCont}>
           <Text style={styles.info}> City</Text>
-          <Text style={styles.content}>John Doe</Text>
+          <Text style={styles.content}>{city}</Text>
         </View>
         <View style={styles.txtCont}>
           <Text style={styles.info}> Date of Birth</Text>
-          <Text style={styles.content}>John Doe</Text>
+          <Text style={styles.content}>{dob}</Text>
         </View>
         <View style={styles.txtCont}>
-          <Text style={styles.info}> Phone Number</Text>
-          <Text style={styles.content}>John Doe</Text>
+          <Text style={styles.info}> Phone Number </Text>
+          <Text style={styles.content}>{phone}</Text>
         </View>
         <View style={styles.txtCont}>
           <Text style={styles.info}> Work Type</Text>
-          <Text style={styles.content}>John Doe</Text>
+          <Text style={styles.content}>{workType}</Text>
         </View>
         <View style={styles.txtCont}>
-          <Text style={styles.info}> Specializations</Text>
-          <Text style={styles.content}>John Doe</Text>
+          <Text style={styles.info}> Specializations </Text>
+          <Text style={styles.content}>{specializations.map((spec, index)=>{
+            return index !== specializations.length -1 ? spec + ", " : spec;
+          })}</Text>
         </View>
       </View>
     </View>
