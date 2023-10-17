@@ -42,7 +42,7 @@ import {
   CommunicationOccupant,
   Profile,
   IncidentListW,
-  IncidentDW
+  IncidentDW,
 } from "../../Screens";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -213,7 +213,7 @@ export default function LoginNavigation() {
             {(props) => <Sender {...props} link="Worker/" />}
           </Stack.Screen>
           <Stack.Screen name="Worker/IncidentsW">
-            {(props) => <IncidentW {...props} link="Worker/" />}
+            {(props) => <IncidentListW {...props} link="Worker/" />}
           </Stack.Screen>
           <Stack.Screen name="Worker/TasksList">
             {(props) => <TasksList {...props} link="Worker/" />}

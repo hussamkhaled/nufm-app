@@ -4,14 +4,16 @@ import {
   Text,
   View,
   TextInput,
+  TouchableOpacity,
   Dimensions,
 } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
-import { EvilIcons } from "@expo/vector-icons";
+import { EvilIcons, MaterialIcons } from "@expo/vector-icons";
 import CMenu from "../../../Components/SharedComponents/CMenu";
 import Header from "../../../Components/SharedComponents/Header";
 import IncidentList from "../../../Components/WorkerAndOccupantComponents/Incident/IncidentListWorker";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   widthPercentageToDP as wp,
@@ -19,7 +21,9 @@ import {
 } from "react-native-responsive-screen";
 
 const { width, height } = Dimensions.get("window");
-export default function Incident({ link }) {
+export default function IncidentsW({ link }) {
+  const navigation = useNavigation();
+
   const handleChange = (searchVal) => {
     setSearchVal(searchVal);
   };
@@ -38,17 +42,37 @@ export default function Incident({ link }) {
       <Header link={link} title="Incident" setModal={setModalVisible} />
       <View style={styles.boxContainer}>
         <View style={styles.listBox}>
-          <View style={styles.container}>
-            <View style={styles.searchSection}>
-              <View style={styles.searchIcon}>
-                <EvilIcons name="search" size={24} color="#B7B6B6" />
+          <View
+            style={{
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexDirection: "row",
+              marginBottom: "2%",
+            }}
+          >
+            <View style={styles.container}>
+              <View style={styles.searchSection}>
+                <View style={styles.searchIcon}>
+                  <EvilIcons name="search" size={24} color="#B7B6B6" />
+                </View>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Search"
+                  onChangeText={handleChange}
+                />
               </View>
-              <TextInput
-                style={styles.input}
-                placeholder="Search"
-                onChangeText={handleChange}
-              />
             </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(link + "AddIncident")}
+            >
+              <View>
+                <MaterialIcons
+                  name="add-box"
+                  size={width > 650 ? 44 : 40}
+                  color="#309694"
+                />
+              </View>
+            </TouchableOpacity>
           </View>
 
           <IncidentList link={link} searchVal={searchVal} />
@@ -86,10 +110,9 @@ const styles = StyleSheet.create({
     fontSize: width > 650 ? RFPercentage(1.8) : RFPercentage(1.5),
   },
   container: {
-    width: width > 600 ? "50%" : "85%",
-    marginLeft: width > 600 ? "2.5%" : "7%",
+    width: width > 600 ? "50%" : "75%",
+    marginLeft: width > 600 ? "2.5%" : "5%",
     backgroundColor: "#fff",
-    marginBottom:"2%"
   },
   searchSection: {
     flexDirection: "row",

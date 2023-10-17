@@ -18,8 +18,8 @@ import DatePickerIOS from "../../SharedComponents/DatePickerIOS";
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 import * as AddIncidentActionCreator from "../../../Store/ActionCreator/Incident/AddIncidentActionCreator";
-import * as GetFacilitiesActionCreator from "../../../Store/ActionCreator/Fcaility/GetFacilitiesActionCreator";
-import * as GetTasksActionCreator from "../../../Store/ActionCreator/Task/GetTasksActionCreator";
+import * as GetFacilitiesByUserId from "../../../Store/ActionCreator/Attendance/GetFacilitiesByUserId";
+import * as GetTasksActionCreator from "../../../Store/ActionCreator/Task/GetTasksByUserId";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
@@ -42,12 +42,12 @@ function AddIncident({
   Facilities,
   getFacilities,
   tasks,
-  getAllTaskInfo,
+  getAllTaskInfoByUserId
 }) {
   useEffect(() => {
     fN();
-    getFacilities();
-    getAllTaskInfo();
+    // getFacilities();
+    // getAllTaskInfo();
     getIncidentInfo("facilityId", "");
     getIncidentInfo("taskId", "");
     getIncidentInfo("date", "");
@@ -63,6 +63,8 @@ function AddIncident({
       const adname = await AsyncStorage.getItem("email");
       if (adname !== null) {
         setSEmail(adname);
+        getFacilities(adname);
+        getAllTaskInfoByUserId(adname);
       }
     } catch (e) {
       alert("Failed to fetch the input from storage");
@@ -283,15 +285,16 @@ const mapStateToProps = (state) => {
     comment: state.AddIncidentR.comment,
     error: state.AddIncidentR.error,
     loading: state.AddIncidentR.loading,
-    Facilities: state.GetFacilitiesR.Facilities,
-    tasks: state.GetAllTasksR.tasks,
+    Facilities: state.GetAllFacilitiesByUserR.Facilities,
+    tasks: state.GetAllTasksByUserR.tasks,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getFacilities: () => dispatch(GetFacilitiesActionCreator.getFacilities()),
-    getAllTaskInfo: () => dispatch(GetTasksActionCreator.getAllTaskInfo()),
+    getFacilities: (email) => dispatch(GetFacilitiesByUserId.getFacilitiesByUserId(email)),
+    getAllTaskInfoByUserId: (email) =>
+      dispatch(GetTasksActionCreator.getAllTaskInfoByUserId(email)),
     getIncidentInfo: (name, value) =>
       dispatch(AddIncidentActionCreator.getIncidentInfo(name, value)),
     addIncident: (

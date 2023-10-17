@@ -35,6 +35,7 @@ function Incidents({
     try {
       const id = await AsyncStorage.getItem("email");
       if (id !== null) {
+        setworkerId(id);
         getIncidentsByUser(id);
       }
     } catch (e) {
@@ -49,7 +50,7 @@ function Incidents({
   const navigation = useNavigation();
   const [IncidentArr, setIncidentArr] = useState([]);
   useEffect(() => {
-    getIncidents();
+    getIncidentsByUser(workerId);
     sortedArray();
   }, [searchVal]);
 
@@ -60,7 +61,7 @@ function Incidents({
   }, [Incidents]);
 
   const onLoadFunc = () => {
-    getIncidents();
+    getIncidentsByUser(workerId);
   };
 
   useFocusEffect(
@@ -79,7 +80,7 @@ function Incidents({
   useEffect(() => {
     if (deleteInc) {
       deleteIncidentInfo("deleteInc", false);
-      getIncidents();
+      getIncidentsByUser(workerId);
     }
   }, [deleteInc]);
 
@@ -133,7 +134,7 @@ function Incidents({
 
 const mapStateToProps = (state) => {
   return {
-    Incidents: state.GetIncidentsR.Incidents,
+    Incidents: state.GetIncidentsByUserR.Incidents,
     error: state.GetIncidentsR.error,
     deleteInc: state.DeleteIncidentR.deleteInc,
     eid: state.DeleteIncidentR.eid,
