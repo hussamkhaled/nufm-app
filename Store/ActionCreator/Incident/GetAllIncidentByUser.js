@@ -4,8 +4,6 @@ import { server, privatePath } from "../Constants";
 
 export const getIncidentsByUser = (email) => {
   return (dispatch) => {
-    // dispatch(getIncidentsStart());
-    // var token = "Bearer " + localStorage.getItem("nufmtoken");
     var link = server + privatePath + "/incidentsByUser?email="+email;
     axios
       .get(link, {
@@ -20,19 +18,6 @@ export const getIncidentsByUser = (email) => {
   
   };
 };
-
-// export const getIncidentsStart = () => {
-//   return {
-//     type: actionTypes.GetIncidents.GET_INCIDENTS_START,
-//   };
-// };
-
-// export const getIncidentsFail = (err) => {
-//   return {
-//     type: actionTypes.GetIncidents.GET_INCIDENTS_FAIL,
-//     error: err,
-//   };
-// };
 
 export const getIncidentsByUserEnd = (data) => {
   return {

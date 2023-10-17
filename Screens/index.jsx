@@ -32,6 +32,8 @@ export { default as TasksList } from "./WorkerScreens/Tasks/Tasks";
 export { default as Safety } from "./WorkerScreens/Safety/SafetyScreen";
 export { default as CommunicationWorker } from "./WorkerScreens/CommunicationWorker";
 export { default as Profile } from "./WorkerScreens/Profile";
+export { default as IncidentListW } from "./WorkerScreens/Incident/IncidentWorker";
+export { default as IncidentDW } from "./WorkerScreens/Incident/IncidentDetWorker";
 //Occupant
 export { default as OccupantHome } from "./OccupantScreens/OccupantHome";
 export { default as RiskO } from "./OccupantScreens/Risk/RiskO";
