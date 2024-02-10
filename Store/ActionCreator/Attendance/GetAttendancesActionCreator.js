@@ -9,12 +9,14 @@ export const getAttendances = () => {
     var link = server + privatePath + "/attendances";
     axios
       .get(link, {
-        headers: {/*'Authorization': token,*/},})
+        headers: {
+          /*'Authorization': token,*/
+        },
+      })
       .then((res) => {
         dispatch(getAttendancesEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getAttendancesFail(err));
       });
   };

@@ -25,7 +25,7 @@ const AddIncidentR = (state = initialState, action) => {
       return { ...state, loading: true };
 
     case actionTypes.AddIncident.ADD_INCIDENT_END:
-      return { ...state, loading: false, error: "Added Successfully" };
+      return { ...state, loading: false, error: "Sent Successfully" };
 
     case actionTypes.AddIncident.ADD_INCIDENT_FAIL:
       return { ...state, loading: false };

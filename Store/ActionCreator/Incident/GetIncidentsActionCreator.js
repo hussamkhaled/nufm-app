@@ -14,7 +14,6 @@ export const getIncidents = () => {
         dispatch(getIncidentsEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getIncidentsFail(err));
       });
 

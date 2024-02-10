@@ -13,7 +13,7 @@ export const deleteRiskInfo = (name, value) => {
 export const deleteRisk = (eid) => {
   return (dispatch) => {
     // var token = 'Bearer '+localStorage.getItem('nufmtoken');
-    var link = server + privatePath + "/risk/delete/" + eid;
+    var link = server + privatePath + "/risk/delete?risk=" + eid;
 
     axios
       .delete(link, {

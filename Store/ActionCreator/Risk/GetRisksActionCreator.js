@@ -14,7 +14,6 @@ export const getRisks = () => {
         dispatch(getRisksEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getRisksFail(err));
       });
 

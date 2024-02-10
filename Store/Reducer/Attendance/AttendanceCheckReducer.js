@@ -27,7 +27,7 @@ const GetCheckByIdR = (state = initialState, action) => {
         loading: false,
       };
 
-    case actionTypes.GetCheckById.GET_CHECK_BY_ID_END:
+    case actionTypes.GetCheckById.GET_CHECK_BY_ID_FAIL:
       return { ...state, error: action.error };
     default:
       return state;

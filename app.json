@@ -2,13 +2,14 @@
   "expo": {
     "name": "NuFm_Mobile",
     "slug": "NuFm_Mobile",
-    "version": "1.0.0",
+    "description": "nufm mobile app",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/grlogo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/NUFM-Green.png",
+      "resizeMode": "center",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -18,16 +19,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.avh.nufm"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.hussam_khaled.NuFm_Mobile"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e24e52ff-4283-4ce8-98c9-22d327a2a730"
+      }
     }
   }
 }

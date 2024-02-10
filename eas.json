@@ -1,0 +1,35 @@
+{
+  "cli": {
+    "version": ">= 3.8.1",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    },
+    "production": {
+      "ios": {
+        "resourceClass": "m-medium"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios":{
+        "appleId":"pascal.esper@anchor-vh.com",
+        "ascAppId":"6446584670",
+        "appleTeamId":"JN9Z8SPR26"
+      }
+    }
+  }
+}

@@ -4,8 +4,9 @@ import { server, privatePath } from "../Constants";
 
 export const getCheckById = (eid) => {
   return (dispatch) => {
+   
     // var token = "Bearer " + localStorage.getItem("nufmtoken"); 
-    var link = server + privatePath + "/attendanceById/" + eid;
+    var link = server + privatePath + "/attendanceById?attendance=" + eid;
 
     axios
       .get(link, {
@@ -35,7 +36,7 @@ export const getCheckByIdEnd = (data) => {
 
 export const getCheckByIdFail = (err) => {
   return {
-    type: actionTypes.GetCheckById.GET_CHECK_BY_ID_END,
+    type: actionTypes.GetCheckById.GET_CHECK_BY_ID_FAIL,
     error: err,
   };
 };

@@ -14,7 +14,6 @@ export const getWorkers = () => {
         dispatch(getWorkersEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getWorkersFail(err));
       });
   };

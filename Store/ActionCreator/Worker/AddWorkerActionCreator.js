@@ -15,19 +15,20 @@ export const addWorker = (
   fullName,
   phone,
   specializations,
-  street,
-  address,
-  facilityId,
-  department,
-  city,
-  dob,
-  jobTitle,
-  startDate,
-  workType,
-  zipCode,
-  linkBack,
-  certification,
-  profileImage,
+  facilityId
+  // street,
+  // address,
+  // facilityId,
+  // department,
+  // city,
+  // dob,
+  // jobTitle,
+  // startDate,
+  // workType,
+  // zipCode,
+  // linkBack,
+  // certification,
+  // profileImage,
 ) => {
   return (dispatch) => {
     dispatch(addWorkerStart());
@@ -39,28 +40,28 @@ export const addWorker = (
       "fullName": fullName,
       "specializations": specializations,
       "phone": phone,
-      "street": street,
-      "address": address,
+      "street": "",
+      "address": "",
       "facilityId": facilityId,
-      "department":department,
-      "city": city,
-      "dob": dob,
-      "jobTitle": jobTitle,
-      "startDate": startDate,
-      "workType": workType,
-      "zipCode":zipCode,
-      "linkBack": linkBack
+      "department":"",
+      "city": "",
+      "dob": null,
+      "jobTitle": "",
+      "startDate": "",
+      "workType": "",
+      "zipCode":"",
+      "linkBack": ""
     });
     fd.append("data", data);
-    fd.append("profileImage", profileImage);
-    fd.append("certification", certification);
+    fd.append("profileImage", null);
+    fd.append("certification", null);
 
-    var link = server + "/avh/nufm/v1/private/worker/add";
+    var link = server + privatePath+"/worker/add";
     axios({
       method: "post",
       url: link,
       data: fd,
-      headers :{ 'Authorization': token, "Content-Type": "multipart/form-data" ,} ,
+      headers :{ /*'Authorization': token,*/ "Content-Type": "multipart/form-data" ,} ,
     })
       .then((res) => {
         if (res.data.message === "expectation failed") {
@@ -70,7 +71,6 @@ export const addWorker = (
         }
       })
       .catch((err) => {
-        console.log(err)
         dispatch(addWorkerFail(err));
       });
   };

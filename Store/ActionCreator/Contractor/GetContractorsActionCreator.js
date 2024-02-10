@@ -19,7 +19,6 @@ export const getContractors = () => {
         dispatch(getContractorsEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getContractorsFail(err));
       });
   };
