@@ -7,31 +7,44 @@ const initialState = {
   checkOut: "",
   status: "",
   task: "",
-  eid: "",
+  id: "",
+  email:"",
   error: "",
   loading: false,
+  attendData:""
 };
 
 const GetCheckByIdR = (state = initialState, action) => {
   switch (action.type) {
+
+    case actionTypes.GetCheckById.ADD_ATTENDANCE:
+      return { ...state, [action.name]: action.value };
+
     case actionTypes.GetCheckById.GET_CHECK_BY_ID_END:
+      console.log(action.data+ "dllll");
       return {
         ...state,
-        checkIn: action.data.checkIn,
-        checkOut: action.data.checkOut,
-        user: action.data.user,
-        facility: action.data.facility,
-        status: action.data.status,
-        task: action.data.task,
-        eid: action.data.eid,
+   
+        user: action.data,
+     
         loading: false,
       };
 
-    case actionTypes.GetCheckById.GET_CHECK_BY_ID_END:
+    case actionTypes.GetCheckById.GET_CHECK_BY_ID_FAIL:
       return { ...state, error: action.error };
+      case actionTypes.GetCheckById.GET_ATTEND_BY_ID_END:
+        return {
+          ...state,
+     
+          facility: action.data,
+       
+          loading: false,
+        };
+  
+      case actionTypes.GetCheckById.GET_ATTEND_BY_ID_FAIL:
+        return { ...state, error: action.error };
     default:
       return state;
   }
 };
-
 export default GetCheckByIdR;

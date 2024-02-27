@@ -13,7 +13,6 @@ export const getSpecialization = () => {
 
        axios.get(link,{headers: {/*'Authorization': token,*/}})
             .then(res=>{
-
                 dispatch(getSpecializationEnd(res.data));                
             }).catch(err => {
                 dispatch(getSpecializationFail(err));

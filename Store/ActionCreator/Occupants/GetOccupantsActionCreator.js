@@ -14,7 +14,6 @@ export const getOccupants = () => {
         dispatch(getOccupantsEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getOccupantsFail(err));
       });
 

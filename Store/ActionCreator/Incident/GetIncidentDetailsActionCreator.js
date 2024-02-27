@@ -5,7 +5,7 @@ import { server, privatePath } from "../Constants";
 export const getIncidentDetails = (eid) => {
   return (dispatch) => {
     // var token = "Bearer " + localStorage.getItem("nufmtoken");
-    var link = server + privatePath + "/incidentById/" + eid;
+    var link = server + privatePath + "/incidentById?incident=" + eid;
 
     axios
       .get(link, {

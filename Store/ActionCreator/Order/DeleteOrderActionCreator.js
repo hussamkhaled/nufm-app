@@ -14,7 +14,6 @@ export const deleteOrder = (eid) => {
   return (dispatch) => {
     // var token = 'Bearer '+localStorage.getItem('nufmtoken');
     var link = server + privatePath + "/order/delete/" + eid;
-
     axios
       .delete(link, {
         headers: {

@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "../../Actions/Actions";
-import { server } from "../Constants";
+import { server, privatePath } from "../Constants";
 
 export const getFacilityOccupantInfo = (name, value) => {
   return {
@@ -17,7 +17,6 @@ phone,
 notes,
 landline,
 jobTitle,
-profileImage,
 eid
 ) => {
   return (dispatch) => {
@@ -32,10 +31,9 @@ eid
       "jobTitle":jobTitle
     });
     fd.append("occupantData", occupantData);
-    fd.append("profileImage", profileImage);
+    fd.append("profileImage", null);
     fd.append("facility", eid);
 
-    console.log(occupantData)
     // var token = 'Bearer '+localStorage.getItem('nufmtoken');
     var link = server +  privatePath + "/facility/addOccupant";
     axios
@@ -43,10 +41,9 @@ eid
         method: "post",
         url: link,
         data: fd,
-        headers: { "Content-Type": "multipart/form-data", 'Authorization': token },
+        headers: { "Content-Type": "multipart/form-data", /*'Authorization': token */},
       })
       .then((res) => {
-
         if (res.data.message === "facility name  already exists") {
           dispatch(addFacilityOccupantFail("facility name  already exists"));
         } else if (res.data.message === "the facility name cannot be null") {
@@ -56,7 +53,6 @@ eid
         }
       })
       .catch((err) => {
-       console.log(err)
         dispatch(addFacilityOccupantFail(err));
       });
   };

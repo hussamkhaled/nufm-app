@@ -25,7 +25,7 @@ export const addAttendance = (facility , user,task,type,lng,lat) => {
       "lat":lat,
     }
 
-    var link = server +  privatePath + "/attendance/add";
+    var link = server +  privatePath + "/attendance";
     axios.post(link,params,{headers :{ /*'Authorization': token,*/ "Content-Type": "application/json" ,} ,})
       .then((res) => {
         if (res.data.message === "expectation failed") {

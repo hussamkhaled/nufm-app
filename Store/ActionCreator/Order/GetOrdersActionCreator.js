@@ -14,7 +14,6 @@ export const getOrders = () => {
         dispatch(getOrdersEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getOrdersFail(err));
       });
 

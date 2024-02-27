@@ -39,24 +39,20 @@ export const addFacility = (
       "post_code": post_code,
       "description": description,
     });
-    fd.append("facilityDoc", docs);
+    fd.append("facilityDoc", null);
     fd.append("facilityData", facilityData);
     fd.append("facilityPrimaryEmail", JSON.stringify(primaryEmail));
     fd.append("facilityWorkSchedule", JSON.stringify(workSchedule));
-    console.log(facilityData)
-    console.log(primaryEmail)
-    console.log(workSchedule);
     // var token = 'Bearer '+localStorage.getItem('nufmtoken');
-    var link = server + "/avh/nufm/v1/private/facility/add";
+    var link = server + privatePath+"/facility/add";
     axios
       ({
         method: "post",
         url: link,
         data: fd,
-        headers: { "Content-Type": "multipart/form-data", 'Authorization': token },
+        headers: { "Content-Type": "multipart/form-data", /*'Authorization': token*/ },
       })
       .then((res) => {
-
         if (res.data.message === "facility name  already exists") {
           dispatch(addFacilityFail("facility name  already exists"));
         } else if (res.data.message === "the facility name cannot be null") {
@@ -66,7 +62,6 @@ export const addFacility = (
         }
       })
       .catch((err) => {
-       console.log(err)
         dispatch(addFacilityFail(err));
       });
   };

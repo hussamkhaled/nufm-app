@@ -6,15 +6,15 @@ export const getFacilities = () => {
   return (dispatch) => {
     dispatch(getFacilitiesStart());
     // var token = "Bearer " + localStorage.getItem("nufmtoken");
-    var link = server + privatePath + "/Facilities";
+    var link = server + privatePath + "/facilities";
     axios
       .get(link, {
         headers: {/*'Authorization': token,*/},})
       .then((res) => {
         dispatch(getFacilitiesEnd(res.data));
+    
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getFacilitiesFail(err));
       });
 

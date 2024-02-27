@@ -6,15 +6,18 @@ export const getAttendances = () => {
   return (dispatch) => {
     dispatch(getAttendancesStart());
     // var token = "Bearer " + localStorage.getItem("nufmtoken");
-    var link = server + privatePath + "/attendances";
+    var link = server + '/avh/nufm/v1/public/attendance/facilities';
     axios
       .get(link, {
-        headers: {/*'Authorization': token,*/},})
+        headers: {
+          /*'Authorization': token,*/
+        },
+      })
       .then((res) => {
         dispatch(getAttendancesEnd(res.data));
+        console.log(res.data)
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getAttendancesFail(err));
       });
   };

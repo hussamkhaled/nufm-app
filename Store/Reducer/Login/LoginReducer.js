@@ -20,7 +20,7 @@ const LoginR = (state = initialState, action) => {
       return { ...state, [action.name]: action.value };
 
     case actionTypes.Login.LOGIN_START:
-      return { ...state, loading: true };
+      return { ...state, /*loading: true*/ };
 
     case actionTypes.Login.LOGIN_END:
       return {
@@ -32,7 +32,7 @@ const LoginR = (state = initialState, action) => {
         profileImage: action.userData.profileImage,
         phone: action.userData.phone,
         creationDate: action.userData.creationDate,
-        loading: false,
+        /*loading: false,*/
       };
 
     case actionTypes.Login.LOGIN_FAIL:
