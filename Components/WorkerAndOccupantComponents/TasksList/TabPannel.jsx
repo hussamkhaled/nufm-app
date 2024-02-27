@@ -80,17 +80,17 @@ const TabPannel = ({ searchVal, getAllTaskInfoByUserId, tasks }) => {
             children={() => (
               <InProgress
                 searchVal={searchVal}
-                data={tasks.filter((item) => item.status === "InProgress")}
+                data={tasks.filter((item) => item.status === "Inprogress")}
               />
             )}
           />
 
           <Tab.Screen
-            name="Completed"
+            name="Done"
             children={() => (
               <Completed
                 searchVal={searchVal}
-                data={tasks.filter((item) => item.status === "Completed")}
+                data={tasks.filter((item) => item.status === "Done")}
               />
             )}
           />

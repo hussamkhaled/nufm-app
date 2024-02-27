@@ -129,5 +129,7 @@ const styles = StyleSheet.create({
   content: {
     color: "#595959",
     fontSize: width > 700 ? RFPercentage(2) : RFPercentage(1.9),
+    textAlign: "left",
+    width: "50%"
   },
 });

@@ -3,7 +3,7 @@
     "name": "NuFm_Mobile",
     "slug": "NuFm_Mobile",
     "description": "nufm mobile app",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "orientation": "portrait",
     "icon": "./assets/grlogo.png",
     "userInterfaceStyle": "light",
@@ -23,11 +23,13 @@
       "bundleIdentifier": "com.avh.nufm"
     },
     "android": {
+      "package": "com.avh.nufm",
+      "versionCode": 5,
+
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.hussam_khaled.NuFm_Mobile"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,6 +38,20 @@
       "eas": {
         "projectId": "e24e52ff-4283-4ce8-98c9-22d327a2a730"
       }
-    }
+    },
+    "plugins": [
+      [
+      "expo-build-properties",
+      {
+        "android": {
+          "compileSdkVersion": 33,
+          "targetSdkVersion": 33,
+          "buildToolsVersion": "33.0.0",
+          "minSdkVersion": 33
+
+        }
+      }
+    ]
+    ]
   }
 }

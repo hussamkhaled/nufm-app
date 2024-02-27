@@ -1,35 +1,18 @@
 {
   "cli": {
-    "version": ">= 3.8.1",
-    "appVersionSource": "remote"
+    "version": ">= 5.6.0"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-medium"
-      }
+      "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
-      "ios": {
-        "resourceClass": "m-medium"
-      }
+      "distribution": "internal"
     },
-    "production": {
-      "ios": {
-        "resourceClass": "m-medium"
-      }
-    }
+    "production": {}
   },
   "submit": {
-    "production": {
-      "ios":{
-        "appleId":"pascal.esper@anchor-vh.com",
-        "ascAppId":"6446584670",
-        "appleTeamId":"JN9Z8SPR26"
-      }
-    }
+    "production": {}
   }
 }
