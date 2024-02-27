@@ -44,9 +44,9 @@ export default function Home({ link }) {
     { name: "Facility Management", icon: Facility, link: navToFac },
     { name: "Worker Management", icon: Worker, link: navToWorker },
     { name: "Attendance Management", icon: Attendance, link: navToAtt },
-  
+    // { name: "Inspections ", icon: Inspection, link: navToInspection },
   ];
-{/*  { name: "Inspections ", icon: Inspection, link: navToInspection }, */}
+
   useEffect(() => {
     function handleBackButton() {
       navigation.navigate("Home");

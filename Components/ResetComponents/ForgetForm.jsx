@@ -4,6 +4,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import React, { useState, useEffect } from "react";
 import BasicInput from "../SharedComponents/BasicInput";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonText }) {
 
 
@@ -11,12 +12,29 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
   const onLoadFunc = () => {
   
     getForgetInfo("getForgetInfo", "");
+    // getForgetInfo('forgemail', "");
+    getForgetInfo('buttonText', "Reset");
+// console.log(loading)
+  };
 
+  const [semail, setSEmail] = useState("");
+  const fN = async () => {
+    try {
+      const adname = await AsyncStorage.getItem("email");
+      if (adname !== null) {
+        setSEmail(adname);
+    getForgetInfo('forgemail', adname);
+       
+      }
+    } catch (e) {
+      alert("Failed to fetch the input from storage");
+    }
   };
 
   useFocusEffect(
     React.useCallback(() => {
       onLoadFunc();
+      fN();
     }, [])
   );
 
@@ -27,6 +45,8 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
   };
 
   const handleClick = () => {
+    getForgetInfo('buttonText', "Resetting");
+
     submitForget(forgemail);
   };
   
@@ -34,13 +54,13 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
   return (
     <View style={styles.container}>
       <View style={styles.resetCont}>
-        <Text style={styles.reset}>Forget Password</Text>
+        <Text style={styles.reset}>Reset Password</Text>
       </View>
 
       <View style={styles.inputs}>
         <BasicInput label="Email" 
       
-          onChangeText={(value) => handleChange(value)}
+          // onChangeText={(value) => handleChange(value)}
         
          keyboardType="default"
          value={forgemail}
@@ -49,7 +69,7 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
       </View>
 
       <>
-      {!loading ? (
+      {loading ? (
         <TouchableOpacity
           style={{  backgroundColor: "#023D26",color:"white", width:"50%",height:40,borderRadius:10
         ,justifyContent:"center",alignItems:"center",textAlign:"center"}}

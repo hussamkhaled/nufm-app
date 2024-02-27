@@ -5,7 +5,6 @@ import { server , privatePath}from '../Constants'
 //---------------------Worker Id ----------------------
 
 export const updateWorkerInfo = (name, value) => {
-  console.log(name+"sss"+value+"uuu");
     return {
       type: actionTypes.UpdateWorker.UPDATEWORKER,
       name: name,
@@ -38,7 +37,6 @@ export const updateWorkerInfo = (name, value) => {
     policeExpDate
   ) => {
     return (dispatch) => {
-      console.log(fullName+"aaa");
       dispatch(updateWorkerStart());
   
       var fd = new FormData();
@@ -69,7 +67,7 @@ export const updateWorkerInfo = (name, value) => {
       fd.append("certification", certification);
       fd.append("workerId", eid);
   
-      var token = "Bearer " + localStorage.getItem("nufmtoken");
+      // var token = "Bearer " + localStorage.getItem("nufmtoken");
   
   
       var link = server + privatePath + "/worker/update";
@@ -125,7 +123,6 @@ export const getWorkerById = (eid) =>{
             
            axios.get(link,{headers: {/*'Authorization': token,*/}})
                 .then(res=>{
-                        console.log(res.data)
                         dispatch(getWorkerByIdEnd(res.data));            
                 }).catch(err => {
                     dispatch(getWorkerByIdFail(err));

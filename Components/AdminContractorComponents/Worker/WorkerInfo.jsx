@@ -41,7 +41,7 @@ function GeneralInfo({
       setattend(id);
       getAllDoneTasks(id);
       getWorkerById(id);
-      console.log(attend + "dwdw");
+      // console.log(attend + "dwdw");
     }, [id]);
     
 

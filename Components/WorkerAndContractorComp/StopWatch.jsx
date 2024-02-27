@@ -33,6 +33,7 @@ function StopWatch({ getAttendanceByUser, Attendances }) {
         getAttendanceByUser(adname);
       }
     } catch (e) {
+     
       alert("Failed to fetch the input from storage");
     }
   };
@@ -123,7 +124,6 @@ function StopWatch({ getAttendanceByUser, Attendances }) {
     ) {
       setInitDate(Attendances.checkIn.date);
       const diffDate = (new Date() - new Date(Attendances.checkIn.date)) / 1000;
-      console.log(diffDate);
       setElapsedSeconds(diffDate);
       setLoading(false);
       start();

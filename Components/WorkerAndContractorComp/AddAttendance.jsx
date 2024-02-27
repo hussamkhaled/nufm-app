@@ -44,6 +44,7 @@ function AddAttendance({
   getAllTaskInfoByUserId,
 }) {
   const [semail, setSEmail] = useState("");
+  const [Tasks, setTasks] = useState("");
   const fN = async () => {
     try {
       const adname = await AsyncStorage.getItem("email");
@@ -69,7 +70,15 @@ function AddAttendance({
   }, []);
 
   const siteName = Facilities.map((fn) => fn.name);
-  const Tasks = tasks.map((wr) => wr.name);
+  // const Tasks = tasks.map((wr) => wr.name);
+
+  useEffect(()=>{
+    if(facility.length > 0){
+      const ttt = tasks.filter(t=>t.facilityId === facility);
+      // console.log(ttt.map((wr) => wr.name))
+      setTasks(ttt.map((wr) => wr.name))
+    }
+  },[facility])
 
   const handleOnChange = (value, name) => {
     getAttendanceInfo(name, value);
@@ -179,7 +188,7 @@ function AddAttendance({
           />
         </View>
 
-        <View style={styles.subCont}>
+        {Tasks.length > 0 &&<View style={styles.subCont}>
           <View>
             <Text style={styles.label}>Task</Text>
           </View>
@@ -206,6 +215,7 @@ function AddAttendance({
             value={task}
           />
         </View>
+}
       </View>
       <View style={styles.checkboxes}>
         <View style={styles.checkAlign}>

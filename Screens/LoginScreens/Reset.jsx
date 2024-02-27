@@ -12,7 +12,6 @@ function Reset({ submitSet, getForgetInfo,emailS, pwd, loadingReset, buttonReset
 
 
 
-  console.log(token);
   return (
     <View style={styles.container}>
       <ScrollView>

@@ -39,7 +39,6 @@ export const addWorker = (
   // profileImage,
 ) => {
   return (dispatch) => {
-    console.log(fullName+specializations+facilityId+email+phone+wwcc+wwccExpDate+police+policeExpDate);
     dispatch(addWorkerStart());
    
     // var token = 'Bearer '+localStorage.getItem('nufmtoken');
@@ -82,7 +81,6 @@ export const addWorker = (
           dispatch(addWorkerFail("expectation failed"));
         } else {
           dispatch(addWorkerEnd(res.data));
-          console.log(res.data)
         }
       })
       .catch((err) => {

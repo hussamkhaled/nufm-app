@@ -4,7 +4,6 @@ import { server, privatePath } from "../Constants";
 
 
 export const getAttendanceInfo = (name, value) => {
-  console.log(name +"aaa"+value+"vvv");
   return {
     type: actionTypes.GetCheckById.ADD_ATTENDANCE,
     name: name,
@@ -13,12 +12,10 @@ export const getAttendanceInfo = (name, value) => {
 };
 
 export const getCheckById = (id) => {
-  console.log(id);
   return (dispatch) => {
 
     // var token = "Bearer " + localStorage.getItem("nufmtoken"); 
     var link = server + "/avh/nufm/v1/public/attendance/workers?facility=" + id;
-    console.log(id +"dataa2");
     axios
       .get(link, {
         headers: {
@@ -30,12 +27,10 @@ export const getCheckById = (id) => {
       
     
           dispatch(getCheckByIdEnd(res.data));
-          console.log(res.data +"dataa");
         }
       )
       .catch((err) => {
         dispatch(getCheckByIdFail(err));
-        console.log(err + "error")
       });
   };
 };
@@ -57,7 +52,7 @@ export const getCheckByIdFail = (err) => {
 export const getAttend = (id, email) => {
   return (dispatch) => {
 
-    var token = "Bearer " + localStorage.getItem("nufmtoken");
+    // var token = "Bearer " + localStorage.getItem("nufmtoken");
     var link = `${server}/avh/nufm/v1/public/attendance/workerFacility?facility=${encodeURIComponent(id)}&email=${encodeURIComponent(email)}`;
     axios
       .get(link, {
@@ -69,7 +64,6 @@ export const getAttend = (id, email) => {
 
        
           dispatch(getAttendByIdEnd(res.data));
-          console.log(res.data +"kkk")
         
       })
       .catch((err) => {

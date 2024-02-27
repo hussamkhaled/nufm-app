@@ -27,7 +27,6 @@ export const submitForget = (forgemail) => {
                 dispatch(ForgetEnd(res.data));
 
           
-               console.log(res.data);     
             }).catch(err => {
 
                 dispatch(ForgetFail(err));

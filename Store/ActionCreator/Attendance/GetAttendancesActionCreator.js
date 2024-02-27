@@ -15,7 +15,6 @@ export const getAttendances = () => {
       })
       .then((res) => {
         dispatch(getAttendancesEnd(res.data));
-        console.log(res.data)
       })
       .catch((err) => {
         dispatch(getAttendancesFail(err));

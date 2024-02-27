@@ -27,19 +27,19 @@ function AttendanceCheck({
 
   const [attend, setattend] = useState("");
   const navigation = useNavigation();
-  console.log(user +"ahah");
+  // console.log(user +"ahah");
   const route = useRoute();
   const id = route.params.id;
   
   React.useEffect(() => {
     setattend(id);
     getCheckById(id);
-    console.log(attend + "dwdw");
+    // console.log(attend + "dwdw");
   }, [id]);
   
   React.useEffect(() => {
     getAttendanceInfo("id", id);
-    console.log(id + "dwdw");
+    // console.log(id + "dwdw");
   }, [id]);
 
 

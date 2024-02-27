@@ -90,7 +90,7 @@ function UpdateForm({
 
   }, []);
 
-console.log(id);
+// console.log(id);
   useEffect(() => {
     if (specializations.length !== 0 && dataFetched) {
       var arr = [];

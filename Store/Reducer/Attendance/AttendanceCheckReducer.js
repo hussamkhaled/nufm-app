@@ -21,7 +21,6 @@ const GetCheckByIdR = (state = initialState, action) => {
       return { ...state, [action.name]: action.value };
 
     case actionTypes.GetCheckById.GET_CHECK_BY_ID_END:
-      console.log(action.data+ "dllll");
       return {
         ...state,
    

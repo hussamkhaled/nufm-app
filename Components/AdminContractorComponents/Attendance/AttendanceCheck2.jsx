@@ -25,7 +25,7 @@ function AttendanceCheck2({
 
   const [attend, setattend] = useState("");
 
-  console.log(user +"ahah");
+  // console.log(user +"ahah");
   const route = useRoute();
   
   const id = route.params.id;
@@ -40,15 +40,15 @@ function AttendanceCheck2({
   React.useEffect(() => {
     setattend(id,email);
     getAttend(id,email);
-    console.log(attend + "dwdw");
+    // console.log(attend + "dwdw");
   }, [id,email]);
   
   React.useEffect(() => {
     getAttendanceInfo("id", id,email);
-    console.log(id + "dwdw");
+    //console.log(id + "dwdw");
   }, [id,email]);
 
-console.log(id+"eeee"+email+"eeeee");
+// console.log(id+"eeee"+email+"eeeee");
 
 
 

@@ -40,7 +40,8 @@ import {
   GetAllFacilitiesByUserR,
   GetAllTasksByUserR,
   GetIncidentsByUserR,
-  GetAttendanceByUserR
+  GetAttendanceByUserR,
+  ForgetR
 } from "./Store";
 const composeEnhancers =
   (process.env.NODE_ENV === "development"
@@ -81,7 +82,8 @@ const reducer = combineReducers({
   GetAllFacilitiesByUserR: GetAllFacilitiesByUserR,
   GetAllTasksByUserR: GetAllTasksByUserR,
   GetIncidentsByUserR: GetIncidentsByUserR,
-  GetAttendanceByUserR: GetAttendanceByUserR
+  GetAttendanceByUserR: GetAttendanceByUserR,
+  ForgetR: ForgetR
 });
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
