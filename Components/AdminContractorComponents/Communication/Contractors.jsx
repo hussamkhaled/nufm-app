@@ -51,6 +51,8 @@ function Contractors({ searchVal, Contractors, getContractors }) {
                   );
                 }}
               >
+
+                
                 <View style={styles.workerContainer}>
                   <View style={styles.workerImg}>
                     <Image source={Avatar} style={styles.img} />
@@ -58,10 +60,18 @@ function Contractors({ searchVal, Contractors, getContractors }) {
                   </View>
                   <View>
                     <Text style={styles.time}>
+                     {/* 
                       {item.createdAt.substring(11, 19)}
+                    */}
+                      {new Date(item.createdAt).toLocaleTimeString("en-AU", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                          })}
                     </Text>
                     <Text style={styles.date}>
-                      {item.createdAt.substring(0, 10)}
+                   {/*     {item.createdAt.substring(0, 10)}   */}
+                   {item.createdAt.substring(8, 10)}/{item.createdAt.substring(5, 7)}/{item.createdAt.substring(0, 4)}
                     </Text>
                   </View>
                 </View>

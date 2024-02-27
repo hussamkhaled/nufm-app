@@ -1,26 +1,80 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React,{useEffect,useState} from "react";
+import { StyleSheet, Text, View, Image,TouchableOpacity} from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import BasicInput from "../../Components/SharedComponents/BasicInput";
-import Buttons from "../../Components/SharedComponents/Buttons";
 
-export default function ResetForm() {
+ function ResetForm({ submitSet, getForgetInfo, emailS, token, pwd, loadingReset, buttonResetText }) {
+
+  const [confirmPassword, setConfirmPassword] = useState('');
+ 
+  const handleClick = () => {
+    // console.log(emailS, pwd, token)
+    if (pwd !== confirmPassword) {
+      getForgetInfo('buttonResetText', 'Password Not Matched');
+    } else {
+      submitSet(emailS, pwd, token);
+    }
+  }
+  const handleChange = (name, value) => {
+    getForgetInfo(name, value);
+  }
+
+  const handleConfirmPassword = (value) => {
+    setConfirmPassword(value);
+  }
+
   return (
+
+
+
+    
     <View style={styles.container}>
       <View style={styles.resetCont}>
-        <Text style={styles.reset}>Reset Password</Text>
+        <Text style={styles.reset}>Set Password</Text>
       </View>
       <View style={styles.inputs}>
-        <BasicInput label="New Password" placeholder="Enter your Password" />
+        <BasicInput label="Email" placeholder="Enter your Email here"
+          type="email"
+          name="emailS"
+          value={emailS}
+          onChangeText={handleChange}
+        />
+        <BasicInput
+          label="New Password"
+          placeholder="Enter your Password"
+          name="pwd"
+          value={pwd}
+          onChangeText={handleChange}
+          type="password"
+        />
         <BasicInput
           label="Confirm Password"
           placeholder="Renter your Password"
+          type="password"
+          value={confirmPassword}
+          onChangeText={handleConfirmPassword}
         />
       </View>
-      <Buttons text="Save" />
+
+      <TouchableOpacity
+      onPress={handleClick}
+      style={{
+        backgroundColor: 'teal',
+        borderRadius: 999, // large number to make it round
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        width: '100%',
+        alignItems: 'center',
+      }}
+    >
+      <Text style={{ color: 'white' }}>
+        {loadingReset ? 'Resetting' : buttonResetText}
+      </Text>
+    </TouchableOpacity>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -55,3 +109,5 @@ const styles = StyleSheet.create({
     marginBottom: "8%",
   },
 });
+
+export default ResetForm

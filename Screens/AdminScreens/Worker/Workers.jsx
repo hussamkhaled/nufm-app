@@ -28,6 +28,7 @@ export default function Workers({link}) {
         <CMenu link={link} modalVisible={modalVisible} setModal={setModalVisible} />
       </View>
       <Header link={link} title="Worker" setModal={setModalVisible} />
+   
       <View style={styles.whiteBox}>
         <Text style={styles.txt}> Workers</Text>
         <View
@@ -62,6 +63,7 @@ export default function Workers({link}) {
         </View>
         <WorkerTable searchVal={searchVal} />
       </View>
+    
       {width < 600 ? (
        <TouchableOpacity
        onPress={() => {
@@ -94,6 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: hp("5%"),
     marginTop: hp("2%"),
+  
   },
   txt: {
     fontSize: RFPercentage(2.5),

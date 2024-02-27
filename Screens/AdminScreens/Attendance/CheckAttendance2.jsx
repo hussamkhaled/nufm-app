@@ -9,13 +9,13 @@ import {
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import CMenu from "../../../Components/SharedComponents/CMenu";
 import Header from "../../../Components/SharedComponents/Header";
-import AttendanceCheck from "../../../Components/AdminContractorComponents/Attendance/AttendanceCheck";
+import AttendanceCheck2 from "../../../Components/AdminContractorComponents/Attendance/AttendanceCheck2";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 const { width, height } = Dimensions.get("window");
-export default function CheckAttendance({ link }) {
+export default function CheckAttendance2({ link }) {
   const [modalVisible, setModalVisible] = useState(false);
   const dayDate = new Date().toLocaleString().substr(0, 10);
 
@@ -23,18 +23,18 @@ export default function CheckAttendance({ link }) {
   return (
     <View style={styles.box}>
       <View>
+        
         <CMenu
           link={link}
           modalVisible={modalVisible}
           setModal={setModalVisible}
         />
-        
       </View>
       <Header link={link} title="Attendance" setModal={setModalVisible} />
       <View style={styles.boxContainer}>
         <View style={styles.whiteBox}>
           <Text style={styles.txt}>{facilityName}</Text>
-          <AttendanceCheck
+          <AttendanceCheck2
             facilityName={facilityName}
             setFacilityName={setFacilityName}
           />

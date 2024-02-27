@@ -35,10 +35,24 @@ export default function DatePickerAndroid({ label, handleOnChange, name }) {
         <Text style={styles.label}>{label}</Text>
       </View>
       <TouchableOpacity onPress={showDatePicker}>
+      <View style={styles.input}>
+    <Text style={styles.date}>
+      {`${date.getDate() < 10 ? '0' : ''}${date.getDate()}/${
+        date.getMonth() + 1 < 10 ? '0' : ''
+      }${date.getMonth() + 1}/${date.getFullYear()}`}
+    </Text>
+  </View>
+</TouchableOpacity>
+
+      {/*
+      
+      <TouchableOpacity onPress={showDatePicker}>
         <View style={styles.input}>
           <Text style={styles.date}>{date.toLocaleString().substr(0, 10)}</Text>
         </View>
       </TouchableOpacity>
+
+  */}
       {datePicker && (
         <DateTimePicker
           value={date}

@@ -47,6 +47,8 @@ function Workers({ searchVal, Workers, getWorkers }) {
                   );
                 }}
               >
+
+                
                 <View style={styles.workerContainer}>
                   <View style={styles.workerImg}>
                     <Image source={Avatar} style={styles.img} />
@@ -54,10 +56,19 @@ function Workers({ searchVal, Workers, getWorkers }) {
                   </View>
                   <View>
                     <Text style={styles.time}>
-                      {item.createdAt.substring(11, 19)}
+                     {/* {item.createdAt.substring(11, 19)} */}
+                     {new Date(item.createdAt).toLocaleTimeString("en-AU", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit",
+                          })}
                     </Text>
                     <Text style={styles.date}>
-                      {item.createdAt.substring(0, 10)}
+                     {/*     {item.createdAt.substring(0, 10)}   */}
+                     {item.createdAt.substring(8, 10)}/{item.createdAt.substring(5, 7)}/{item.createdAt.substring(0, 4)}
+                       {/*   
+                        {item.createdAt.substring(8, 10) + '/' + item.createdAt.substring(5, 7) + '/' + item.createdAt.substring(0, 4)}*/}
+                    {/*   {new Date(item.createdAt).toLocaleDateString("en-AU")} */}
                     </Text>
                   </View>
                 </View>

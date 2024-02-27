@@ -23,6 +23,8 @@ const LoadingComponent = () => (
   </View>
 );
 
+
+
 function StopWatch({ getAttendanceByUser, Attendances }) {
   const fN = async () => {
     try {
@@ -68,24 +70,31 @@ function StopWatch({ getAttendanceByUser, Attendances }) {
     const seconds = totalSeconds % 60;
 
     // return `${hours}:${minutes}:${Math.floor(seconds)}`;
+    const formattedTime = new Date(0);
+    formattedTime.setUTCHours(hours, minutes, seconds);
 
+
+    
     return (
       <>
         <View style={{ flexDirection: "row" }}>
           <View>
-            <Text style={styles.timer}>{hours}</Text>
+          {/*  <Text style={styles.timer}>{hours}</Text> */}
+          <Text style={styles.timer}>{formattedTime.getHours()}</Text>
           </View>
           <View>
             <Text> : </Text>
           </View>
           <View>
-            <Text style={styles.timer}>{minutes}</Text>
+           {/*  <Text style={styles.timer}>{minutes}</Text> */}
+           <Text style={styles.timer}>{formattedTime.getMinutes()}</Text>
           </View>
           <View>
             <Text> : </Text>
           </View>
           <View>
-            <Text style={styles.timer}>{Math.floor(seconds)}</Text>
+          {/*    <Text style={styles.timer}>{Math.floor(seconds)}</Text> */}
+          <Text style={styles.timer}>{formattedTime.getSeconds()}</Text>
           </View>
         </View>
       </>

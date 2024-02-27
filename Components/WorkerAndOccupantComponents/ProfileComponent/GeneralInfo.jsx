@@ -19,6 +19,7 @@ function GeneralInfo({
   phone,
   specializations,
 }) {
+
   const [workerId, setworkerId] = useState("");
   const workerInfo = async () => {
     try {
@@ -81,6 +82,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+
 const mapDispatchToProps = (dispatch) => {
   return {
     getWorkerById: (eid) =>
@@ -129,7 +131,5 @@ const styles = StyleSheet.create({
   content: {
     color: "#595959",
     fontSize: width > 700 ? RFPercentage(2) : RFPercentage(1.9),
-    textAlign: "left",
-    width: "50%"
   },
 });

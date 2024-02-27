@@ -12,6 +12,7 @@ export const getWorkers = () => {
         headers: {/*'Authorization': token,*/},})
       .then((res) => {
         dispatch(getWorkersEnd(res.data));
+     
       })
       .catch((err) => {
         dispatch(getWorkersFail(err));

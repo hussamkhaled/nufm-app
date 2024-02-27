@@ -1,18 +1,19 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, Dimensions } from "react-native";
+import { StyleSheet, Text, View, FlatList, Dimensions,TouchableOpacity } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { connect } from "react-redux";
 import * as GetWorkersActionCreator from "../../../Store/ActionCreator/Worker/GetWorkersActionCreator";
-
+import {useNavigation } from "@react-navigation/native";
 const { width, height } = Dimensions.get("window");
 
 function WorkerTable({ searchVal, Workers, getWorkers, error }) {
   const [WorkersArr, setWorkersArr] = useState([]);
+  const navigation = useNavigation();
   useEffect(() => {
-    // getWorkers();
-    // sortedArray();
+    getWorkers();
+    sortedArray();
   }, [searchVal]);
 
   useEffect(() => {
@@ -40,8 +41,11 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
   };
   return (
     <View style={styles.box}>
-      <ScrollView>
+      <ScrollView  style={{width:"100%"}} 
+     
+      >
         <FlatList
+     
           keyExtractor={(item) => item.email}
           ListHeaderComponent={() => {
             return (
@@ -65,6 +69,13 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
           numColumns={1}
           renderItem={({ item }) => {
             return (
+              <TouchableOpacity
+              onPress={() =>
+                navigation.navigate( "Workersinfo", {
+                  id:item.email
+                })
+              }
+            >
               <View style={styles.FacilityContainer}>
                 <View style={styles.details}>
                   <Text style={styles.txt}> {item.fullName}</Text>
@@ -77,7 +88,21 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
                 <View style={styles.details}>
                   <Text style={styles.phone}>{item.phone}</Text>
                 </View>
+                <TouchableOpacity
+                 onPress={() =>
+                  navigation.navigate( "Updateworker", {
+                    id:item.email
+                  })
+                }
+                
+                style={{backgroundColor:"red",width:50,height:20,borderRadius:15}}>
+
+                  
+                    <Text style={{color:"white",fontSize:10,textAlign:"center"
+                    ,alignItems:"center",justifyContent:"center"}}>Update</Text>
+                </TouchableOpacity>
               </View>
+              </TouchableOpacity>
             );
           }}
         />
@@ -101,6 +126,7 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(WorkerTable);
 
 const styles = StyleSheet.create({
+  
   box: {
     flex: 1,
   },
@@ -145,7 +171,7 @@ const styles = StyleSheet.create({
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+    
   },
   header3: {
     fontWeight: "bold",
@@ -153,7 +179,7 @@ const styles = StyleSheet.create({
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+
   },
   FacilityContainer: {
     flexDirection: "row",
@@ -177,7 +203,7 @@ const styles = StyleSheet.create({
 
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+
   },
   spec: {
     color: "#9A9999",
@@ -185,7 +211,7 @@ const styles = StyleSheet.create({
 
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+    paddingLeft: "20%",
   },
   details: { width: "33%", alignItems: "center" },
 });

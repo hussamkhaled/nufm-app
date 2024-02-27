@@ -68,10 +68,14 @@ function SafetyTable({ searchVal,safetyMaterials,getAllSafetyMaterials, error })
                   <Text style={styles.txt}> {item.name}</Text>
                 </View>
                 <View style={styles.details}>
-                  <Text style={styles.location}>{item.createdAt.substr(0, 10)}</Text>
+                  <Text style={styles.location}>{/*{item.createdAt.substr(0, 10)}*/}
+                  {item.createdAt.substring(8, 10)}/{item.createdAt.substring(5, 7)}/{item.createdAt.substring(0, 4)}
+                  </Text>
                 </View>
                 <View style={styles.details}>
-                  <Text style={styles.type}>{item.updatedAt.substr(0, 10)}</Text>
+                  <Text style={styles.type}>{/*{item.updatedAt.substr(0, 10)}*/}
+                  {item.updatedAt.substring(8, 10)}/{item.updatedAt.substring(5, 7)}/{item.updatedAt.substring(0, 4)}
+                  </Text>
                 </View>
               </View>
             );
