@@ -3,7 +3,7 @@
     "name": "NuFm_Mobile",
     "slug": "NuFm_Mobile",
     "description": "nufm mobile app",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "orientation": "portrait",
     "icon": "./assets/grlogo.png",
     "userInterfaceStyle": "light",
@@ -24,7 +24,7 @@
     },
     "android": {
       "package": "com.avh.nufm",
-      "versionCode": 5,
+      "versionCode": 6,
 
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
