@@ -8,7 +8,6 @@ const initialState = {
     isSetError: false,
     setData: null,
     setEmail: '',
-    token: '',
     pwd: '',
     emailS: '',
     loading: false,

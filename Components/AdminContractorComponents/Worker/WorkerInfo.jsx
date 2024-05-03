@@ -91,6 +91,7 @@ function GeneralInfo({
     </View>
   );
 }
+
 const mapStateToProps = (state) => {
     return {
       tasks: state.GetAllDoneTasksR.tasks,

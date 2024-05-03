@@ -1,33 +1,37 @@
-import React,{useEffect,useState} from "react";
-import { StyleSheet, Text, View, Image,TouchableOpacity} from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import BasicInput from "../../Components/SharedComponents/BasicInput";
-
- function ResetForm({ submitSet, getForgetInfo, emailS, token, pwd, loadingReset, buttonResetText }) {
+import BasicInput from "../SharedComponents/BasicInput"
+function ResetForm({ submitSet, getForgetInfo, oldpwd, pwd, emailS, storedToken, loadingReset, buttonResetText }) {
 
   const [confirmPassword, setConfirmPassword] = useState('');
- 
+
   const handleClick = () => {
-    // console.log(emailS, pwd, token)
-    if (pwd !== confirmPassword) {
-      getForgetInfo('buttonResetText', 'Password Not Matched');
+
+    if (pwd === confirmPassword) {
+      submitSet(emailS, oldpwd, pwd);
     } else {
-      submitSet(emailS, pwd, token);
+      getForgetInfo('buttonResetText', 'Password Not Matched');
     }
   }
+
   const handleChange = (name, value) => {
+  
     getForgetInfo(name, value);
   }
-
+  const handleChangeEmail = (name, value) => {
+    getForgetInfo(name, value);
+  }
   const handleConfirmPassword = (value) => {
     setConfirmPassword(value);
   }
 
+  // Function to mask the password input
+  // const maskPassword = (password) => {
+  //   return password.replace(/./g, '*'); // Replacing each character with '*'
+  // }
+
   return (
-
-
-
-    
     <View style={styles.container}>
       <View style={styles.resetCont}>
         <Text style={styles.reset}>Set Password</Text>
@@ -37,44 +41,49 @@ import BasicInput from "../../Components/SharedComponents/BasicInput";
           type="email"
           name="emailS"
           value={emailS}
-          onChangeText={handleChange}
+          onChangeText={(value) => handleChangeEmail('emailS', value)}
         />
         <BasicInput
+          secureTextEntry={true}
+          label="Old Password"
+          placeholder="Enter your Password"
+          value={oldpwd} // Masking old password input
+          onChangeText={(value) => handleChange('oldpwd', value)}
+        />
+        <BasicInput
+          secureTextEntry={true}
           label="New Password"
           placeholder="Enter your Password"
-          name="pwd"
-          value={pwd}
-          onChangeText={handleChange}
-          type="password"
+          value={pwd} // Masking new password input
+          onChangeText={(value) => handleChange('pwd', value)}
         />
         <BasicInput
+          secureTextEntry={true}
           label="Confirm Password"
           placeholder="Renter your Password"
-          type="password"
-          value={confirmPassword}
+          value={confirmPassword} // Masking confirm password input
           onChangeText={handleConfirmPassword}
         />
       </View>
 
       <TouchableOpacity
-      onPress={handleClick}
-      style={{
-        backgroundColor: 'teal',
-        borderRadius: 999, // large number to make it round
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        width: '100%',
-        alignItems: 'center',
-      }}
-    >
-      <Text style={{ color: 'white' }}>
-        {loadingReset ? 'Resetting' : buttonResetText}
-      </Text>
-    </TouchableOpacity>
+        onPress={handleClick}
+        style={{
+          backgroundColor: 'teal',
+          borderRadius: 999, // large number to make it round
+          paddingVertical: 12,
+          paddingHorizontal: 24,
+          width: '100%',
+          alignItems: 'center',
+        }}
+      >
+        <Text style={{ color: 'white' }}>
+          {loadingReset ? 'Resetting' : buttonResetText}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -110,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ResetForm
+export default ResetForm;

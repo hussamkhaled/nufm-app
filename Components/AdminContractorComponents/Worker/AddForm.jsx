@@ -490,10 +490,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getFacilities: () => dispatch(GetFacilitiesActionCreator.getFacilities()),
+
     getSpecialization: () =>
       dispatch(GetSpecializationActionCreator.getSpecialization()),
+
     getWorkerInfo: (name, value) =>
       dispatch(AddWorkerActionCreator.getWorkerInfo(name, value)),
+      
     addWorker: (
       email,
       fullName,

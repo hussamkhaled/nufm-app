@@ -7,6 +7,8 @@ import {
   TextInput,
   ActivityIndicator,
   Dimensions,
+  Button,
+  Linking,
 } from "react-native";
 import { useStopwatch } from "react-timer-hook";
 import BasicInput from "../../Components/SharedComponents/BasicInput";
@@ -18,6 +20,9 @@ import * as Location from "expo-location";
 import * as AddAttendanceActionCreator from "../../Store/ActionCreator/Attendance/AddAttendanceActionCreator";
 import * as GetFacilitiesByUserId from "../../Store/ActionCreator/Attendance/GetFacilitiesByUserId";
 import * as GetTasksActionCreator from "../../Store/ActionCreator/Task/GetTasksByUserId";
+import * as AttendanceCheckActionCreator from "../../Store/ActionCreator/Attendance/AttendanceCheckActionCreator";
+import { Camera } from "expo-camera";
+import { useRoute } from "@react-navigation/native";
 import { connect } from "react-redux";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -27,8 +32,10 @@ const { width, height } = Dimensions.get("window");
 function AddAttendance({
   link,
   addAttendance,
-  getAttendanceInfo,
   facility,
+  getAttendanceInfo,
+  getCheckById,
+  getAttend,
   user,
   type,
   task,
@@ -58,6 +65,8 @@ function AddAttendance({
     }
   };
 
+  // console.log(id+"eeee"+email+"eeeee");
+
   useEffect(() => {
     fN();
     getAttendanceInfo("facility", "");
@@ -72,13 +81,13 @@ function AddAttendance({
   const siteName = Facilities.map((fn) => fn.name);
   // const Tasks = tasks.map((wr) => wr.name);
 
-  useEffect(()=>{
-    if(facility.length > 0){
-      const ttt = tasks.filter(t=>t.facilityId === facility);
+  useEffect(() => {
+    if (facility.length > 0) {
+      const ttt = tasks.filter((t) => t.facilityId === facility);
       // console.log(ttt.map((wr) => wr.name))
-      setTasks(ttt.map((wr) => wr.name))
+      setTasks(ttt.map((wr) => wr.name));
     }
-  },[facility])
+  }, [facility]);
 
   const handleOnChange = (value, name) => {
     getAttendanceInfo(name, value);
@@ -95,9 +104,23 @@ function AddAttendance({
   const [errorMsg, setErrorMsg] = useState(null);
   const [latitude, setLat] = useState("");
   const [long, setLong] = useState("");
+  const [checkedIn, setCheckedIn] = useState(false);
+  const [saveAttempted, setSaveAttempted] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [scannedButton, setScannedButton] = useState("Waiting Response");
 
   const handleClick = () => {
-    addAttendance(facility, semail, task, checkType, long, latitude);
+    if (checkType === "CheckIn" && checkedIn && saveAttempted && attempts > 0) {
+      // Display alert indicating that the user cannot check in more than once until they check out
+      alert("You cannot check in more than once until you check out.");
+    } else {
+      addAttendance(facility, semail, task, checkType, long, latitude);
+      if (checkType === "CheckIn") {
+        setCheckedIn(true); // Set checkedIn to true when user checks in
+        setAttempts((prevAttempts) => prevAttempts + 1); // Increment attempts when user checks in
+      }
+      setSaveAttempted(true); // Set saveAttempted to true on first save attempt
+    }
   };
 
   useEffect(() => {
@@ -110,25 +133,39 @@ function AddAttendance({
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      if (location !== null) {
+        setLat(JSON.stringify(location.coords.latitude));
+        setLong(JSON.stringify(location.coords.longitude));
+      }
     })();
   }, []);
 
   const handleCheck = (value) => {
     if (!toggleCheckBox) {
-      // start();
-      setCheckType("CheckIn");
-      if (location !== null) {
-        setLat(JSON.stringify(location.coords.latitude));
-        setLong(JSON.stringify(location.coords.longitude));
+      if (!checkedIn) {
+        // start();
+        setCheckType("CheckIn");
+        if (location !== null) {
+          setLat(JSON.stringify(location.coords.latitude));
+          setLong(JSON.stringify(location.coords.longitude));
+        }
+        setToggleCheckBox(value);
+        setDisableCheck2(true);
+        setCheckedIn(true); // Set checkedIn to true when user checks in
+      } else {
+        // Alert user that they cannot check in more than once until they check out
+        if (saveAttempted && attempts > 0) {
+          alert("You cannot check in more than once until you check out.");
+        }
       }
-      setToggleCheckBox(value);
-      setDisableCheck2(true);
     } else {
       // pause();
       setLat("");
       setLong("");
       setToggleCheckBox(value);
       setDisableCheck2(false);
+      setCheckedIn(false); // Reset checkedIn to false when user cancels check in
+      setSaveAttempted(false); // Reset saveAttempted when user cancels check in
     }
   };
 
@@ -142,6 +179,9 @@ function AddAttendance({
       }
       setToggleCheckBox2(value);
       setDisableCheck(true);
+      setCheckedIn(false); // Set checkedIn to false when user checks out
+      setSaveAttempted(false); // Reset saveAttempted when user checks out
+      setAttempts(0); // Reset attempts when user checks out
     } else {
       setLat("");
       setLong("");
@@ -152,137 +192,123 @@ function AddAttendance({
 
   const handleOnChangeFacility = (i) => {
     getAttendanceInfo("facility", Facilities[i].eid);
+
+    console.log(getAttendanceInfo("facility", Facilities[i].eid));
   };
 
   const handleOnChangeTask = (i) => {
     getAttendanceInfo("task", tasks[i].eid);
   };
+
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [scannedData, setScannedData] = useState(null); // Variable to store scanned data
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (scannedData !== null) {
+      //  console.log(scannedData); // Log scannedData whenever it changes
+    }
+  }, [scannedData]);
+
+  const handleBarCodeScanned = async ({ type, data }) => {
+    setScanned(true);
+    setScannedData(data); // Store scanned data in variable
+    // alert(`Scanned QR code with type ${type} and data: ${data}`);
+    // let { status } =  Location.requestForegroundPermissionsAsync();
+    // if (status !== "granted") {
+    //   setErrorMsg("Permission to access location was denied");
+    //   return;
+    // }
+
+    let location = await Location.getCurrentPositionAsync({});
+    // setLocation(location);
+    // if (location !== null) {
+    //   setLat(JSON.stringify(location.coords.latitude));
+    //   setLong(JSON.stringify(location.coords.longitude));
+    // }
+    console.log("*******************");
+    addAttendance(
+      data,
+      semail,
+      "",
+      /*checkType*/ "CheckOut",
+      JSON.stringify(location.coords.longitude),
+      JSON.stringify(location.coords.latitude)
+    );
+    console.log("*******************");
+  };
+
+  const openCamera = () => {
+    setIsCameraOpen(true);
+  };
+
+  const closeCamera = () => {
+    setIsCameraOpen(false);
+    setScanned(false); // Reset scanned state when closing camera
+    setScannedData(null); // Reset scanned data when closing camera
+  };
+
+  if (hasPermission === null) {
+    return <Text>Requesting camera permission</Text>;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
+
+  // useEffect(() => {
+  //   if (error.length > 0) {
+  //     if (error === "Added Successfully") {
+  //       setScannedButton("Added Successfully");
+  //     } else {
+  //       setScannedButton("Tap to Scan Again");
+  //     }
+  //   }
+  // }, [error]);
   return (
     <View style={styles.initialCont}>
-      <View style={styles.container}>
-        <View style={styles.subCont}>
-          <View>
-            <Text style={styles.label}>Facility Site</Text>
+      <View style={styles.containercam}>
+        {/* {!isCameraOpen ? ( */}
+        <View style={{ flex: 1, width: "100%" }}>
+          <Camera
+            onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+            style={StyleSheet.absoluteFillObject}
+          />
+          {/* <Button title="Close Camera" onPress={closeCamera} /> */}
+        </View>
+        {/* {error && error !== "Waiting Response" &&(
+          <View style={styles.errorMsg}>
+            <AntDesign name="checkcircle" size={24} color="#02A962" />
+            <Text style={styles.errorTxt}>{error}</Text>
           </View>
-          <SelectDropdown
-            renderDropdownIcon={() => (
-              <Ionicons name="chevron-down-outline" size={20} color="#595959" />
-            )}
-            dropdownIconPosition="right"
-            defaultButtonText="Select a site.."
-            buttonStyle={styles.btnselectstyle}
-            buttonTextStyle={styles.btnselectxtstyle}
-            dropdownStyle={styles.dropdownHour}
-            rowTextStyle={styles.rows}
-            data={siteName}
-            onSelect={(selectedItem, index) => {
-              handleOnChangeFacility(index);
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            value={facility}
-          />
-        </View>
-
-        {Tasks.length > 0 &&<View style={styles.subCont}>
-          <View>
-            <Text style={styles.label}>Task</Text>
-          </View>
-          <SelectDropdown
-            renderDropdownIcon={() => (
-              <Ionicons name="chevron-down-outline" size={20} color="#595959" />
-            )}
-            dropdownIconPosition="right"
-            defaultButtonText="Select a task.."
-            buttonStyle={styles.btnselectstyle}
-            buttonTextStyle={styles.btnselectxtstyle}
-            dropdownStyle={styles.dropdownHour}
-            rowTextStyle={styles.rows}
-            data={Tasks}
-            onSelect={(selectedItem, index) => {
-              handleOnChangeTask(index);
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            value={task}
-          />
-        </View>
-}
-      </View>
-      <View style={styles.checkboxes}>
-        <View style={styles.checkAlign}>
-          <CheckBox
-            disabled={disableCheck}
-            color="#309694"
-            style={{ borderRadius: 4, color: "#309694" }}
-            value={toggleCheckBox}
-            onValueChange={(newValue) => handleCheck(newValue)}
-          />
-          <Text style={styles.checkText}>Check In</Text>
-          <Ionicons name="location" size={26} color="#023D26" />
-        </View>
-        <View style={styles.checkAlign}>
-          <CheckBox
-            disabled={disableCheck2}
-            color="#309694"
-            style={{ borderRadius: 4, color: "#309694" }}
-            value={toggleCheckBox2}
-            onValueChange={(newValue) => handleCheckOut(newValue)}
-          />
-          <Text style={styles.checkText}>Check Out</Text>
-          <Ionicons name="location" size={26} color="#023D26" />
-        </View>
-      </View>
-
-      {error && (
-        <View style={styles.errorMsg}>
-          <AntDesign name="checkcircle" size={24} color="#02A962" />
-          <Text style={styles.errorTxt}>{error}</Text>
-        </View>
-      )}
-      <View
-        style={{
-          flexDirection: "row",
-          paddingHorizontal: "5%",
-          marginVertical: "5%",
-          height: 50,
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <View style={{ width: "30%" }}>
-          <TouchableOpacity>
-            <View style={styles.cancel}>
-              <Text style={styles.canceltext}>Cancel</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        {!loading ? (
-          <View style={{ width: "70%" }}>
-            <TouchableOpacity onPress={handleClick}>
+        )} */}
+        {scanned && (
+          <View style={{ width: "70%"}}>
+            <TouchableOpacity onPress={() => setScanned(false)}>
               <View style={styles.save}>
-                <Text style={styles.addSite}>Save</Text>
+                {/* Added Successfully */}
+                <Text style={styles.addSite}>{error}</Text>
               </View>
             </TouchableOpacity>
           </View>
-        ) : (
-          <View style={{ width: "70%" }}>
-            <TouchableOpacity>
-              <View style={styles.save}>
-                <Text style={styles.addSite}>Saving </Text>
-                <ActivityIndicator size="small" color="#fff" />
-              </View>
-            </TouchableOpacity>
-          </View>
+
+          // <Button title="Tap to Scan Again" onPress={() => setScanned(false)} />
         )}
+        
+        {/*
+      {scannedData && (
+        <Text style={{marginTop:20}}>Scanned Data: {scannedData} </Text>
+        
+      )}
+    */}
       </View>
     </View>
   );
@@ -299,7 +325,14 @@ const mapStateToProps = (state) => {
     error: state.AddAttendanceR.error,
     loading: state.AddAttendanceR.loading,
     Facilities: state.GetAllFacilitiesByUserR.Facilities,
-    tasks: state.GetAllTasksByUserR.tasks,
+    checkIn: state.GetCheckByIdR.checkIn,
+    checkOut: state.GetCheckByIdR.checkOut,
+    user: state.GetCheckByIdR.user,
+    task: state.GetCheckByIdR.task,
+    facility: state.GetCheckByIdR.facility,
+    status: state.GetCheckByIdR.status,
+    id: state.GetCheckByIdR.id,
+    email: state.GetCheckByIdR.email,
   };
 };
 
@@ -322,6 +355,12 @@ const mapDispatchToProps = (dispatch) => {
           lat
         )
       ),
+
+    getAttend: (id, email) =>
+      dispatch(AttendanceCheckActionCreator.getAttend(id, email)),
+
+    getAttendanceInfo: (name, value) =>
+      dispatch(AttendanceCheckActionCreator.getAttend(name, value)),
   };
 };
 
@@ -331,6 +370,7 @@ const styles = StyleSheet.create({
   initialCont: {
     justifyContent: "space-between",
     flexDirection: "column",
+    // height: "100%"
   },
   input: {
     width: "100%",
@@ -384,16 +424,18 @@ const styles = StyleSheet.create({
     fontSize: width > 700 ? RFPercentage(1.7) : RFPercentage(1.5),
   },
   addSite: {
-    fontSize: RFPercentage(1.9),
+    // fontSize: RFPercentage(1.9),
     fontWeight: "bold",
     color: "white",
     paddingLeft: "2%",
+    height: '10%'
   },
   canceltext: {
     fontSize: RFPercentage(1.9),
     fontWeight: "bold",
     color: "#309694",
     paddingLeft: "2%",
+
   },
   save: {
     backgroundColor: "#309694",
@@ -449,5 +491,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingHorizontal: "4%",
     color: "#595959",
+  },
+  containercam: {
+    flex: 1,
+    height: 400,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

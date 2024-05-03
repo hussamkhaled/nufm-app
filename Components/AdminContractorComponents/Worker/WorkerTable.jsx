@@ -76,6 +76,8 @@ function WorkerTable({ searchVal, Workers, getWorkers, error }) {
                 })
               }
             >
+
+              
               <View style={styles.FacilityContainer}>
                 <View style={styles.details}>
                   <Text style={styles.txt}> {item.fullName}</Text>

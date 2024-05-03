@@ -14,6 +14,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { ScrollView } from "react-native-gesture-handler";
 const { width, height } = Dimensions.get("window");
 export default function CheckAttendance2({ link }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -34,11 +35,14 @@ export default function CheckAttendance2({ link }) {
       <View style={styles.boxContainer}>
         <View style={styles.whiteBox}>
           <Text style={styles.txt}>{facilityName}</Text>
+       
           <AttendanceCheck2
             facilityName={facilityName}
             setFacilityName={setFacilityName}
           />
+           
         </View>
+      
       </View>
     </View>
   );

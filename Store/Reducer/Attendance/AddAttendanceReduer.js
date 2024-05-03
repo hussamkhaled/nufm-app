@@ -8,7 +8,7 @@ const initialState = {
   type:"",
   lng:"",
   lat:"",
-  error: "",
+  error: "Waiting Response",
   loading: false,
   eid: "",
 };
@@ -25,7 +25,7 @@ const AddAttendanceR = (state = initialState, action) => {
       return {...state,loading: false,error:'Added Successfully'};
 
     case actionTypes.AddAttendance.ADD_ATTENDANCE_FAIL:
-      return { ...state, loading: false };
+      return { ...state, loading: false, error:'Tap to Scan Again' };
 
     default:
       return state;

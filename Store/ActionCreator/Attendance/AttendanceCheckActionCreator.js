@@ -27,7 +27,7 @@ export const getCheckById = (id) => {
       
     
           dispatch(getCheckByIdEnd(res.data));
-        }
+       }
       )
       .catch((err) => {
         dispatch(getCheckByIdFail(err));

@@ -100,8 +100,8 @@ function AddForm({
   const parentName = parent.map((pr) => pr.name);
 
   const handleChangeName = (n, e) => {
-    if (!name || name.length > 24) {
-      setFacName("Please Enter a valid name (1-24)");
+    if (!name ) {
+      setFacName("Please Enter a valid name");
     } else {
       setFacName("");
     }

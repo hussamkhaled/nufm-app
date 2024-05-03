@@ -49,6 +49,7 @@ import {
 } from "../../Screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import WorkerInfo from "../../Components/AdminContractorComponents/Worker/WorkerInfo";
+import ResetForm from "../../Components/ResetComponents/ResetForm";
 
 const Stack = createStackNavigator();
 
@@ -77,7 +78,6 @@ export default function LoginNavigation() {
           <Stack.Screen name="Forget">
             {(props) => <Forget {...props} link="" />}
           </Stack.Screen>
-          
           <Stack.Screen name="Risk">
             {(props) => <Risk {...props} link="" />}
           </Stack.Screen>

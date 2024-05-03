@@ -16,11 +16,10 @@ export const submitLogin = (username, password) => {
     const params = {};
     axios
       .post(
-        server +
-          "/avh/nufm/v1/public/login?username=" +
-          username +
-          "&password=" +
-          password,
+        "https://services.facilify.com.au/avh/nufm/v1/public/login?username=" +
+        username +
+        "&password=" +
+        password,
         params,
         { headers: { "Content-Type": "application/json" } }
       )
@@ -38,6 +37,7 @@ export const submitLogin = (username, password) => {
         ) {
           dispatch(loginFail("user is not confirmed"));
         } else {
+          console.log(res.data, 'kkk')
           dispatch(loginEnd(res.data));
         }
       })

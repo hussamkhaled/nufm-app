@@ -28,6 +28,7 @@ function LoginForm({
   const navigation = useNavigation();
   let STORAGE_KEY = "@user_token";
   const [fName, setFname] = useState("");
+  const [Nufmtoken1, setNufmtoken1] = useState("");
   const [ntoken, setNtoken] = useState("");
   const [rEmail, setEmail] = useState("");
   const [keys, setKeys] = useState("");
@@ -104,6 +105,28 @@ function LoginForm({
       alert("Failed to fetch the token from storage");
     }
   };
+  // useEffect(() => {
+  //   const getStoredToken = async () => {
+  //     try {
+  //       const storedToken = await AsyncStorage.getItem("Nufmtoken");
+  //       if (storedToken !== null) {
+  //         // Token found in AsyncStorage
+
+  //         // Update token in Redux state if needed
+  //         getLoginInfo("token", storedToken);
+  //         // Set the stored token in state variable
+  //         setNufmtoken1(storedToken);
+  //       } else {
+  //         // Token not found in AsyncStorage
+       
+  //       }
+  //     } catch (error) {
+  //       console.error("Error retrieving token from AsyncStorage:", error);
+  //     }
+  //   };
+  
+  //   getStoredToken(); // Call the function when the component mounts
+  // }, []);
 
   useEffect(() => {
     fN();
@@ -162,10 +185,11 @@ function LoginForm({
     getLoginInfo(name, value);
   };
 
-  const submitForm = () => {
+  const submitForm = async () => {
     getLoginInfo("loading", true);
     submitLogin(email, password);
-  };
+
+  }
   return (
     <View style={styles.container} >
       <View style={styles.welcomeCont}>
@@ -195,6 +219,10 @@ function LoginForm({
       )}
       {/* <Buttons text="Login" onPress={()=> navigation.navigate("Home")} /> */}
       <Buttons text="Login" onPress={submitForm} loading={loading} />
+      <Buttons onPress={() => {
+        navigation.navigate("Forget");
+
+      }} text="Forget Password" />
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from "react";
-import { StyleSheet, Text, View, Dimensions,ScrollView,FlatList, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Dimensions,ScrollView,FlatList, TouchableOpacity,Linking  } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { useRoute } from "@react-navigation/native";
@@ -22,7 +22,33 @@ function AttendanceCheck2({
   setFacilityName,
   getAttendanceInfo,
 }) {
+  function convertToSydneyTime(dateString) {
+    const date = new Date(dateString);
+    const sydneyTime = new Date(
+      date.toLocaleString('en-US', { timeZone: 'Australia/Sydney' })
+    );
+    const formattedDate = `${sydneyTime.getFullYear()}-${
+      sydneyTime.getMonth() + 1
+    }-${sydneyTime.getDate()}`;
+    return formattedDate;
+  }
 
+  function convertToSydneyTime2(dateString) {
+    const date = new Date(dateString);
+    const offset = date.getTimezoneOffset() / 60; // Current time zone offset in hours
+    const sydneyOffset = 11; // Sydney time zone offset in hours (UTC+11)
+    const hourDifference = sydneyOffset - offset;
+  
+    // Adjusting the hours and minutes
+    date.setHours(date.getHours() + hourDifference);
+  
+    // Formatting the time
+    const formattedTime = `${(date.getHours() < 10 ? '0' : '') + date.getHours()}:${
+      (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+    }`;
+  
+    return formattedTime;
+  }
   const [attend, setattend] = useState("");
 
   // console.log(user +"ahah");
@@ -32,10 +58,13 @@ function AttendanceCheck2({
   const email = route.params.email;
   const redirectToGoogleMaps = (latitude, longitude) => {
     const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-    window.open(googleMapsUrl, '_blank');}
-    const redirectToGoogleMaps1 = (latitude, longitude) => {
-      const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
-      window.open(googleMapsUrl, '_blank');}
+    Linking.openURL(googleMapsUrl);
+  };
+  const redirectToGoogleMaps1 = (latitude, longitude) => {
+    const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    Linking.openURL(googleMapsUrl);
+  };
+  
   
   React.useEffect(() => {
     setattend(id,email);
@@ -51,13 +80,15 @@ function AttendanceCheck2({
 // console.log(id+"eeee"+email+"eeeee");
 
 
-
 return (
   <>
+
     {facility.length > 0 ? (
 
         <View style={styles.table}>
           {/* Table Header */}
+        
+
           <View style={styles.listhead}>
 
           <View style={styles.headTitle}>
@@ -78,6 +109,11 @@ return (
             <View style={styles.headTitle5}>
             <Text  style={styles.header5}>TIME OUT</Text>
             </View>
+
+            <View style={styles.headTitle6}>
+            <Text  style={styles.header6}>STATUS</Text>
+            </View>
+
           
 {/*
             <View style={styles.headTitle}>
@@ -102,12 +138,18 @@ return (
 
     */}
           </View>
-    
+            
           {/* FlatList */}
           <FlatList
+         
             data={facility}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.AttendanceContainer}>
+              <TouchableOpacity style={styles.AttendanceContainer}
+              
+              onPress={() => redirectToGoogleMaps(item.checkIn.lat, item.checkIn.lng)}
+              >
+
+
 
                       <View style={styles.details}>
                     <Text style={styles.txt}> {item.facility.name}</Text>
@@ -116,16 +158,54 @@ return (
                     <Text style={styles.Facility}>{item.facility.type}</Text>
                   </View>
                   <View style={styles.details3}>
-                    <Text style={styles.Email}>{item.checkIn != null && item.checkIn.date && item.checkIn.date.substr(0, 10)}</Text>
+                    <Text style={styles.Email}>
+                      
+                         {/*{item.checkIn != null && item.checkIn.date && item.checkIn.date.substr(0, 10)} */}
+                   
+                      {item.checkIn != null &&
+                    item.checkIn.date &&
+                    convertToSydneyTime(item.checkIn.date)}
+        </Text>
                   </View>
 
                   <View style={styles.details4}>
-                    <Text style={styles.Email4}>{item.checkIn != null && item.checkIn.date && item.checkIn.date.substr(11, 5)}</Text>
+                    <Text style={styles.Email4}>
+                      
+                      {/*}
+                      {item.checkIn != null && item.checkIn.date && item.checkIn.date.substr(11, 5)}
+                      
+                      */}
+
+                {item.checkIn != null &&
+                      item.checkIn.date &&
+                      convertToSydneyTime2(item.checkIn.date)}
+
+                      </Text>
                   </View>
 
+
                   <View style={styles.details5}>
-                    <Text style={styles.Email5}>{item.checkOut != null && item.checkOut.date && item.checkOut.date.substr(11, 5)}</Text>
+                    <Text style={styles.Email5}>
+                      
+                      
+
+                      {/*{item.checkOut != null && item.checkOut.date && item.checkOut.date.substr(11, 5)} */}
+                      {item.checkOut != null &&
+                      item.checkOut.date &&
+                      convertToSydneyTime2(item.checkOut.date)}
+                      
+                      </Text>
                   </View>
+
+                  
+                  <TouchableOpacity style={styles.details6}
+                   onPress={() => redirectToGoogleMaps1(item.checkIn.lat, item.checkIn.lng)}
+                  >
+                  <Text style={{fontSize:5,color:"white"}}>Check out</Text>
+                  </TouchableOpacity>
+
+
+                  <Text style={{fontSize:6,   color: "#9A9999",}}>{item.status}</Text>
               
                 {/* Additional cells */}
                 {/* Uncomment the following lines if needed */}
@@ -144,6 +224,7 @@ return (
    
    
     ) : null}
+
   </>
 );
 }
@@ -199,17 +280,17 @@ const styles = StyleSheet.create({
    
   },
   headTitle: {
-    width: "28%",
+    width: "18%",
     alignItems: "center",
   
   },
   headTitle2: {
-    width: "27%",
+    width: "20%",
     alignItems: "center",
   
   },
   headTitle3: {
-    width: "17%",
+    width: "15%",
     alignItems: "center",
   },
   headTitle4: {
@@ -218,16 +299,23 @@ const styles = StyleSheet.create({
   },
 
   headTitle5: {
-    width: "55%",
+    width: "15%",
     alignItems: "center",
   },
+
+    headTitle6: {
+      width: "55%",
+      alignItems: "center",
+    },
+
+
   header1: {
     fontWeight: "bold",
    // fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    fontSize:8,
+    fontSize:6,
  
   },
   header2: {
@@ -237,7 +325,7 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "left",
     // paddingLeft: "8%",
-    fontSize:8
+    fontSize:6
   },
   header3: {
     fontWeight: "bold",
@@ -245,7 +333,7 @@ const styles = StyleSheet.create({
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    fontSize:8
+    fontSize:6
   },
   header4: {
     fontWeight: "bold",
@@ -253,7 +341,7 @@ const styles = StyleSheet.create({
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    fontSize:8
+    fontSize:6
   },
 
   header5: {
@@ -262,8 +350,21 @@ const styles = StyleSheet.create({
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    fontSize:8
+    fontSize:6
   },
+
+  header6: {
+    fontWeight: "bold",
+  //  fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
+    color: "#535353",
+    width: "100%",
+    textAlign: "left",
+    fontSize:6,
+    paddingLeft:25
+  },
+
+  
+
   AttendanceContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -278,22 +379,23 @@ const styles = StyleSheet.create({
   //  fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     textAlign: "left",
     width: "100%",
-    fontSize:8
+    fontSize:6
   },
   Email: {
     color: "#9A9999",
     //fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
-    fontSize:8,
+    fontSize:6,
    
   },
+
   Email4: {
     color: "#9A9999",
     //fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
-    fontSize:8,
+    fontSize:6,
    
   },
 
@@ -302,7 +404,16 @@ const styles = StyleSheet.create({
     //fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
-    fontSize:8,
+    fontSize:6,
+   
+  },
+
+  Email6: {
+    color: "#9A9999",
+    //fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
+    width: "100%",
+    textAlign: "left",
+    fontSize:6,
    
   },
   
@@ -312,13 +423,16 @@ const styles = StyleSheet.create({
     width: "100%",
     textAlign: "left",
     // paddingLeft: "10%",
-    fontSize:8
+    fontSize:6
   },
-  details: { width: "38%", alignItems: "center" ,paddingLeft:25},
-  details2: { width: "27%", alignItems: "center" },
-  details3: { width: "25%", alignItems: "center" },
-  details4: { width: "18%", alignItems: "center" },
-  details5: { width: "15%", alignItems: "center" },
+  details: { width: "15%", alignItems: "center" },
+  details2: { width: "14%", alignItems: "center",paddingLeft:10 },
+  details3: { width: "15%", alignItems: "center",paddingLeft:10 },
+  details4: { width: "10%", alignItems: "center",paddingLeft:10 },
+  details5: { width: "10%", alignItems: "center" ,paddingLeft:10},
+  details6: { width: "10%", alignItems: "center", backgroundColor:"red",height:20 , borderRadius:10,
+justifyContent:"center",alignItems:"center"},
+  
 });
 
 

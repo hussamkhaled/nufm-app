@@ -1,14 +1,17 @@
+import React from "react";
 import { StyleSheet, View, Text, TextInput, Dimensions } from "react-native";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
-const { width, height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
+
 export default function BasicInput({
   label,
   placeholder,
-  KeyboardType,
+  keyboardType,
   value,
   onChangeText,
-  bool,
+  secureTextEntry,
+  name,
 }) {
   return (
     <View style={styles.container}>
@@ -19,19 +22,20 @@ export default function BasicInput({
         <TextInput
           style={styles.input}
           placeholder={placeholder}
-          keyboardType={KeyboardType}
-          secureTextEntry={bool}
+          keyboardType={keyboardType}
+          defaultValue={value}
+          name={name}
           onChangeText={onChangeText}
-          value={value}
+          secureTextEntry={secureTextEntry} // Ensure secureTextEntry prop is correctly applied
         />
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   input: {
     width: "100%",
-    // aspectRatio: 7 / 1,
     height: 55,
     backgroundColor: "#F1F1F1",
     borderRadius: 12,

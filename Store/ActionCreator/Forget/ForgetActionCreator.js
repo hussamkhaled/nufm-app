@@ -26,7 +26,7 @@ export const submitForget = (forgemail) => {
             .then(res => {
                 dispatch(ForgetEnd(res.data));
 
-          
+
             }).catch(err => {
 
                 dispatch(ForgetFail(err));
@@ -48,7 +48,7 @@ export const ForgetEnd = (data) => {
         type: actionTypes.Forget.FORGET_END,
         userData: data
 
-     
+
     }
 }
 
@@ -61,29 +61,41 @@ export const ForgetFail = (err) => {
 }
 
 
-export const submitSet = (emailS, pwd, token) => {
+export const submitSet = (emailS, oldpwd, pwd) => {
     return dispatch => {
         dispatch(SetStart());
         const params = {
-            newPassword: pwd,
             email: emailS,
+            oldPassword: oldpwd,
+            newPassword: pwd,
         };
 
         axios
             .put(
-                server +
-                `/avh/nufm/v1/public/forgetPassword/redirect/${token}`,
+                `https://services.facilify.com.au/avh/nufm/v1/public/resetPassword`,
                 params,
                 {
                     headers: { 'Content-Type': 'application/json' },
                 }
             )
             .then(res => {
+           
                 dispatch(SetEnd(res.data));
 
 
 
             }).catch(err => {
+                if (err.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+               
+                } else if (err.request) {
+                    // The request was made but no response was received
+                  
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                  
+                }
                 dispatch(SetFail(err));
             })
     }

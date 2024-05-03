@@ -31,6 +31,8 @@ const GetCheckByIdR = (state = initialState, action) => {
 
     case actionTypes.GetCheckById.GET_CHECK_BY_ID_FAIL:
       return { ...state, error: action.error };
+
+
       case actionTypes.GetCheckById.GET_ATTEND_BY_ID_END:
         return {
           ...state,
@@ -42,6 +44,7 @@ const GetCheckByIdR = (state = initialState, action) => {
   
       case actionTypes.GetCheckById.GET_ATTEND_BY_ID_FAIL:
         return { ...state, error: action.error };
+        
     default:
       return state;
   }

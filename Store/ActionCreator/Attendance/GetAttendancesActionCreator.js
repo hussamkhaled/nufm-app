@@ -3,6 +3,7 @@ import * as actionTypes from "../../Actions/Actions";
 import { server, privatePath } from "../Constants";
 
 export const getAttendances = () => {
+
   return (dispatch) => {
     dispatch(getAttendancesStart());
     // var token = "Bearer " + localStorage.getItem("nufmtoken");
@@ -15,6 +16,7 @@ export const getAttendances = () => {
       })
       .then((res) => {
         dispatch(getAttendancesEnd(res.data));
+
       })
       .catch((err) => {
         dispatch(getAttendancesFail(err));
