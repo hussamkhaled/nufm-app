@@ -12,6 +12,7 @@ export const getFacilities = () => {
         headers: {/*'Authorization': token,*/},})
       .then((res) => {
         dispatch(getFacilitiesEnd(res.data));
+    
       })
       .catch((err) => {
         dispatch(getFacilitiesFail(err));

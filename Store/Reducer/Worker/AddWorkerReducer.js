@@ -21,6 +21,10 @@ const initialState = {
   error: "",
   loading: false,
   eid: "",
+  wwcc:"",
+  wwccExpDate:"",
+  police:"",
+  policeExpDate:"",
 };
 
 const AddWorkerR = (state = initialState, action) => {
@@ -35,7 +39,7 @@ const AddWorkerR = (state = initialState, action) => {
       return {...state,loading: false,error:'Added Successfully'};
 
     case actionTypes.AddWorker.ADD_WORKER_FAIL:
-      return { ...state, loading: false };
+      return { ...state, loading: false ,error:'User already registered'};
 
     default:
       return state;

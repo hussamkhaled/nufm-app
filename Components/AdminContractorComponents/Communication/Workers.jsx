@@ -64,7 +64,10 @@ function Workers({ searchVal, Workers, getWorkers }) {
                           })}
                     </Text>
                     <Text style={styles.date}>
-                          {item.createdAt.substring(0, 10)}
+                     {/*     {item.createdAt.substring(0, 10)}   */}
+                     {item.createdAt.substring(8, 10)}/{item.createdAt.substring(5, 7)}/{item.createdAt.substring(0, 4)}
+                       {/*   
+                        {item.createdAt.substring(8, 10) + '/' + item.createdAt.substring(5, 7) + '/' + item.createdAt.substring(0, 4)}*/}
                     {/*   {new Date(item.createdAt).toLocaleDateString("en-AU")} */}
                     </Text>
                   </View>

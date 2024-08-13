@@ -3,10 +3,11 @@ import * as actionTypes from "../../Actions/Actions";
 import { server, privatePath } from "../Constants";
 
 export const getAttendances = () => {
+
   return (dispatch) => {
     dispatch(getAttendancesStart());
     // var token = "Bearer " + localStorage.getItem("nufmtoken");
-    var link = server + privatePath + "/attendances";
+    var link = server + '/avh/nufm/v1/public/attendance/facilities';
     axios
       .get(link, {
         headers: {
@@ -15,6 +16,7 @@ export const getAttendances = () => {
       })
       .then((res) => {
         dispatch(getAttendancesEnd(res.data));
+
       })
       .catch((err) => {
         dispatch(getAttendancesFail(err));

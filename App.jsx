@@ -1,12 +1,13 @@
-import "react-native-gesture-handler";
+// import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import MainNavigation from "./Navigation/MainNavigation/MainNavigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import AddAttendance from "./Components/WorkerAndContractorComp/AddAttendance";
 import { Provider } from "react-redux";
-import CheckAttendance from "./Screens/AdminScreens/Attendance/CheckAttendance"
 import thunk from "redux-thunk";
+import 'localstorage-polyfill'; 
 import {
   LoginR,
   GetWorkersR,
@@ -41,8 +42,11 @@ import {
   GetAllFacilitiesByUserR,
   GetAllTasksByUserR,
   GetIncidentsByUserR,
-  GetAttendanceByUserR
+  GetAttendanceByUserR,
+  ForgetR,
+  GetAllDoneTasksR,
 } from "./Store";
+
 const composeEnhancers =
   (process.env.NODE_ENV === "development"
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -82,7 +86,9 @@ const reducer = combineReducers({
   GetAllFacilitiesByUserR: GetAllFacilitiesByUserR,
   GetAllTasksByUserR: GetAllTasksByUserR,
   GetIncidentsByUserR: GetIncidentsByUserR,
-  GetAttendanceByUserR: GetAttendanceByUserR
+  GetAttendanceByUserR: GetAttendanceByUserR,
+  ForgetR: ForgetR,
+  GetAllDoneTasksR:GetAllDoneTasksR,
 });
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 

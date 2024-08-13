@@ -1,6 +1,13 @@
 export { default as Landing } from "./LoginScreens/Landing";
 export { default as Login } from "./LoginScreens/Login";
 export { default as Reset } from "./LoginScreens/Reset";
+export { default as Forget } from "./LoginScreens/Forget";
+export { default as LoginBiometrics } from "./LoginScreens/LoginBiometrics";
+export { default as LoginBiometricsadmins } from "./LoginScreens/LoginBiometricsadmins";
+export { default as LoginBiometricsoccupants } from "./LoginScreens/LoginBiometricsoccupants";
+export { default as LoginBiometricscontractor } from "./LoginScreens/LoginBiometricscontractor";
+
+
 export { default as Home } from "./AdminScreens/Home";
 export { default as Incident } from "./AdminScreens/Incident/Incident";
 export { default as Risk } from "./AdminScreens/Risk/Risk";
@@ -18,6 +25,8 @@ export { default as Workers } from "./AdminScreens/Worker/Workers";
 export { default as AddWorker } from "./AdminScreens/Worker/AddWorker";
 export { default as Attendances } from "./AdminScreens/Attendance/Attendances";
 export { default as CheckAttendance } from "./AdminScreens/Attendance/CheckAttendance";
+export { default as CheckAttendance2 } from "./AdminScreens/Attendance/CheckAttendance2";
+export { default as WorkerInfoScreen } from "./AdminScreens/Worker/WorkerInfoScreen";
 //Contractor
 export { default as ContractorHome } from "./ContractorScreens/ContractorHome";
 export { default as AttendancesC } from "./ContractorScreens/AttendanceC/AttendancesC";
@@ -34,6 +43,8 @@ export { default as CommunicationWorker } from "./WorkerScreens/CommunicationWor
 export { default as Profile } from "./WorkerScreens/Profile";
 export { default as IncidentListW } from "./WorkerScreens/Incident/IncidentWorker";
 export { default as IncidentDW } from "./WorkerScreens/Incident/IncidentDetWorker";
+export { default as Updateworker } from "./AdminScreens/Worker/Updateworker";
+
 //Occupant
 export { default as OccupantHome } from "./OccupantScreens/OccupantHome";
 export { default as RiskO } from "./OccupantScreens/Risk/RiskO";

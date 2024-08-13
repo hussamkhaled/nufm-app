@@ -70,7 +70,8 @@ function Contractors({ searchVal, Contractors, getContractors }) {
                           })}
                     </Text>
                     <Text style={styles.date}>
-                      {item.createdAt.substring(0, 10)}
+                   {/*     {item.createdAt.substring(0, 10)}   */}
+                   {item.createdAt.substring(8, 10)}/{item.createdAt.substring(5, 7)}/{item.createdAt.substring(0, 4)}
                     </Text>
                   </View>
                 </View>

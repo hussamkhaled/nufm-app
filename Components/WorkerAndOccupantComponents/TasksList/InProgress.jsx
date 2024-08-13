@@ -40,12 +40,12 @@ function InProgress({ searchVal, data }) {
     <View style={styles.box}>
       <ScrollView>
         <FlatList
-          keyExtractor={(item) => item.email}
+          keyExtractor={(item) => item.eid}
           data={WorkersArr}
           numColumns={1}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity
+              <View
                 // onPress={() => {
                 //   Linking.openURL(
                 //     "http://api.whatsapp.com/send?phone=" + item.phone
@@ -66,7 +66,7 @@ function InProgress({ searchVal, data }) {
                     </Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </View>
             );
           }}
         />

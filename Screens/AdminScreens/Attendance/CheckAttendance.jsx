@@ -28,6 +28,7 @@ export default function CheckAttendance({ link }) {
           modalVisible={modalVisible}
           setModal={setModalVisible}
         />
+        
       </View>
       <Header link={link} title="Attendance" setModal={setModalVisible} />
       <View style={styles.boxContainer}>

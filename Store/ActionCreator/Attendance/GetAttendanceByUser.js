@@ -20,7 +20,6 @@ export const getAttendanceByUser = (email) => {
         dispatch(getAttendanceByUserEnd(res.data));
       })
       .catch((err) => {
-        console.log(err)
         // dispatch(getAttendancesFail(err));
       });
   };

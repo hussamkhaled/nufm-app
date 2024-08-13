@@ -153,8 +153,8 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
                     link === "Worker/"
                       ? MenuItemsWorker
                       : link === "Occupant/"
-                      ? MenuItemsOccupant
-                      : MenuItems
+                        ? MenuItemsOccupant
+                        : MenuItems
                   }
                   numColumns={1}
                   renderItem={({ item }) => {
@@ -180,11 +180,14 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
                     <Text style={styles.txtlog}>Log out</Text>
                   </View>
                 </TouchableOpacity>
+
+
+
                 <TouchableOpacity
-                  // onPress={() => {
-                  //   navigation.navigate(link + "Reset");
-                  //   setModal(false);
-                  // }}
+                  onPress={() => {
+                    navigation.navigate(link + "Reset");
+                    setModal(false);
+                  }}
                   style={styles.reset}
                 >
                   <View style={styles.flexlog}>
@@ -196,6 +199,7 @@ function CMenu({ link, modalVisible, setModal, error, token, getLoginInfo }) {
                     <Text style={styles.txtlog}>Reset Pass</Text>
                   </View>
                 </TouchableOpacity>
+
               </View>
             </View>
           </View>

@@ -43,6 +43,7 @@ export default function Header({ link, title, setModal }) {
             <TouchableOpacity
             // onPress={() => navigation.navigate(link+"Notification")}
             >
+              {/*
               <View>
                 <Ionicons
                   name="notifications-outline"
@@ -50,6 +51,7 @@ export default function Header({ link, title, setModal }) {
                   color="#023D26"
                 />
               </View>
+            */}
             </TouchableOpacity>
             {link === "Worker/" ? (
               <TouchableOpacity

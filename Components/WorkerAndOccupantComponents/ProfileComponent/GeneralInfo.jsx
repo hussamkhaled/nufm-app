@@ -19,6 +19,7 @@ function GeneralInfo({
   phone,
   specializations,
 }) {
+
   const [workerId, setworkerId] = useState("");
   const workerInfo = async () => {
     try {
@@ -80,6 +81,7 @@ const mapStateToProps = (state) => {
     fullName: state.UpdateWorkerR.fullName,
   };
 };
+
 
 const mapDispatchToProps = (dispatch) => {
   return {

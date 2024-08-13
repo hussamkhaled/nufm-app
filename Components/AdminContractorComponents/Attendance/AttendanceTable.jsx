@@ -49,10 +49,11 @@ function AttendanceTable({
   const sortedArray = () => {
     setAttendancesArr(
       Attendances.filter((cntr) =>
-        cntr.user.fullName.toLowerCase().includes(searchVal.toLowerCase())
+        cntr.name.toLowerCase().includes(searchVal.toLowerCase())
       )
     );
   };
+  
   return (
     <View style={styles.box}>
       <ScrollView>
@@ -74,7 +75,7 @@ function AttendanceTable({
             );
           }}
           data={Attendances.filter((cntr) =>
-            cntr.user.fullName.toLowerCase().includes(searchVal.toLowerCase())
+            cntr.name.toLowerCase().includes(searchVal.toLowerCase())
           )}
           numColumns={1}
           renderItem={({ item }) => {
@@ -88,13 +89,13 @@ function AttendanceTable({
               >
                 <View style={styles.AttendanceContainer}>
                   <View style={styles.details}>
-                    <Text style={styles.txt}> {item.user.fullName}</Text>
+                    <Text style={styles.txt}> {item.name}</Text>
                   </View>
                   <View style={styles.details2}>
-                    <Text style={styles.Facility}>{item.facility.name}</Text>
+                    <Text style={styles.Facility}>{item.street}</Text>
                   </View>
                   <View style={styles.details3}>
-                    <Text style={styles.Email}>{item.task.name}</Text>
+                    <Text style={styles.Email}>{item.type}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
@@ -208,3 +209,8 @@ const styles = StyleSheet.create({
   details2: { width: "34%", alignItems: "center" },
   details3: { width: "29%", alignItems: "center" },
 });
+
+
+
+
+

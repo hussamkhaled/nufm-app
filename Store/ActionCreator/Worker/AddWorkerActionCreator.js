@@ -3,19 +3,27 @@ import * as actionTypes from "../../Actions/Actions";
 import { server , privatePath} from "../Constants";
 
 export const getWorkerInfo = (name, value) => {
+
   return {
     type: actionTypes.AddWorker.ADD_WORKER,
     name: name,
     value: value,
+    
   };
+
 };
+
 
 export const addWorker = (
   email,
   fullName,
   phone,
   specializations,
-  facilityId
+  facilityId,
+  wwcc,
+  wwccExpDate,
+  police,
+  policeExpDate,
   // street,
   // address,
   // facilityId,
@@ -32,7 +40,7 @@ export const addWorker = (
 ) => {
   return (dispatch) => {
     dispatch(addWorkerStart());
-
+   
     // var token = 'Bearer '+localStorage.getItem('nufmtoken');
     var fd = new FormData();
     var data = JSON.stringify({
@@ -50,8 +58,13 @@ export const addWorker = (
       "startDate": "",
       "workType": "",
       "zipCode":"",
-      "linkBack": ""
+      "linkBack": "",
+      "wwcc":wwcc,
+      "wwccExpDate":wwccExpDate,
+      "police":police,
+      "policeExpDate":policeExpDate,
     });
+    
     fd.append("data", data);
     fd.append("profileImage", null);
     fd.append("certification", null);
@@ -74,6 +87,16 @@ export const addWorker = (
         dispatch(addWorkerFail(err));
       });
   };
+};
+const formatDate = (date) => {
+  if (!date || !(date instanceof Date)) {
+    return ''; // Return an empty string or handle the invalid date case as needed
+  }
+
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+  return `${year}-${month}-${day}`;
 };
 
 export const addWorkerStart = () => {

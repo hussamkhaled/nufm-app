@@ -13,6 +13,7 @@ import LoginLarge from "../../Components/LoginComponents/LoginLarge";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { width, height } = Dimensions.get("window");
 export default function Login() {
+  console.reportErrorsAsExceptions = false;
   return (
     <View style={styles.container}>
       {width > 600 ? (

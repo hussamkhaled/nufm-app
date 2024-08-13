@@ -43,12 +43,22 @@ import {
   Profile,
   IncidentListW,
   IncidentDW,
+  CheckAttendance2,
+  Updateworker,
+  Forget,
+  LoginBiometrics,
+  LoginBiometricsadmins,
+  LoginBiometricsoccupants,
+  LoginBiometricscontractor
 } from "../../Screens";
 import { createStackNavigator } from "@react-navigation/stack";
+import WorkerInfo from "../../Components/AdminContractorComponents/Worker/WorkerInfo";
+import ResetForm from "../../Components/ResetComponents/ResetForm";
 
 const Stack = createStackNavigator();
 
 export default function LoginNavigation() {
+  console.reportErrorsAsExceptions = false;
   return (
     <View style={styles.container}>
       <NavigationContainer>
@@ -68,6 +78,26 @@ export default function LoginNavigation() {
           {/* Admin Nav */}
           <Stack.Screen name="Home">
             {(props) => <Home {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometrics">
+            {(props) => <LoginBiometrics {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometricsadmins">
+            {(props) => <LoginBiometricsadmins {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometricsoccupants">
+            {(props) => <LoginBiometricsoccupants {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometricscontractor">
+            {(props) => <LoginBiometricscontractor {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="Forget">
+            {(props) => <Forget {...props} link="" />}
           </Stack.Screen>
           <Stack.Screen name="Risk">
             {(props) => <Risk {...props} link="" />}
@@ -105,9 +135,16 @@ export default function LoginNavigation() {
           <Stack.Screen name="Workers">
             {(props) => <Workers {...props} link="" />}
           </Stack.Screen>
+          <Stack.Screen name="Workersinfo">
+            {(props) => <WorkerInfo {...props} link="" />}
+          </Stack.Screen>
           <Stack.Screen name="AddWorker">
             {(props) => <AddWorker {...props} link="" />}
           </Stack.Screen>
+          <Stack.Screen name="Updateworker">
+            {(props) => <Updateworker {...props} link="" />}
+          </Stack.Screen>
+          
           <Stack.Screen name="Attendances">
             {(props) => <Attendances {...props} link="" />}
           </Stack.Screen>
@@ -123,7 +160,9 @@ export default function LoginNavigation() {
           <Stack.Screen name="Reset">
             {(props) => <Reset {...props} link="" />}
           </Stack.Screen>
-
+          <Stack.Screen name="CheckAttendance2">
+            {(props) => <CheckAttendance2 {...props} link="" />}
+          </Stack.Screen>
           {/* ------------Contractor Nav-------------  */}
           <Stack.Screen name="Contractor/Home">
             {(props) => <ContractorHome {...props} link="Contractor/" />}
