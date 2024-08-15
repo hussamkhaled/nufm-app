@@ -111,12 +111,12 @@ function AddAttendance({
     })();
   }, []);
 
-  const captureAndRecognizeFace = async () => {
+const captureAndRecognizeFace = async () => {
     if (cameraRef.current) {
       try {
         // Capture the image
         const photo = await cameraRef.current.takePictureAsync();
-        console.log(photo);
+       // console.log(photo);
 
         // Assuming you have these variables set
         const facility = selectedFacility;
@@ -143,6 +143,35 @@ function AddAttendance({
     }
   };
 
+
+  {/*const captureAndRecognizeFace = async () => {
+    if (cameraRef.current) {
+      try {
+        const photo = await cameraRef.current.takePictureAsync({ base64: true });
+       // console.log(photo);
+  
+        const facility = selectedFacility;
+        const user = semail;
+        const task = task;
+        const type = checkType;
+        const lng = long;
+        const lat = latitude;
+  
+        // Send image and data to backend
+        await addAttendance(facility, user, task, type, lng, lat, photo.base64);
+  
+        setCameraVisible(false);
+  
+        setTimeout(() => {
+          navigation.navigate(link + "Home");
+        }, 2000);
+      } catch (error) {
+        console.error('Error capturing or posting image:', error.message);
+      }
+    }
+  };
+
+  */}
   if (hasPermission === null) {
     return <View />;
   }
@@ -582,7 +611,7 @@ useEffect(() => {
       <Text style={styles.text1}>Flip Camera</Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.button2capture} onPress={captureAndRecognizeFace}>
-      <Text style={styles.text2}>Capture and Recognize Face</Text>
+      <Text style={styles.text2}>Take a picture</Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.button3capture} onPress={closeCamera2}>
       <Text style={styles.text3}>Close Camera</Text>

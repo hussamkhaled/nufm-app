@@ -1,5 +1,76 @@
- 
-  import axios from "axios";
+  
+  {/*import axios from "axios";
+  import * as actionTypes from "../../Actions/Actions";
+  import { server , privatePath} from "../Constants";
+  
+  export const getAttendanceInfo = (name, value) => {
+    return {
+      type: actionTypes.AddAttendance.ADD_ATTENDANCE,
+      name: name,
+      value: value,
+    };
+  };
+  
+  export const addAttendance = (facility, user, task, type, lng, lat, attendanceImage) => {
+    return (dispatch) => {
+      dispatch(addAttendanceStart());
+  
+      // Prepare the image data in Base64 or formData as per backend requirement
+      const params = {
+        facility: facility,
+        user: user,
+        task: task,
+        type: type,
+        lng: lng,
+        lat: lat,
+        attendanceImage: attendanceImage // Ensure this is Base64 or appropriate format
+      };
+  
+      const link = server + privatePath + "/addAttendance";
+      axios.post(link, params, {
+        headers: {
+          "Content-Type": "application/json", // Change this if sending in different format
+        },
+      })
+      .then((res) => {
+        if (res.data.message === "expectation failed") {
+          dispatch(addAttendanceFail("expectation failed"));
+        } else {
+          dispatch(addAttendanceEnd(res.data));
+          console.log(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+        dispatch(addAttendanceFail(err));
+      });
+    };
+  };
+  
+  export const addAttendanceStart = () => {
+    return {
+      type: actionTypes.AddAttendance.ADD_ATTENDANCE_START,
+    };
+  };
+  
+  export const addAttendanceFail = (err) => {
+    return {
+      type: actionTypes.AddAttendance.ADD_ATTENDANCE_FAIL,
+      error: err,
+    };
+  };
+  
+  export const addAttendanceEnd = (data) => {
+    return {
+      type: actionTypes.AddAttendance.ADD_ATTENDANCE_END,
+      data: data,
+    };
+  };
+  
+*/}
+  
+  
+ import axios from "axios";
   import * as actionTypes from "../../Actions/Actions";
   import { server , privatePath} from "../Constants";
   
@@ -12,7 +83,7 @@
   };
   
   export const addAttendance = (facility , user,task,type,lng,lat,attendanceImage) => {
-    console.log("attendanceimage",attendanceImage);
+    //console.log("attendanceimage",attendanceImage);
     return (dispatch) => {
       dispatch(addAttendanceStart());
   
@@ -27,7 +98,7 @@
         "lat":lat,
         "attendanceImage":attendanceImage
       }
-      console.log(params);
+     console.log(params);
   
       var link = server +  privatePath + "/addAttendance";
       axios.post(link,params,{headers :{  "Content-Type": "application/json" ,} ,})
@@ -38,13 +109,14 @@
         
             dispatch(addAttendanceEnd(res.data));
   
-            //console.log(res.data);
+            console.log(res.data);
   
           }
         })
         .catch((err) => {
-        console.log(err.message)
+       // console.log(err.message)
           dispatch(addAttendanceFail(err));
+        
         });
     };
   };

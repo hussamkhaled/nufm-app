@@ -173,7 +173,7 @@ const LoginFingerFace = () => {
       {isBiometricSupported && (
         <Buttons text="Login with Finger Print" onPress={handleBiometricAuth} />
       )}
-
+{/*
       {hasCameraPermission && (
 
         <Buttons text="Login with Face Recognition" onPress={handleFaceRecognition} />
@@ -192,7 +192,7 @@ const LoginFingerFace = () => {
           </View>
         </CameraView>
       )}
-   
+   */}
     </View>
   );
 };
