@@ -50,7 +50,7 @@ const initialState = {
   type: "",
   lng: "",
   lat: "",
-  attendanceImage: "", // This should be updated as per your requirements
+  attendanceImage: [], 
   error: "",
   loading: false,
   eid: "",
@@ -69,7 +69,7 @@ const AddAttendanceR = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        attendanceImage: '', // Clear the image on successful addition
+
       };
 
     case actionTypes.AddAttendance.ADD_ATTENDANCE_FAIL:

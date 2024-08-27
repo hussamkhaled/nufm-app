@@ -68,79 +68,94 @@
   };
   
 */}
-  
-  
- import axios from "axios";
-  import * as actionTypes from "../../Actions/Actions";
-  import { server , privatePath} from "../Constants";
-  
-  export const getAttendanceInfo = (name, value) => {
-    return {
-      type: actionTypes.AddAttendance.ADD_ATTENDANCE,
-      name: name,
-      value: value,
-    };
+ 
+
+import axios from "axios";
+import * as actionTypes from "../../Actions/Actions";
+import { server, privatePath } from "../Constants";
+
+export const getAttendanceInfo = (name, value) => {
+  return {
+    type: actionTypes.AddAttendance.ADD_ATTENDANCE,
+    name: name,
+    value: value,
   };
-  
-  export const addAttendance = (facility , user,task,type,lng,lat,attendanceImage) => {
-    //console.log("attendanceimage",attendanceImage);
-    return (dispatch) => {
-      dispatch(addAttendanceStart());
-  
-      // var token = 'Bearer '+localStorage.getItem('nufmtoken');
-  
-      const params = { 
+};
+
+export const addAttendance = (
+  facility,
+  user,
+  task,
+  type,
+  lng,
+  lat,
+  attendanceImage
+) => {
+
+ 
+  return (dispatch) => {
+    dispatch(addAttendanceStart());
+
+    // Prepare the form data
+    var fd = new FormData();
+    var data = JSON.stringify({
         "facility": facility,
-        "user":user,
-        "task":task,
-        "type":type,
+        "task": task,
+        "user": user,
+        "type": type,
         "lng": lng,
-        "lat":lat,
-        "attendanceImage":attendanceImage
-      }
-     console.log(params);
-  
-      var link = server +  privatePath + "/addAttendance";
-      axios.post(link,params,{headers :{  "Content-Type": "application/json" ,} ,})
-        .then((res) => {
-          if (res.data.message === "expectation failed") {
-            dispatch(addAttendanceFail("expectation failed"));
-          } else {
-        
-            dispatch(addAttendanceEnd(res.data));
-  
-            console.log(res.data);
-  
-          }
-        })
-        .catch((err) => {
-       // console.log(err.message)
-          dispatch(addAttendanceFail(err));
-        
-        });
-    };
+        "lat": lat
+    });
+    fd.append("data", data);
+    fd.append("attendanceImage", JSON.stringify(attendanceImage))
+
+    const link = server + privatePath + "/attendance";
+    console.log("Sending Data to Backend:", { data, attendanceImage });
+    axios({
+      method: "post",
+      url: link,
+      data: fd,
+      headers: {
+        "Content-Type": "multipart/form-data"
+        // Uncomment below if you need authorization
+        // "Authorization": `Bearer ${localStorage.getItem("nufmtoken")}`
+      },
+    })
+      .then((res) => {
+        console.log("Sending Data to Backend:", { data, attendanceImage }); // Log the data before sending
+        if (res.data.message === "expectation failed") {
+          dispatch(addAttendanceFail("expectation failed"));
+        } else {
+          dispatch(addAttendanceEnd(res.data));
+         console.log(res.data);
+        }
+      })
+      .catch((err) => {
+     
+        dispatch(addAttendanceFail(err));
+      });
   };
-  
-  export const addAttendanceStart = () => {
-    return {
-      type: actionTypes.AddAttendance.ADD_ATTENDANCE_START,
-    };
+};
+
+export const addAttendanceStart = () => {
+  return {
+    type: actionTypes.AddAttendance.ADD_ATTENDANCE_START,
   };
-  
-  export const addAttendanceFail = (err) => {
-    return {
-      type: actionTypes.AddAttendance.ADD_ATTENDANCE_FAIL,
-      error: err,
-    };
+};
+
+export const addAttendanceFail = (err) => {
+  return {
+    type: actionTypes.AddAttendance.ADD_ATTENDANCE_FAIL,
+    error: err,
   };
-  
-  export const addAttendanceEnd = (data) => {
-    return {
-      type: actionTypes.AddAttendance.ADD_ATTENDANCE_END,
-      data: data,
-    };
+};
+
+export const addAttendanceEnd = (data) => {
+  return {
+    type: actionTypes.AddAttendance.ADD_ATTENDANCE_END,
+    data: data,
   };
-  
+};
 
 
 {/*import axios from "axios";

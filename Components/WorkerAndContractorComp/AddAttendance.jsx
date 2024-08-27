@@ -28,6 +28,13 @@ import { useRoute } from "@react-navigation/native";
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { Buffer } from 'buffer';
+import * as ImageManipulator from 'expo-image-manipulator';
+import * as FileSystem from 'expo-file-system';
+import { v4 as uuidv4 } from 'uuid'
+import uuid from 'react-native-uuid';
+import axios from 'axios';
+import { id } from "deprecated-react-native-prop-types/DeprecatedTextPropTypes";
 
 const { width, height } = Dimensions.get("window");
 
@@ -111,27 +118,136 @@ function AddAttendance({
     })();
   }, []);
 
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0,
+        v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  function generateRandomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
+  
+  const imageName = `${generateRandomString(16)}.png`;
+  
+ const captureAndRecognizeFace = async () => {
+  if (cameraRef.current) {
+    try {
+      // Capture the image
+      const photo = await cameraRef.current.takePictureAsync({
+        base64: true,
+        quality: 0.5,
+      });
+
+      // Generate a unique name for the image using custom UUID
+      const imageName = `${generateUUID()}.png`;
+
+      // Resize the image using Expo's ImageManipulator
+      const manipResult = await ImageManipulator.manipulateAsync(
+        photo.uri,
+        [{ resize: { width: 800, height: 600 } }],
+        { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+      );
+
+      // Convert resized image to base64
+      const resizedBase64 = await FileSystem.readAsStringAsync(manipResult.uri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      // Prepare the attendance row data
+      const attendanceRow = {
+        eid: id, // example ID, replace with actual
+        adate: new Date().toISOString(), // or use specific date if needed
+        atype: checkType, // Adjust based on your check type
+        lat: latitude, // Use actual latitude value
+        long_: long, // Use actual longitude value
+      };
+
+      // Prepare attendance image data
+      const attendanceImage = {
+        attendanceRow: attendanceRow,
+        data: resizedBase64,
+        id: generateUUID(), // Generate a unique ID for the image
+        name: imageName,
+        type: 'image/png',
+      };
+
+      // Post the image and other data to the backend
+      await addAttendance(
+        selectedFacility, // Replace with actual facility data
+        semail,           // Replace with actual user email
+        task,             // Replace with actual task data
+        checkType,        // Replace with actual check type
+        long,             // Longitude
+        latitude,         // Latitude
+        attendanceImage   // Image data
+      );
+
+      setCameraVisible(false);
+
+      setTimeout(() => {
+        navigation.navigate(link + 'Home');
+      }, 2000);
+    } catch (error) {
+      console.error('Error capturing or posting image:', error.message);
+    }
+  }
+};
+
+// Custom UUID generation function
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0,
+      v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+  
+{/*
+
+
 const captureAndRecognizeFace = async () => {
     if (cameraRef.current) {
       try {
         // Capture the image
         const photo = await cameraRef.current.takePictureAsync();
-       // console.log(photo);
-
-        // Assuming you have these variables set
+        console.log(photo);
+  
+        // Convert the image to base64 if required by your backend
+        const base64Image = await FileSystem.readAsStringAsync(photo.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+  
+        // Prepare the attendanceImage object
+        const attendanceImage = {
+          id: "someUniqueId", // If you have an ID, otherwise omit or auto-generate
+          name: photo.uri.split('/').pop(), // Extract file name from the URI
+          type: "image/jpeg", // Adjust the MIME type if needed
+          data: base64Image,
+        };
+  
+        // Assuming you have these variables set correctly
         const facility = selectedFacility;
         const user = semail;
-        const task = task;
+        const task = task; // Ensure taskName is defined
         const type = checkType;
         const lng = long;
         const lat = latitude;
-
+  
         // Post the image and other data to the backend
-        await addAttendance(facility, user, task, type, lng, lat, photo);
-
+        await addAttendance(facility, user, task, type, lng, lat, attendanceImage);
+  
         // Hide the camera view
         setCameraVisible(false);
-
+  
         // Navigate or show success message
         setTimeout(() => {
           navigation.navigate(link + "Home");
@@ -142,6 +258,9 @@ const captureAndRecognizeFace = async () => {
       }
     }
   };
+
+
+  */}
 
 
   {/*const captureAndRecognizeFace = async () => {
@@ -676,6 +795,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(AttendanceCheckActionCreator.getAttend(name, value)),
   };
 };
+
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddAttendance);
 
