@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-virtualized-view";
 import LoginImage from "../../Components/LoginComponents/LoginImage";
-import LoginForm from "../../Components/LoginComponents/LoginForm";
 import LoginLarge from "../../Components/LoginComponents/LoginLarge";
+import LoginFingerFace4 from "../../Components/LoginComponents/LoginFingerFace4";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 const { width, height } = Dimensions.get("window");
 export default function Login() {
@@ -23,8 +23,8 @@ export default function Login() {
       ) : (
         <View>
           <KeyboardAwareScrollView>
-            <LoginImage />
-            <LoginForm />
+            <LoginImage/>
+            <LoginFingerFace4/>
           </KeyboardAwareScrollView>
         </View>
       )}

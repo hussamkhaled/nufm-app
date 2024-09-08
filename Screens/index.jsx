@@ -2,6 +2,11 @@ export { default as Landing } from "./LoginScreens/Landing";
 export { default as Login } from "./LoginScreens/Login";
 export { default as Reset } from "./LoginScreens/Reset";
 export { default as Forget } from "./LoginScreens/Forget";
+export { default as LoginBiometrics } from "./LoginScreens/LoginBiometrics";
+export { default as LoginBiometricsadmins } from "./LoginScreens/LoginBiometricsadmins";
+export { default as LoginBiometricsoccupants } from "./LoginScreens/LoginBiometricsoccupants";
+export { default as LoginBiometricscontractor } from "./LoginScreens/LoginBiometricscontractor";
+
 
 export { default as Home } from "./AdminScreens/Home";
 export { default as Incident } from "./AdminScreens/Incident/Incident";

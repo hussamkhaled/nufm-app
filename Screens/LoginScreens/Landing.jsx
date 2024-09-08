@@ -17,6 +17,7 @@ import NUFM from "../../assets/NUFM.png";
 const { width, height } = Dimensions.get("window");
 
 export default function Landing({ navigation }) {
+  console.reportErrorsAsExceptions = false;
   const redirect = () => {
     navigation.navigate("Login");
   };

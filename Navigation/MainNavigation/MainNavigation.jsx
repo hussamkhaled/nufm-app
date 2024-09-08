@@ -46,6 +46,10 @@ import {
   CheckAttendance2,
   Updateworker,
   Forget,
+  LoginBiometrics,
+  LoginBiometricsadmins,
+  LoginBiometricsoccupants,
+  LoginBiometricscontractor
 } from "../../Screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import WorkerInfo from "../../Components/AdminContractorComponents/Worker/WorkerInfo";
@@ -54,6 +58,7 @@ import ResetForm from "../../Components/ResetComponents/ResetForm";
 const Stack = createStackNavigator();
 
 export default function LoginNavigation() {
+  console.reportErrorsAsExceptions = false;
   return (
     <View style={styles.container}>
       <NavigationContainer>
@@ -73,6 +78,22 @@ export default function LoginNavigation() {
           {/* Admin Nav */}
           <Stack.Screen name="Home">
             {(props) => <Home {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometrics">
+            {(props) => <LoginBiometrics {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometricsadmins">
+            {(props) => <LoginBiometricsadmins {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometricsoccupants">
+            {(props) => <LoginBiometricsoccupants {...props} link="" />}
+          </Stack.Screen>
+
+          <Stack.Screen name="LoginBiometricscontractor">
+            {(props) => <LoginBiometricscontractor {...props} link="" />}
           </Stack.Screen>
 
           <Stack.Screen name="Forget">

@@ -45,6 +45,7 @@ export default function AddForm({ link }) {
 const styles = StyleSheet.create({
   box: {
     flex: 1,
+    height:500,
   },
   whiteBox: {
     backgroundColor: "#fff",
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: "5%",
     marginTop: "2%",
+    height:600,
   },
   boxContainer: {
     flex: 1,

@@ -1,5 +1,5 @@
 
-import { StyleSheet, Text, View, Image,TouchableOpacity,TextInput } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import React, { useState, useEffect } from "react";
 import BasicInput from "../SharedComponents/BasicInput";
@@ -10,11 +10,11 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
 
   const [mail, setmail] = useState('');
   const onLoadFunc = () => {
-  
+
     getForgetInfo("getForgetInfo", "");
     // getForgetInfo('forgemail', "");
     getForgetInfo('buttonText', "Reset");
-// console.log(loading)
+    // console.log(loading)
   };
 
   const [semail, setSEmail] = useState("");
@@ -23,8 +23,8 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
       const adname = await AsyncStorage.getItem("email");
       if (adname !== null) {
         setSEmail(adname);
-    getForgetInfo('forgemail', adname);
-       
+        getForgetInfo('forgemail', adname);
+
       }
     } catch (e) {
       alert("Failed to fetch the input from storage");
@@ -49,7 +49,7 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
 
     submitForget(forgemail);
   };
-  
+
 
   return (
     <View style={styles.container}>
@@ -58,50 +58,55 @@ function ForgetForm({ getForgetInfo, forgemail, submitForget, loading, buttonTex
       </View>
 
       <View style={styles.inputs}>
-        <BasicInput label="Email" 
-      
+        <BasicInput label="Email"
+
           // onChangeText={(value) => handleChange(value)}
-        
-         keyboardType="default"
-         value={forgemail}
-         type="email"
-        placeholder="Enter your Email here" />
+
+          keyboardType="default"
+          value={forgemail}
+          type="email"
+          placeholder="Enter your Email here" />
       </View>
 
       <>
-      {loading ? (
-        <TouchableOpacity
-          style={{  backgroundColor: "#023D26",color:"white", width:"50%",height:40,borderRadius:10
-        ,justifyContent:"center",alignItems:"center",textAlign:"center"}}
-          onPress={handleClick}
-          size="md"
-          colorScheme="teal"
-          _text={{ color: 'white' }}
-          _hover={{ bg: "teal.400" }}
-          px={{ base: 14, md: 24 }}
-          rounded="full"
-          block
-        >
-            <Text style={{color:"white"}}>{buttonText}</Text>  
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-        style={{  backgroundColor: "#023D26",color:"white", width:"50%",height:40,borderRadius:10
-        ,justifyContent:"center",alignItems:"center",textAlign:"center"}}
-          isLoading
-          size="md"
-          colorScheme="teal"
-          _text={{ color: 'white' }}
-          _hover={{ bg: "teal.400" }}
-          px={{ base: 14, md: 24 }}
-          rounded="full"
-          block
-        >
-        <Text style={{color:"white"}}>{buttonText}</Text>  
-      
-        </TouchableOpacity>
-      )}
-    </>
+        {loading ? (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#023D26", color: "white", width: "50%", height: 40, borderRadius: 10
+              , justifyContent: "center", alignItems: "center", textAlign: "center"
+            }}
+            onPress={handleClick}
+            size="md"
+            colorScheme="teal"
+            _text={{ color: 'white' }}
+            _hover={{ bg: "teal.400" }}
+            px={{ base: 14, md: 24 }}
+            rounded="full"
+            block
+          >
+            <Text style={{ color: "white" }}>{buttonText}</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={handleClick}
+            style={{
+              backgroundColor: "#023D26", color: "white", width: "50%", height: 40, borderRadius: 10
+              , justifyContent: "center", alignItems: "center", textAlign: "center"
+            }}
+            isLoading
+            size="md"
+            colorScheme="teal"
+            _text={{ color: 'white' }}
+            _hover={{ bg: "teal.400" }}
+            px={{ base: 14, md: 24 }}
+            rounded="full"
+            block
+          >
+            <Text style={{ color: "white" }}>{buttonText}</Text>
+
+          </TouchableOpacity>
+        )}
+      </>
     </View>
   );
 }
@@ -141,4 +146,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default  ForgetForm;
+export default ForgetForm;

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import MainNavigation from "./Navigation/MainNavigation/MainNavigation";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import AddAttendance from "./Components/WorkerAndContractorComp/AddAttendance";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import 'localstorage-polyfill'; 

@@ -1,9 +1,13 @@
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions, FlatList } from "react-native";
+import { StyleSheet, Text, View, Dimensions, FlatList,TouchableOpacity,Alert } from "react-native";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { ScrollView } from "react-native-virtualized-view";
 import { connect } from "react-redux";
+import * as FileSystem from 'expo-file-system';
+import { decode as atob } from 'base-64';
+import * as Sharing from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library';
 import * as GetAllSafety from "../../../Store/ActionCreator/Safety/GetAllSafetyMaterialActionCreator.js";
 const { width, height } = Dimensions.get("window");
 
@@ -14,6 +18,8 @@ function SafetyTable({ searchVal,safetyMaterials,getAllSafetyMaterials, error })
     sortedArray();
   }, [searchVal]);
 
+  
+  
   useEffect(() => {
     if (safetyMaterials.length > 0) {
       setFacilitiesArr(safetyMaterials);
@@ -37,6 +43,33 @@ function SafetyTable({ searchVal,safetyMaterials,getAllSafetyMaterials, error })
       )
     );
   };
+
+  const handleDownload = async (base64Data, fileName) => {
+    // Request permissions
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission required', 'Permission to access media library is required to download files.');
+      return;
+    }
+  
+    const fileUri = FileSystem.documentDirectory + fileName;
+  
+    try {
+      // Write the base64 data directly to the file
+      await FileSystem.writeAsStringAsync(fileUri, base64Data, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+  
+      // Save to media library
+      const asset = await MediaLibrary.createAssetAsync(fileUri);
+      await MediaLibrary.createAlbumAsync('Download', asset, false);
+      
+      Alert.alert('Success', 'File downloaded successfully.');
+    } catch (error) {
+      Alert.alert('Error', `Error downloading file: ${error.message}`);
+      console.error('Error downloading file:', error);
+    }
+  };
   return (
     <View style={styles.box}>
       <ScrollView>
@@ -53,6 +86,9 @@ function SafetyTable({ searchVal,safetyMaterials,getAllSafetyMaterials, error })
                 </View>
                 <View style={styles.headTitle}>
                   <Text style={styles.header3}>Update Date</Text>
+                </View>
+                <View style={styles.headTitle}>
+                  <Text style={styles.header4}>Document</Text>
                 </View>
               </View>
             );
@@ -77,6 +113,25 @@ function SafetyTable({ searchVal,safetyMaterials,getAllSafetyMaterials, error })
                   {item.updatedAt.substring(8, 10)}/{item.updatedAt.substring(5, 7)}/{item.updatedAt.substring(0, 4)}
                   </Text>
                 </View>
+                <View style={styles.details}>
+                <Text style={styles.type}>
+                  {item.documents.length > 0 && (
+                    <TouchableOpacity 
+                 
+                      onPress={() =>
+                        handleDownload(
+                          item.documents[0].data,
+                          item.documents[0].name
+                        )
+                      }
+                      style={[styles.button, { backgroundColor: '#008080',borderRadius:10,padding:2}]}
+                    >
+                      <Text style={{padding:5,fontSize:9,color:"white"}}>Download</Text>
+                    </TouchableOpacity>
+                    )}
+                  </Text>
+                </View>
+
               </View>
             );
           }}
@@ -123,12 +178,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: "6%",
   },
   headTitle: {
-    width: "33%",
+    width: "27%",
     alignItems: "center",
   },
   header1: {
     fontWeight: "bold",
-    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
+    fontSize: 10,
     color: "#535353",
     width: "100%",
 
@@ -136,19 +191,27 @@ const styles = StyleSheet.create({
   },
   header2: {
     fontWeight: "bold",
-    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
+    fontSize: 10,
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+
   },
   header3: {
     fontWeight: "bold",
-    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
+    fontSize: 10,
     color: "#535353",
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+   
+  },
+  header4: {
+    fontWeight: "bold",
+    fontSize: 10,
+    color: "#535353",
+    width: "100%",
+    textAlign: "left",
+ 
   },
   FacilityContainer: {
     flexDirection: "row",
@@ -168,17 +231,19 @@ const styles = StyleSheet.create({
   },
   type: {
     color: "#9A9999",
-    fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
+    fontSize: 9,
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+    paddingLeft: "25%",
   },
   location: {
     color: "#9A9999",
     fontSize: width > 700 ? RFPercentage(1.8) : RFPercentage(1.4),
     width: "100%",
     textAlign: "left",
-    paddingLeft: "10%",
+    paddingLeft: "25%",
   },
   details: { width: "33%", alignItems: "center" },
+
+
 });

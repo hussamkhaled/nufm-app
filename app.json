@@ -3,29 +3,32 @@
     "name": "NuFm_Mobile",
     "slug": "NuFm_Mobile",
     "description": "nufm mobile app",
-    "version": "2.0.3",
+    "version": "2.0.7",
     "orientation": "portrait",
     "icon": "./assets/grlogo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/NUFM-Green.png",
-      "resizeMode": "center",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.avh.nufm"
     },
     "android": {
+      "permissions": [
+        "CAMERA",
+        "CAMERA_ROLL",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
       "package": "com.avh.nufm",
-      "versionCode": 6,
-
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -41,17 +44,24 @@
     },
     "plugins": [
       [
-      "expo-build-properties",
-      {
-        "android": {
-          "compileSdkVersion": 33,
-          "targetSdkVersion": 33,
-          "buildToolsVersion": "33.0.0",
-          "minSdkVersion": 33
-
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0",
+            "minSdkVersion": 34
+          }
         }
-      }
-    ]
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
     ]
   }
 }

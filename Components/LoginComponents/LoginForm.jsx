@@ -46,6 +46,7 @@ function LoginForm({
     getLoginInfo("token", "");
   };
 
+  //console.log(token);
   useFocusEffect(
     React.useCallback(() => {
       onLoadFunc();
@@ -145,25 +146,25 @@ function LoginForm({
       case "ROLE_WORKER":
         setImmediate(() => {
           getLoginInfo("loading", false);
-          navigation.navigate("Worker/Home");
+          navigation.navigate("LoginBiometrics"); //Worker/Home
         });
         break;
       case "ROLE_ADMIN":
         setImmediate(() => {
           getLoginInfo("loading", false);
-          navigation.navigate("Home");
+          navigation.navigate("LoginBiometricsadmins"); //Home
         });
         break;
       case "ROLE_OCCUPANT":
         setImmediate(() => {
           getLoginInfo("loading", false);
-          navigation.navigate("Occupant/Home");
+          navigation.navigate("LoginBiometricsoccupants"); //Occupant/Home
         });
         break;
       case "ROLE_CONTRACTOR":
         setImmediate(() => {
           getLoginInfo("loading", false);
-          navigation.navigate("Contractor/Home");
+          navigation.navigate("LoginBiometricscontractor"); //Contractor/Home
         });
         break;
       case "ROLE_OWNER":

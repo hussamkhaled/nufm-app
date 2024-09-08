@@ -37,12 +37,13 @@ export const submitLogin = (username, password) => {
         ) {
           dispatch(loginFail("user is not confirmed"));
         } else {
-          console.log(res.data, 'kkk')
+       //   console.log(res.data, 'kkk')
           dispatch(loginEnd(res.data));
         }
       })
       .catch((err) => {
         dispatch(loginFail(err));
+        
       });
   };
 };
