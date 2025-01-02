@@ -10,7 +10,7 @@ export const getAttendanceInfo = (name, value) => {
   };
 };
 
-export const addAttendance = (facility , user,task,type,lng,lat) => {
+export const addAttendance = (facility,user,task,type,lng,lat,timezone) => {
   return (dispatch) => {
     dispatch(addAttendanceStart());
 
@@ -23,6 +23,7 @@ export const addAttendance = (facility , user,task,type,lng,lat) => {
       "type":type,
       "lng": lng,
       "lat":lat,
+      "timezone":timezone
     }
 
     var link = server +  privatePath + "/attendance/add";

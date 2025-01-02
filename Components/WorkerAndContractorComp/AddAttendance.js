@@ -64,7 +64,8 @@ function AddAttendance({
   const [long, setLong] = useState("");
 
   const handleClick = () => {
-    addAttendance(facility, user, task, checkType, long, latitude);
+    const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    addAttendance(facility, user, task, checkType, long, latitude, userTimezone);
     console.log(checkType);
     console.log(latitude);
   };
@@ -224,6 +225,7 @@ const mapStateToProps = (state) => {
     user: state.AddAttendanceR.user,
     type: state.AddAttendanceR.type,
     lng: state.AddAttendanceR.lng,
+    timezone: state.AddAttendanceR.timezone,
     error: state.AddAttendanceR.error,
     loading: state.AddAttendanceR.loading,
     Facilities: state.GetFacilitiesR.Facilities,

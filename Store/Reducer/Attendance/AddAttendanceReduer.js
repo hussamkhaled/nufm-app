@@ -8,6 +8,7 @@ const initialState = {
   type:"",
   lng:"",
   lat:"",
+  timezone:"",
   error: "",
   loading: false,
   eid: "",
