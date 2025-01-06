@@ -50,6 +50,7 @@ const initialState = {
   type: "",
   lng: "",
   lat: "",
+  timezone: "",
   attendanceImage: [], 
   error: "",
   loading: false,
