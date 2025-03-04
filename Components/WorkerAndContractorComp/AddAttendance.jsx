@@ -23,6 +23,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
 import * as ImageManipulator from "expo-image-manipulator";
+import { getTimeZone } from "react-native-localize";
 
 const { width, height } = Dimensions.get("window");
 
@@ -128,7 +129,7 @@ function AddAttendance({
           type: "image/png",
           uri: manipResult.uri, // Ensure this is defined
         };
-        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const userTimezone = getTimeZone();
         await addAttendance(
           facilityId,
           task,
@@ -209,7 +210,7 @@ function AddAttendance({
 
   const handleClick = async () => {
     try {
-      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const userTimezone = getTimeZone();
       await addAttendance(
         selectedFacility,
         task,
