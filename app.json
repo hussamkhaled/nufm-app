@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "NuFm_Mobile",
-    "slug": "NuFm_Mobile",
+    "name": "FacilifyApp",
+    "slug": "facilify",
     "description": "nufm mobile app",
-    "version": "2.0.9",
+    "version": "2.0.11",
     "orientation": "portrait",
     "icon": "./assets/grlogo.png",
     "userInterfaceStyle": "light",
@@ -18,17 +18,17 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.avh.nufm"
+      "bundleIdentifier": "com.facilifyapp.avh"
     },
     "android": {
+      "versionCode": 5,
       "permissions": [
         "CAMERA",
         "CAMERA_ROLL",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ],
-      "package": "com.avh.nufm",
-      "versionCode": 11,
+      "package": "com.facilifyapp.avh",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -39,7 +39,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "e24e52ff-4283-4ce8-98c9-22d327a2a730"
+        "projectId": "413ecaca-efe0-46ac-8692-82eca58fb662"
       }
     },
     "plugins": [
@@ -47,10 +47,10 @@
         "expo-build-properties",
         {
           "android": {
-            "compileSdkVersion": 34,
-            "targetSdkVersion": 34,
-            "buildToolsVersion": "34.0.0",
-            "minSdkVersion": 34
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "minSdkVersion": 24
           }
         }
       ],

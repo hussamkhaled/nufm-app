@@ -17,13 +17,11 @@ import * as GetFacilitiesByUserId from "../../Store/ActionCreator/Attendance/Get
 import * as GetTasksActionCreator from "../../Store/ActionCreator/Task/GetTasksByUserId";
 import * as AttendanceCheckActionCreator from "../../Store/ActionCreator/Attendance/AttendanceCheckActionCreator";
 import { CameraView, Camera } from "expo-camera";
-//import { BarCodeScanner } from 'expo-barcode-scanner';
 import { connect } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
 import * as ImageManipulator from "expo-image-manipulator";
-import { getTimeZone } from "react-native-localize";
 
 const { width, height } = Dimensions.get("window");
 
@@ -129,7 +127,7 @@ function AddAttendance({
           type: "image/png",
           uri: manipResult.uri, // Ensure this is defined
         };
-        const userTimezone = getTimeZone();
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         await addAttendance(
           facilityId,
           task,
@@ -139,7 +137,7 @@ function AddAttendance({
           latitude,
           userTimezone,
           attendanceImage
-        ); 
+        );
         setCameraVisible(false);
 
         setTimeout(() => {
@@ -162,7 +160,6 @@ function AddAttendance({
     );
   }
 
-  
   if (hasPermission === null) {
     return <View />;
   }
@@ -210,7 +207,7 @@ function AddAttendance({
 
   const handleClick = async () => {
     try {
-      const userTimezone = getTimeZone();
+      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       await addAttendance(
         selectedFacility,
         task,
@@ -582,7 +579,16 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(GetTasksActionCreator.getAllTaskInfoByUserId(email)),
     getAttendanceInfo: (name, value) =>
       dispatch(AddAttendanceActionCreator.getAttendanceInfo(name, value)),
-    addAttendance: (facility, task, user, type, lng, lat, timezone, attendanceImage) =>
+    addAttendance: (
+      facility,
+      task,
+      user,
+      type,
+      lng,
+      lat,
+      timezone,
+      attendanceImage
+    ) =>
       dispatch(
         AddAttendanceActionCreator.addAttendance(
           facility,

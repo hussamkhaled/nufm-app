@@ -8,7 +8,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: "com.avh.nufm"
+        bundle_identifier: "com.facilifyapp.avh"
       vars:
         XCODE_WORKSPACE: "NuFmMobile.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "NuFmMobile" # <-- Put the name of your Xcode scheme here
